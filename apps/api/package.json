@@ -1,0 +1,33 @@
+{
+  "name": "@fb-automation/api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "eslint \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "@fb-automation/database": "workspace:*",
+    "axios": "^1.13.6",
+    "bcryptjs": "^3.0.3",
+    "bullmq": "^5.4.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.0",
+    "ioredis": "^5.3.2",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "@fb-automation/eslint-config": "workspace:*",
+    "@fb-automation/typescript-config": "workspace:*",
+    "@types/bcryptjs": "^3.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.11.30",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.3"
+  }
+}

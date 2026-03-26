@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  passwordHash     String
+  subscriptionPlan String   @default("FREE")
+  createdAt        DateTime @default(now())
+
+  fbAccounts       FbAccount[]
+  postTemplates    PostTemplate[]
+  campaigns        Campaign[]
+}
+
+model Proxy {
+  id        String   @id @default(uuid())
+  ip        String
+  port      Int
+  username  String?
+  password  String?
+  isActive  Boolean  @default(true)
+
+  fbAccounts FbAccount[]
+}
+
+model FbAccount {
+  id          String    @id @default(uuid())
+  userId      String
+  proxyId     String?
+  fbUid       String    @unique
+  sessionData String?
+  status      String    @default("ACTIVE")
+  lastLogin   DateTime?
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  proxy     Proxy?    @relation(fields: [proxyId], references: [id], onDelete: SetNull)
+  fbGroups  FbGroup[]
+  campaigns Campaign[]
+  jobLogs   JobLog[]
+}
+
+model FbGroup {
+  id          String   @id @default(uuid())
+  fbAccountId String
+  groupId     String
+  name        String
+  privacy     String
+  memberCount Int      @default(0)
+  syncedAt    DateTime @default(now())
+
+  fbAccount FbAccount @relation(fields: [fbAccountId], references: [id], onDelete: Cascade)
+}
+
+model PostTemplate {
+  id             String @id @default(uuid())
+  userId         String
+  name           String
+  contentSpintax String
+  mediaUrls      Json?
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaigns Campaign[]
+}
+
+model Campaign {
+  id            String    @id @default(uuid())
+  userId        String
+  name          String
+  type          String
+  targetConfigs Json
+  templateId    String?
+  delayConfig   Json?
+  status        String    @default("DRAFT")
+  scheduledAt   DateTime?
+
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template    PostTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  fbAccounts  FbAccount[]
+  jobLogs     JobLog[]
+}
+
+model JobLog {
+  id            String   @id @default(uuid())
+  campaignId    String
+  fbAccountId   String
+  actionType    String
+  message       String?
+  screenshotUrl String?
+  executedAt    DateTime @default(now())
+
+  campaign  Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  fbAccount FbAccount @relation(fields: [fbAccountId], references: [id], onDelete: Cascade)
+}
