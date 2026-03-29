@@ -36,7 +36,10 @@ model FbAccount {
   proxyId     String?
   fbUid       String    @unique
   sessionData String?
+  username    String?
+  password    String?
   status      String    @default("ACTIVE")
+  twoFactorSecret String?
   lastLogin   DateTime?
 
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -56,12 +59,15 @@ model FbGroup {
   syncedAt    DateTime @default(now())
 
   fbAccount FbAccount @relation(fields: [fbAccountId], references: [id], onDelete: Cascade)
+  
+  @@unique([fbAccountId, groupId])
 }
 
 model PostTemplate {
   id             String @id @default(uuid())
   userId         String
   name           String
+  type           String @default("POST") // POST, COMMENT
   contentSpintax String
   mediaUrls      Json?
 
@@ -97,4 +103,14 @@ model JobLog {
 
   campaign  Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   fbAccount FbAccount @relation(fields: [fbAccountId], references: [id], onDelete: Cascade)
+}
+
+model AutomationJob {
+  id        String   @id @default(uuid())
+  jobName   String
+  payload   Json
+  status    String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

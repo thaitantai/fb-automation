@@ -1,15 +1,24 @@
-import axios from 'axios';
+import apiClient from '@/lib/axios';
+import { AuthResponse } from '../types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-
-export interface LoginCredentials {
+export interface AuthCredentials {
   email: string;
-  password: string;
+  password?: string;
+  confirmPassword?: string;
 }
 
 export const authService = {
-  login: async (credentials: LoginCredentials) => {
-    const response = await axios.post(`${API_URL}/auth/login`, credentials);
-    return response.data;
+  login: async (credentials: AuthCredentials): Promise<AuthResponse> => {
+    const response = await apiClient.post('/auth/login', credentials);
+    // apiClient already returns response.data due to interceptor
+    return response as unknown as AuthResponse;
+  },
+  register: async (credentials: AuthCredentials): Promise<AuthResponse> => {
+    const response = await apiClient.post('/auth/register', credentials);
+    return response as unknown as AuthResponse;
+  },
+  getMe: async (): Promise<AuthResponse> => {
+    const response = await apiClient.get('/auth/me');
+    return response as unknown as AuthResponse;
   }
 };

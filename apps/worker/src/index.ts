@@ -1,61 +1,40 @@
 import { Worker } from 'bullmq';
 import IORedis from 'ioredis';
-import { prisma } from '@fb-automation/database';
-import { chromium } from 'playwright-extra';
-// @ts-ignore
-import stealth from 'puppeteer-extra-plugin-stealth';
 import dotenv from 'dotenv';
+import { AUTOMATION_CONFIG } from '@fb-automation/constants';
+import { jobProcessor } from './core/processor'; // Import Job Processor
+import { registerWorkerEvents } from './core/events'; // Import Event Manager
 
 dotenv.config();
-chromium.use(stealth());
 
-const connection = new IORedis(process.env.REDIS_URL || 'redis://localhost:6379');
+/**
+ * Cấu hình Redis Connection cho Worker
+ */
+const connection = new IORedis(process.env.REDIS_URL || 'redis://localhost:6379', {
+  maxRetriesPerRequest: null,
+  enableReadyCheck: false,
+});
 
+connection.on('connect', () => {
+    console.log(`✅ Worker connected to Redis.`);
+});
+
+/**
+ * Khởi tạo Worker
+ */
 const worker = new Worker(
   'fb-automation-queue',
-  async (job) => {
-    console.log(`Bắt đầu xử lý Job ${job.id} - Loại: ${job.name}`);
-    const { accountId, target, content } = job.data;
-    
-    // Test playwright stealth mode
-    const browser = await chromium.launch({ headless: process.env.NODE_ENV === 'production' });
-    try {
-      const page = await browser.newPage();
-      await page.goto('https://bot.splaybow.com/');
-      console.log(`[Worker] Khởi tạo Playwright thành công cho account: ${accountId || 'TestAccount'}`);
-      
-      // Update Job status in DB
-      if (job.data.campaignId) {
-        await prisma.campaign.update({
-          where: { id: job.data.campaignId },
-          data: { status: 'COMPLETED' }
-        });
-      }
-    } catch (error) {
-      console.error(`[Worker Error] ${error}`);
-      
-      if (job.data.campaignId) {
-        await prisma.campaign.update({
-          where: { id: job.data.campaignId },
-          data: { status: 'FAILED' }
-        });
-      }
-      throw error;
-    } finally {
-      await browser.close();
-    }
-  },
-  { connection, concurrency: parseInt(process.env.WORKER_CONCURRENCY || '2') }
+  jobProcessor, // Truyền trực tiếp hàm xử lý trung tâm
+  { 
+    connection, 
+    concurrency: parseInt(process.env.WORKER_CONCURRENCY || '2'),
+    lockDuration: AUTOMATION_CONFIG.LOCK_DURATION,
+  }
 );
 
-worker.on('completed', (job) => {
-  console.log(`Job ${job.id} đã hoàn thành xuất sắc`);
-});
+// Đăng ký các sự kiện theo quy trình
+registerWorkerEvents(worker);
 
-worker.on('failed', (job, err) => {
-  if (job) {
-    console.error(`Job ${job.id} gặp lỗi:`, err.message);
-  }
-});
+console.log('🚀 [Worker] Hệ thống đã sẵn sàng với cấu trúc 100% Clean architecture!');
 
-console.log('Worker đã khởi động và đang chờ Queue trên Redis...');
+

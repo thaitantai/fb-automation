@@ -9,19 +9,21 @@
     "lint": "eslint \"src/**/*.ts\""
   },
   "dependencies": {
+    "@fb-automation/constants": "workspace:*",
     "@fb-automation/database": "workspace:*",
     "bullmq": "^5.4.2",
+    "dotenv": "^16.4.5",
     "ioredis": "^5.3.2",
+    "otplib": "^13.4.0",
     "playwright": "^1.42.1",
     "playwright-extra": "^4.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "dotenv": "^16.4.5"
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "devDependencies": {
+    "@fb-automation/eslint-config": "workspace:*",
+    "@fb-automation/typescript-config": "workspace:*",
     "@types/node": "^20.11.30",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.4.3",
-    "@fb-automation/typescript-config": "workspace:*",
-    "@fb-automation/eslint-config": "workspace:*"
+    "typescript": "^5.4.3"
   }
 }

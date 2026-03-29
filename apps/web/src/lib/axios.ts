@@ -18,7 +18,7 @@ apiClient.interceptors.request.use(
     // (Bên Frontend, token thường được set bằng httpOnly cookie hoặc memory, 
     // ví dụ này chuẩn bị hook cho trường hợp cần auth token từ localStorage)
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem('fb_token');
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -45,8 +45,9 @@ apiClient.interceptors.response.use(
       if (response.status === 401) {
         if (typeof window !== 'undefined') {
           console.warn('Phiên đăng nhập hết hạn. Sẽ chuyển trang...');
-          // Thực hiện lệnh redirect về trang login hoặc clear token
-          // window.location.href = '/login';
+          localStorage.removeItem('fb_token');
+          localStorage.removeItem('fb_user');
+          window.location.href = '/login';
         }
       }
       console.error(`[API Error] Status: ${response.status}`, response.data);
@@ -57,3 +58,5 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export default apiClient;

@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={cn("font-sans", inter.variable)}>
-      <body className={inter.className}>{children}</body>
+    <html lang="vi" className={cn("font-sans", inter.variable)} suppressHydrationWarning={true}>
+      <body className={inter.className} suppressHydrationWarning={true}>{children}</body>
     </html>
   );
 }

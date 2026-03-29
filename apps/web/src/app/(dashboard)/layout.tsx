@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/layout/Sidebar";
+import { AuthGuard } from "@/features/auth/components/AuthGuard";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,7 +12,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-screen overflow-hidden bg-[#050505]">
+    <AuthGuard>
+      <div className="flex h-screen overflow-hidden bg-[#050505]">
       <Sidebar />
       <main className="flex-1 overflow-y-auto relative">
         {/* Subtle background glow */}
@@ -20,6 +22,7 @@ export default function DashboardLayout({
           {children}
         </div>
       </main>
-    </div>
+      </div>
+    </AuthGuard>
   );
 }

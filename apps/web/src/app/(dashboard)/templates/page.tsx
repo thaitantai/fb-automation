@@ -1,22 +1,35 @@
+"use client";
+
+import React from "react";
 import { LayoutTemplate } from "lucide-react";
+import { PostTemplateDashboard } from "@/features/posts/components/PostTemplateDashboard";
 
 export default function TemplatesPage() {
-  return (
-    <div className="p-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center border border-amber-500/20">
-          <LayoutTemplate className="w-6 h-6 text-amber-500" />
+    return (
+        <div className="p-6 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 min-h-screen">
+            
+            {/* Template Header Section (Compact) */}
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-orange-600 rounded-xl flex items-center justify-center shadow-lg border border-amber-500/20">
+                        <LayoutTemplate className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-bold text-white tracking-tight">Mẫu Bài Viết</h1>
+                        <p className="text-zinc-600 text-[10px] font-medium uppercase tracking-wider">Studio Soạn Thảo Cơ Bản & Trộn Nội Dung</p>
+                    </div>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                    <button className="px-5 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl text-xs font-bold transition-all border border-white/5 active:scale-95 duration-200">
+                        Hướng dẫn Spintax
+                    </button>
+                </div>
+            </div>
+
+            {/* Main Template Workspace */}
+            <PostTemplateDashboard />
+
         </div>
-        <div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">Post Templates</h1>
-          <p className="text-white/50 mt-1">Manage content spintax and dynamic media templates.</p>
-        </div>
-      </div>
-      
-      <div className="w-full h-[600px] border border-white/5 bg-white/5 rounded-2xl flex flex-col items-center justify-center backdrop-blur-md shadow-lg border-dashed">
-        <LayoutTemplate className="w-16 h-16 text-white/10 mb-4" />
-        <p className="text-white/30 text-lg font-medium">Spintax Template Editor Coming Soon</p>
-      </div>
-    </div>
-  );
+    );
 }

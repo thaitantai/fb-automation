@@ -1,12 +1,7 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-
-export interface User {
-  id: string;
-  email: string;
-  subscriptionPlan: string;
-}
+import { User } from '../types';
 
 export function useAuth() {
   const router = useRouter();
@@ -14,7 +9,7 @@ export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useEffect(() => {
+  const checkAuthStatus = useCallback(() => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem('fb_token');
       const userDataStr = localStorage.getItem('fb_user');
@@ -32,6 +27,10 @@ export function useAuth() {
     }
   }, []);
 
+  useEffect(() => {
+    checkAuthStatus();
+  }, [checkAuthStatus]);
+
   const login = (token: string, userData: User) => {
     localStorage.setItem('fb_token', token);
     localStorage.setItem('fb_user', JSON.stringify(userData));
@@ -48,5 +47,5 @@ export function useAuth() {
     router.push('/login');
   };
 
-  return { user, isAuthenticated, isLoading, login, logout };
+  return { user, isAuthenticated, isLoading, login, logout, checkAuthStatus };
 }
