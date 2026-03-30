@@ -42,8 +42,8 @@ export function AccountForm({ isAdding, submitting, onSubmit }: AccountFormProps
 
   return (
     <div className={cn(
-      "grid transition-all duration-500 ease-in-out overflow-hidden bg-white/5 border border-white/10 rounded-2xl shadow-xl",
-      isAdding ? "max-h-[700px] opacity-100 p-6 mb-6 mt-6" : "max-h-0 opacity-0 p-0 border-none"
+      "grid transition-all duration-500 ease-in-out overflow-hidden glass-card",
+      isAdding ? "max-h-[700px] opacity-100 p-8" : "max-h-0 opacity-0 p-0 border-none"
     )}>
       <form onSubmit={handleSubmit} className="space-y-5">
         <h3 className="text-xl font-semibold text-white mb-2 flex items-center gap-2 font-heading">

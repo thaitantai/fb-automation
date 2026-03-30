@@ -12,10 +12,12 @@ export class CampaignController {
       const campaigns = await prisma.campaign.findMany({
         where: { userId },
         include: {
-          template: { select: { name: true } }
+          template: { select: { name: true } },
+          fbAccounts: { select: { id: true, } }
         },
         orderBy: { scheduledAt: 'desc' }
       });
+      console.log(campaigns);
       return res.json({ data: campaigns });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
@@ -60,56 +62,69 @@ export class CampaignController {
    */
   async updateStatus(req: Request, res: Response) {
     try {
-        const { id } = req.params;
-        const { status } = req.body; // DRAFT, SCHEDULED, PROCESSING, COMPLETED, PAUSED
-        const userId = (req as any).user.id;
+      const { id } = req.params;
+      const { status } = req.body; // DRAFT, SCHEDULED, PROCESSING, COMPLETED, PAUSED
+      const userId = (req as any).user.id;
 
-    const campaignQuery = await prisma.campaign.findUnique({
+      const campaignQuery = await prisma.campaign.findUnique({
         where: { id },
         include: { fbAccounts: { select: { id: true } } }
-    });
+      });
 
-    if (!campaignQuery) return res.status(404).json({ message: 'Không tìm thấy chiến dịch.' });
+      if (!campaignQuery) return res.status(404).json({ message: 'Không tìm thấy chiến dịch.' });
 
-    // Cập nhật trạng thái trong DB
-    await prisma.campaign.update({
+      // Cập nhật trạng thái trong DB
+      await prisma.campaign.update({
         where: { id },
         data: { status }
-    });
+      });
 
-    // Nếu chuyển sang PROCESSING -> Bắt đầu đẩy Jobs vào Queue
-    if (status === 'PROCESSING') {
+      // Nếu chuyển sang PROCESSING -> Bắt đầu đẩy Jobs vào Queue
+      if (status === 'PROCESSING') {
         const { fbAccounts, targetConfigs, delayConfig, templateId } = campaignQuery as any;
         const groupIds = targetConfigs?.groupIds || [];
-        
+
+        // Tạo Batch ID duy nhất cho lượt chạy này
+        const batchId = `RUN-${new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14)}`;
+
+        // Cập nhật lastBatchId vào Campaign
+        await prisma.campaign.update({
+          where: { id },
+          data: { lastBatchId: batchId }
+        });
+
         let totalStaggerDelay = 0;
         // TỐI ƯU: Giảm delay nhỏ lại (10-30s) để người dùng thấy kết quả ngay khi TEST
-        const minDelay = delayConfig?.min || 10; 
-        const maxDelay = delayConfig?.max || 30; 
+        const minDelay = delayConfig?.min || 10;
+        const maxDelay = delayConfig?.max || 30;
 
         console.log(`[API] 🛰️ Đang xếp hàng ${fbAccounts.length * groupIds.length} lệnh đăng bài cho Campaign: ${id}`);
 
         for (const account of fbAccounts) {
-            for (const groupId of groupIds) {
-                // Tăng dần delay giữa các bài đăng để "tàng hình" trước Facebook
-                const randomDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
-                
-                await addAutomationJob('AUTO_POST_GROUP', {
-                    campaignId: id,
-                    accountId: account.id,
-                    groupId,
-                    templateId
-                }, { delay: totalStaggerDelay * 1000 }); // Đơn vị ms
-                
-                totalStaggerDelay += randomDelay;
-            }
-        }
-    }
+          for (const groupId of groupIds) {
+            // Tăng dần delay giữa các bài đăng để "tàng hình" trước Facebook
+            const randomDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 
-    return res.json({ message: `Đã cập nhật trạng thái chiến dịch thành ${status} và xếp hàng lệnh.` });
-} catch (error: any) {
-    return res.status(500).json({ message: error.message });
-}
+            const jobName = campaignQuery.type === 'AUTO_POST' ? 'AUTO_POST_GROUP' : 'AUTO_COMMENT_GROUP';
+
+            await addAutomationJob(jobName, {
+              campaignId: id,
+              accountId: account.id,
+              groupId,
+              templateId,
+              batchId // Truyền Batch ID vào Job Data
+            }, { delay: totalStaggerDelay * 1000 }); // Đơn vị ms
+
+            totalStaggerDelay += randomDelay;
+          }
+        }
+
+      }
+
+      return res.json({ message: `Đã cập nhật trạng thái chiến dịch thành ${status} và xếp hàng lệnh.` });
+    } catch (error: any) {
+      return res.status(500).json({ message: error.message });
+    }
   }
 
   /**
@@ -150,7 +165,7 @@ export class CampaignController {
     try {
       const { id } = req.params;
       const userId = (req as any).user.id;
-      const { name, templateId, targetConfigs, fbAccountIds } = req.body;
+      const { name, type, templateId, targetConfigs, fbAccountIds } = req.body;
 
       // Đảm bảo campaign thuộc về user
       const campaign = await prisma.campaign.findFirst({
@@ -165,7 +180,9 @@ export class CampaignController {
         where: { id },
         data: {
           name,
+          type,
           templateId,
+
           targetConfigs,
           // Cập nhật quan hệ 1-Nhiều hoặc Nhiều-Nhiều
           fbAccounts: fbAccountIds ? {

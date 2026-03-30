@@ -4,6 +4,17 @@ export const FB_SELECTORS = {
     PASSWORD_INPUT: 'input[name="pass"], input[id="pass"], input[type="password"]',
     LOGIN_BUTTON: 'button[name="login"], [aria-label*="Đăng nhập" i], [aria-label*="Log In" i], [aria-label*="login" i], [role="button"]:has-text("Đăng nhập"), [role="button"]:has-text("Log In"), [role="button"]:has-text("Log in"), button[type="submit"], input[type="submit"]',
   },
+  AUTH: {
+    LOGGED_IN_INDICATORS: [
+      '[aria-label="Account"]',
+      '[aria-label="Your profile"]',
+      '[aria-label="Trang cá nhân của bạn"]',
+      'a[href="/me/"]',
+      'div[role="navigation"]',
+      '[data-sigil="m-home-header-buttons"]',
+      '#mbasic_logout_button'
+    ]
+  },
   CHECKPOINT: {
     CHALLENGE_CONTAINER: '[id="checkpoint_title"], [id="checkpointSubmitButton"], [id="two_step_verification_authentication_page"]',
     TWO_FACTOR_INPUT: 'input[name="approvals_code"], input#approvals_code, input[id="approvals_code"]',
@@ -18,6 +29,21 @@ export const FB_SELECTORS = {
     GROUP_NAME: 'span.x193iq5w.xeuug22.x13faqbe.x1vvkbs.x1xmvt09.x1lliihq.x1s928wv.xhkez96.x1gmr53x.x1cpjm7i.x1fgarty.x1943h6x.xud6596.x3x7a5m.x6pr76m.x1s688f.x1n2onr6.x1vxc77.x1t8a6s2', // Lấy name của group
     GROUP_LINK: 'a[href*="/groups/"]', // Lấy link href để extract groupId
     PRIVACY_INFO: 'span.x193iq5w.xeuug22.x13faqbe.x1vvkbs.x1xmvt09.x1lliihq.x1s928wv.xhkez96.x1gmr53x.x1cpjm7i.x1fgarty.x1943h6x.xud6596.x3x7a5m.x6pr76m.x1s688f.x1n2onr6.x1vxc77.x1t8a6s2', // Re-check this
+  },
+  POST: {
+    COMPOSER_TRIGGERS: [
+      'span:has-text("Write something...")',
+      'span:has-text("Bạn viết gì đi...")',
+      'div[role="button"]:has-text("Write something...")',
+      'div[role="button"]:has-text("Bạn viết gì đi...")'
+    ],
+    TEXTBOX: 'div[role="dialog"] div[role="textbox"], div[aria-label*="đang nghĩ gì"], div[aria-label*="on your mind"]',
+    SUBMIT_BUTTONS: [
+      'div[role="dialog"] div[aria-label="Post"]',
+      'div[role="dialog"] div[aria-label="Đăng"]',
+      'div[role="dialog"] div[role="button"]:has-text("Post")',
+      'div[role="dialog"] div[role="button"]:has-text("Đăng")'
+    ]
   }
 };
 

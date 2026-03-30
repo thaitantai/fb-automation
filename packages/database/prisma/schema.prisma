@@ -67,8 +67,8 @@ model PostTemplate {
   id             String @id @default(uuid())
   userId         String
   name           String
-  type           String @default("POST") // POST, COMMENT
   contentSpintax String
+
   mediaUrls      Json?
 
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -85,6 +85,7 @@ model Campaign {
   delayConfig   Json?
   status        String    @default("DRAFT")
   scheduledAt   DateTime?
+  lastBatchId   String?
 
   user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   template    PostTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
@@ -96,6 +97,7 @@ model JobLog {
   id            String   @id @default(uuid())
   campaignId    String
   fbAccountId   String
+  batchId       String?
   actionType    String
   message       String?
   screenshotUrl String?

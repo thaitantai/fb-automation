@@ -36,16 +36,16 @@ export default function AccountsPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto p-2 sm:p-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="p-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-white font-heading">Facebook Accounts</h1>
-          <p className="text-zinc-400 mt-1">Quản lý và kết nối các tài khoản Facebook của bạn để chạy chiến dịch.</p>
+          <h1 className="h1 text-foreground tracking-tight">Facebook Accounts</h1>
+          <p className="text-sm text-muted-foreground mt-1">Quản lý và kết nối các tài khoản Facebook của bạn để chạy chiến dịch.</p>
         </div>
         <button
           onClick={() => setIsAdding(!isAdding)}
-          className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-blue-600/20 active:scale-95"
+          className="action-button bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 flex items-center gap-2"
         >
           {isAdding ? "Đóng Form" : <><Plus size={20} /> Thêm tài khoản</>}
         </button>

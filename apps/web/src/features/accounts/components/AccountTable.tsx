@@ -19,7 +19,7 @@ function PasswordCell({ value }: { value: string | null }) {
     if (!value) return <span className="text-zinc-600 italic text-sm">N/A</span>;
 
     return (
-        <div className="flex items-center gap-2 group/pass">
+        <div className="flex items-center justify-center gap-2 group/pass">
             <span className="font-mono text-zinc-400 text-sm">
                 {show ? value : "••••••••"}
             </span>
@@ -58,7 +58,7 @@ export function AccountTable({
         );
     };
     return (
-        <div className="bg-[#0f0f0f] border border-white/5 rounded-2xl overflow-hidden shadow-2xl relative">
+        <div className="glass-card overflow-hidden relative">
             {/* Header & Search */}
             <div className="p-6 border-b border-white/5 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4 flex-1">
@@ -111,17 +111,17 @@ export function AccountTable({
                                 <th className="px-6 py-4 w-10">
                                     <input
                                         type="checkbox"
-                                        className="w-4 h-4 rounded border-white/10 bg-white/5 checked:bg-blue-500 transition-all cursor-pointer accent-blue-500"
+                                        className="w-5 h-5 rounded border-white/10 bg-white/5 checked:bg-blue-500 transition-all cursor-pointer accent-blue-500"
                                         checked={accounts.length > 0 && selectedIds.length === accounts.length}
                                         onChange={toggleSelectAll}
                                     />
                                 </th>
                                 <th className="px-6 py-4">Tài khoản</th>
-                                <th className="px-6 py-4">Mật khẩu</th>
+                                <th className="px-6 py-4 text-center">Mật khẩu</th>
                                 <th className="px-6 py-4 text-center">Tình trạng</th>
                                 <th className="px-6 py-4">Proxy</th>
                                 <th className="px-6 py-4">Đăng nhập</th>
-                                <th className="px-6 py-4 text-right">Thao tác</th>
+                                <th className="px-6 py-4 text-center">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -136,7 +136,7 @@ export function AccountTable({
                                     <td className="px-6 py-5">
                                         <input
                                             type="checkbox"
-                                            className="w-4 h-4 rounded border-white/10 bg-white/5 checked:bg-blue-500 transition-all cursor-pointer accent-blue-500"
+                                            className="w-5 h-5 rounded border-white/10 bg-white/5 checked:bg-blue-500 transition-all cursor-pointer accent-blue-500"
                                             checked={selectedIds.includes(acc.id)}
                                             onChange={() => toggleSelect(acc.id)}
                                         />
@@ -148,17 +148,17 @@ export function AccountTable({
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-medium text-zinc-200">{acc.username || "Chưa đặt tên"}</span>
-                                                <span className="text-[10px] font-mono text-zinc-500 mt-0.5">{acc.fbUid}</span>
+                                                <span className="text-tiny font-mono text-zinc-500 mt-0.5">{acc.fbUid}</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-5">
+                                    <td className="px-6 py-5 text-center">
                                         <PasswordCell value={acc.password} />
                                     </td>
                                     <td className="px-6 py-5">
                                         <div className="flex justify-center">
                                             <span className={cn(
-                                                "px-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1.5 w-fit uppercase tracking-tighter shadow-sm",
+                                                "px-3 py-1 rounded-full text-tiny font-bold flex items-center gap-1.5 w-fit uppercase tracking-tighter shadow-sm",
                                                 acc.status === 'ACTIVE'
                                                     ? "bg-emerald-400/10 text-emerald-400 border border-emerald-400/20"
                                                     : acc.status === 'CONNECTING'
@@ -187,13 +187,13 @@ export function AccountTable({
                                             <span className="text-xs text-zinc-300">
                                                 {acc.lastLogin ? new Date(acc.lastLogin).toLocaleDateString() : '---'}
                                             </span>
-                                            <span className="text-[10px] text-zinc-500">
+                                            <span className="text-tiny text-zinc-500">
                                                 {acc.lastLogin ? new Date(acc.lastLogin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-5 text-right">
-                                        <div className="flex items-center justify-end gap-1">
+                                    <td className="px-6 py-5 text-center">
+                                        <div className="flex items-center justify-center gap-1">
                                             {acc.status === 'ACTIVE' ? (
                                                 <button
                                                     onClick={() => onDisconnect(acc.id)}
@@ -211,8 +211,6 @@ export function AccountTable({
                                                     <Power size={18} />
                                                 </button>
                                             )}
-
-                                            <div className="w-px h-4 bg-white/5 mx-1" />
                                         </div>
                                     </td>
                                 </tr>

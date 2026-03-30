@@ -10,14 +10,22 @@ export const metadata: Metadata = {
   description: "Hệ thống quản lý chiến dịch Facebook Automation",
 };
 
+import { Toaster } from "@/components/ui/Toaster";
+import { ModalProvider } from "@/providers/ModalProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={cn("font-sans", inter.variable)} suppressHydrationWarning={true}>
-      <body className={inter.className} suppressHydrationWarning={true}>{children}</body>
+    <html lang="vi" className={cn("font-sans dark", inter.variable)} suppressHydrationWarning={true}>
+      <body className={inter.className} suppressHydrationWarning={true}>
+        <ModalProvider>
+          {children}
+          <Toaster position="bottom-right" closeButton richColors />
+        </ModalProvider>
+      </body>
     </html>
   );
 }

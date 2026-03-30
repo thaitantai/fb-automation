@@ -8,8 +8,8 @@ export const useCampaigns = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchCampaigns = useCallback(async () => {
-        setLoading(true);
+    const fetchCampaigns = useCallback(async (silent = false) => {
+        if (!silent) setLoading(true);
         try {
             const response = await axios.get("/campaigns");
             const data = response.data?.data || response.data;
@@ -18,14 +18,14 @@ export const useCampaigns = () => {
         } catch (err: any) {
             setError(err.response?.data?.message || "Không thể tải danh sách chiến dịch.");
         } finally {
-            setLoading(false);
+            if (!silent) setLoading(false);
         }
     }, []);
 
     const fetchLogs = useCallback(async (id: string) => {
         try {
             const response = await axios.get(`/campaigns/${id}/logs`);
-            const data = response?.data || [];
+            const data = Array.isArray(response.data?.data) ? response.data.data : (Array.isArray(response.data) ? response.data : []);
             setLogs(data);
             return data;
         } catch (err: any) {
@@ -55,8 +55,6 @@ export const useCampaigns = () => {
     };
 
     const updateCampaign = async (id: string, input: Partial<CreateCampaignInput>) => {
-        console.log("UPDATE: ", id);
-
         try {
             const response = await axios.patch(`/campaigns/${id}`, input);
             fetchCampaigns();
@@ -79,6 +77,18 @@ export const useCampaigns = () => {
     useEffect(() => {
         fetchCampaigns();
     }, [fetchCampaigns]);
+
+    // Polling logic: Refresh campaigns every 10s if any are in PROCESSING status
+    useEffect(() => {
+        const hasProcessing = campaigns.some(c => c.status === "PROCESSING");
+        if (!hasProcessing) return;
+
+        const interval = setInterval(() => {
+            fetchCampaigns(true);
+        }, 10000);
+
+        return () => clearInterval(interval);
+    }, [campaigns, fetchCampaigns]);
 
     return {
         campaigns,

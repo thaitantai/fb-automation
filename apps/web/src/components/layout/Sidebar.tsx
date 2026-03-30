@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
     Home, Users, Component, LayoutTemplate,
-    Rocket, History, Settings, LogOut
+    Rocket, History, Settings, LogOut, ChevronLeft, ChevronRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/features/auth/hooks/useAuth";
@@ -19,22 +20,47 @@ const routes = [
     { label: "Settings", icon: Settings, href: "/settings", color: "text-slate-400" },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+    isCollapsed: boolean;
+    onToggle: () => void;
+}
+
+export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
     const pathname = usePathname();
     const { logout } = useAuth();
+
     return (
-        <div className="flex flex-col h-full bg-[#0a0a0a] border-r border-white/5 text-white w-72 transition-all shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-50">
-            <div className="px-6 py-8 flex items-center mb-4">
-                <div className="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center border border-blue-500/30 mr-4 shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-                    <Rocket className="w-6 h-6 text-blue-500" />
+        <div className={cn(
+            "flex flex-col h-full bg-ds-sidebar text-foreground transition-all duration-500 ease-in-out shadow-ds z-50 relative",
+            isCollapsed ? "w-[90px]" : "w-[320px]"
+        )}>
+            <div className={cn(
+                "px-6 py-8 flex items-center mb-6 overflow-hidden transition-all duration-500",
+                isCollapsed ? "justify-center px-0" : "px-6"
+            )}>
+                <div className={cn(
+                    "w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 shadow-[0_0_20px_rgba(37,99,235,0.3)] shrink-0 transition-transform duration-500",
+                    isCollapsed ? "" : "mr-5"
+                )}>
+                    <Rocket className="w-10 h-10 text-primary" />
                 </div>
-                <div>
-                    <h1 className="text-xl font-bold tracking-tight">FB Automate</h1>
-                    <p className="text-xs text-white/40 font-medium tracking-wider uppercase">Pro Edition</p>
-                </div>
+                {!isCollapsed && (
+                    <div className="h-16 flex flex-col justify-between py-1 transition-all duration-500 animate-in fade-in slide-in-from-left-2">
+                        <h1 className="text-[2.2rem] font-bold tracking-tight text-foreground leading-none truncate">
+                            FB Automate
+                        </h1>
+                        <p className="text-[1.1rem] text-primary/70 font-bold tracking-[0.2em] uppercase flex items-center gap-2 leading-none whitespace-nowrap">
+                            <span className="w-1 h-1 rounded-full bg-primary/40" />
+                            Pro Edition
+                        </p>
+                    </div>
+                )}
             </div>
 
-            <div className="px-4 py-2 flex-grow overflow-y-auto space-y-2">
+            <div className={cn(
+                "px-4 py-2 flex-grow overflow-y-auto space-y-2 custom-scrollbar transition-all duration-500",
+                isCollapsed ? "px-2" : "px-4"
+            )}>
                 {routes.map((route) => {
                     const isActive = pathname === route.href;
                     return (
@@ -42,31 +68,79 @@ export function Sidebar() {
                             key={route.href}
                             href={route.href}
                             className={cn(
-                                "flex items-center w-full px-4 py-3 rounded-xl transition-all duration-300 group",
-                                isActive
-                                    ? "bg-white/10 text-white font-medium shadow-sm"
-                                    : "text-white/60 hover:text-white hover:bg-white/5"
+                                "sidebar-item group relative",
+                                isActive && "active",
+                                isCollapsed ? "justify-center p-4" : "p-4"
                             )}
+                            title={isCollapsed ? route.label : ""}
                         >
-                            <div className="flex items-center flex-1">
-                                <route.icon className={cn("w-5 h-5 mr-4 transition-transform group-hover:scale-110 duration-300", route.color)} />
-                                {route.label}
+                            <div className={cn(
+                                "flex items-center flex-1 transition-all duration-500",
+                                isCollapsed ? "justify-center" : ""
+                            )}>
+                                <route.icon className={cn(
+                                    "transition-all duration-500 group-hover:scale-110",
+                                    isCollapsed ? "w-8 h-8" : "w-6 h-6 mr-4",
+                                    isActive ? "text-primary" : "text-muted-foreground/70"
+                                )} />
+                                {!isCollapsed && (
+                                    <span className="text-[1.7rem] font-medium transition-all duration-500 animate-in fade-in slide-in-from-left-2">
+                                        {route.label}
+                                    </span>
+                                )}
                             </div>
+
+                            {/* Tooltip for collapsed mode is handled by title attribute, 
+                                and visual active indicator below */}
                             {isActive && (
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
+                                <div className={cn(
+                                    "absolute right-0 w-1 bg-primary rounded-l-full shadow-[0_0_10px_rgba(59,130,246,0.5)] transition-all duration-500",
+                                    isCollapsed ? "h-6 top-1/2 -translate-y-1/2" : "h-10 top-1/2 -translate-y-1/2"
+                                )} />
                             )}
                         </Link>
                     );
                 })}
             </div>
 
-            <div className="p-4 border-t border-white/5 mt-auto">
+            <div className={cn(
+                "p-4 border-t border-border/40 mt-auto transition-all duration-500",
+                isCollapsed ? "p-2" : "p-4"
+            )}>
+                {/* Collapse Toggle at Bottom */}
+                <button
+                    onClick={onToggle}
+                    className={cn(
+                        "flex items-center w-full rounded-xl transition-all duration-300 text-muted-foreground hover:bg-white/5 group mb-2",
+                        isCollapsed ? "justify-center p-4" : "px-4 py-3"
+                    )}
+                    title={isCollapsed ? "Mở rộng" : "Thu gọn"}
+                >
+                    {isCollapsed ? (
+                        <ChevronRight className="w-6 h-6" />
+                    ) : (
+                        <>
+                            <ChevronLeft className="w-6 h-6 mr-4" />
+                            <span className="font-medium text-[1.4rem]">Thu gọn</span>
+                        </>
+                    )}
+                </button>
+
                 <button
                     onClick={logout}
-                    className="flex items-center w-full px-4 py-3 rounded-xl transition-all duration-300 text-white/60 hover:text-white hover:bg-red-500/10 hover:border-red-500/20 group cursor-pointer"
+                    className={cn(
+                        "flex items-center w-full rounded-xl transition-all duration-300 text-muted-foreground hover:text-destructive hover:bg-destructive/10 group cursor-pointer",
+                        isCollapsed ? "justify-center p-4" : "px-4 py-3"
+                    )}
+                    title={isCollapsed ? "Logout" : ""}
                 >
-                    <LogOut className="w-5 h-5 mr-4 text-red-400 transition-transform group-hover:-translate-x-1 duration-300" />
-                    <span className="font-medium">Logout</span>
+                    <LogOut className={cn(
+                        "w-6 h-6 transition-transform group-hover:-translate-x-1 duration-300",
+                        !isCollapsed && "mr-4"
+                    )} />
+                    {!isCollapsed && (
+                        <span className="font-medium text-[1.4rem] transition-all animate-in fade-in">Logout</span>
+                    )}
                 </button>
             </div>
         </div>

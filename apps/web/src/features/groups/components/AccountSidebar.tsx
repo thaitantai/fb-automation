@@ -21,14 +21,14 @@ export function AccountSidebar({
     const [searchTerm, setSearchTerm] = useState("");
 
     const isAllSelected = selectedAccountIds.length === accounts.length && accounts.length > 0;
-    
-    const filteredAccounts = accounts.filter(acc => 
-        acc.username?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+
+    const filteredAccounts = accounts.filter(acc =>
+        acc.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         acc.fbUid.includes(searchTerm)
     );
 
     return (
-        <div className="w-72 border-r border-white/5 bg-black/20 flex flex-col h-full overflow-hidden">
+        <div className=" border-r border-white/5 bg-black/20 flex flex-col h-full overflow-hidden">
             {/* Header: Search accounts */}
             <div className="p-4 space-y-3">
                 <div className="relative group">
@@ -45,8 +45,8 @@ export function AccountSidebar({
                     onClick={() => onToggleSelect('ALL')}
                     className={cn(
                         "w-full flex items-center justify-between p-3 rounded-xl border transition-all duration-300",
-                        isAllSelected 
-                            ? "bg-blue-600/10 border-blue-500/50 text-blue-400" 
+                        isAllSelected
+                            ? "bg-blue-600/10 border-blue-500/50 text-blue-400"
                             : "bg-white/5 border-transparent text-zinc-400 hover:bg-white/10"
                     )}
                 >
@@ -75,8 +75,8 @@ export function AccountSidebar({
                             onClick={() => onToggleSelect(acc.id)}
                             className={cn(
                                 "flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all hover:scale-[1.02] group",
-                                isSelected 
-                                    ? "bg-blue-600/10 border-blue-500/40" 
+                                isSelected
+                                    ? "bg-blue-600/10 border-blue-500/40"
                                     : "bg-white/[0.02] border-white/5 hover:bg-white/5"
                             )}
                         >
@@ -100,12 +100,12 @@ export function AccountSidebar({
                                     )}>
                                         {acc.username || "FB Account"}
                                     </span>
-                                    <span className="text-[10px] text-zinc-600 font-mono">
+                                    <span className="text-tiny text-zinc-600 font-mono">
                                         {acc.fbUid}
                                     </span>
                                 </div>
                             </div>
-                            
+
                             <div className="flex flex-col items-end">
                                 <span className={cn(
                                     "text-xs font-bold",
@@ -113,7 +113,7 @@ export function AccountSidebar({
                                 )}>
                                     {acc.groupsCount || 0}
                                 </span>
-                                <span className="text-[8px] uppercase tracking-tighter text-zinc-700 font-bold">Groups</span>
+                                <span className="text-tiny uppercase tracking-tighter text-zinc-700 font-bold">Groups</span>
                             </div>
                         </div>
                     );

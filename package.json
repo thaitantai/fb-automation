@@ -4,9 +4,14 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "dotenv -e .env turbo run dev",
+    "dev": "pnpm run db && dotenv -e .env turbo run dev",
+    "dev:db": "pnpm packages/database",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:up": "docker-compose up -d",
+    "db:down": "docker-compose down",
+    "db": "pnpm run db:up",
+    "db:studio": "pnpm --filter @fb-automation/database db:studio"
   },
   "devDependencies": {
     "dotenv-cli": "^11.0.0",

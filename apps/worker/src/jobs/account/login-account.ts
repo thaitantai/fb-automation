@@ -4,6 +4,7 @@ import { prisma } from '@fb-automation/database';
 import { FB_SELECTORS } from '@fb-automation/constants';
 import { browserDriver } from '../../drivers/browser';
 import { JobDefinition } from '../types';
+import { verifyLoginStatus } from '../../utils/fb-auth';
 
 /**
  * --- PHẦN 1: CÁC TIỆN ÍCH (HELPERS) ---
@@ -127,26 +128,23 @@ async function trySilentCookieLogin(accountId: string) {
 
     // Vòng lặp Săn Cookies: Quét mỗi giây
     for (let i = 1; i <= 15; i++) {
-       await page.waitForTimeout(1000); // Đợi 1s
-       
-       const cookies = await context.cookies();
-       const isLoggedIn = cookies.some(c => c.name === 'c_user');
-       const url = page.url();
-       const isAtLogin = url.includes('login.php') || url.includes('checkpoint') || url.includes('error');
+        await page.waitForTimeout(1000); // Đợi 1s
+        
+        const isLoggedIn = await verifyLoginStatus(page, accountId); // Truyền accountId để tự động xóa session nếu chết
 
-       // KẾT QUẢ 1: Thành công rực rỡ (Cookies sống & đúng trang đích)
-       if (isLoggedIn && !isAtLogin) {
-          console.log(`[SilentCheck] ✅ ĐÃ TÌM THẤY! Cookies SỐNG sau ${i} giây săn tìm.`);
-          return cookies; // Trả về để cập nhật Database và đóng browser ngay
-       }
+        if (isLoggedIn) {
+            const cookies = await context.cookies();
+            console.log(`[SilentCheck] ✅ ĐÃ TÌM THẤY! Cookies SỐNG sau ${i} giây săn tìm.`);
+            return cookies; // Trả về để cập nhật Database và đóng browser ngay
+        }
 
-       // KẾT QUẢ 2: Bi thảm (Bị Facebook đuổi ra trang Login/Checkpoint)
-       if (isAtLogin) {
-          console.log(`[SilentCheck] ❌ Cookies CHẾT: Đã bị redirected về ${url}`);
-          return null; // Cookie đã bị thu hồi/invalidated
-       }
-       
-       if (i % 5 === 0) console.log(`[SilentCheck] Đang rình rập... (${i}s/15s)`);
+        const url = page.url();
+        if (url.includes('login.php') || url.includes('checkpoint') || url.includes('error')) {
+            console.log(`[SilentCheck] ❌ Cookies CHẾT: Đã bị redirected về ${url}`);
+            return null; // Cookie đã bị thu hồi/invalidated
+        }
+        
+        if (i % 5 === 0) console.log(`[SilentCheck] Đang rình rập... (${i}s/15s)`);
     }
 
     console.warn(`[SilentCheck] ⚠️ Hết 15s vẫn chưa thấy tín hiệu đăng nhập.`);
@@ -199,8 +197,7 @@ const handler = async (job: Job) => {
     }
 
     // Kiểm tra hậu đăng nhập (Đợi giải tay)
-    let finalCookies = await context.cookies();
-    let isLoggedIn = finalCookies.some(c => c.name === 'c_user');
+    let isLoggedIn = await verifyLoginStatus(page, accountId, job.id!);
 
     if (!isLoggedIn) {
       const hasPasswordField = await page.locator(FB_SELECTORS.LOGIN.PASSWORD_INPUT).isVisible().catch(() => false);

@@ -52,6 +52,25 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        /* Deep Space Tokens */
+        ds: {
+          bg: "hsl(var(--ds-bg-deep))",
+          sidebar: "hsl(var(--ds-sidebar))",
+          workspace: "hsl(var(--ds-workspace))",
+          glass: "rgba(255, 255, 255, 0.03)",
+        }
+      },
+      fontSize: {
+        'tiny': 'var(--font-tiny)',
+        'xs': 'var(--font-body-sm)',
+        'sm': 'var(--font-body-md)',
+        'base': 'var(--font-body-lg)',
+        'lg': 'var(--font-heading-md)',
+        'xl': 'var(--font-heading-lg)',
+        '2xl': '2.4rem',
+        '3xl': '3.0rem',
+        '4xl': '3.6rem',
+        '5xl': '4.8rem',
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -32,9 +32,9 @@ export function AccountStats({ accounts = [] }: AccountStatsProps) {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {stats.map((stat, i) => (
-        <div key={i} className="bg-white/5 border border-white/10 p-5 rounded-2xl hover:bg-white/[0.07] transition-all cursor-default">
+        <div key={i} className="glass-card p-6 flex items-center gap-5">
           <div className="flex items-center gap-4">
             <div className={cn("p-3 rounded-xl", stat.bg)}>
               <stat.icon size={24} className={stat.color} />

@@ -56,7 +56,7 @@ export function GroupTable({
                 ) : (
                     <table className="w-full text-left border-collapse relative">
                         <thead className="sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-xl z-[30]">
-                            <tr className="text-[9px] uppercase tracking-widest text-zinc-500 font-bold border-b border-white/5">
+                            <tr className="text-tiny uppercase tracking-widest text-zinc-500 font-bold border-b border-white/5">
                                 <th className="px-6 py-3">Thông tin Nhóm</th>
                                 {showAccount && <th className="px-6 py-3">Tài khoản</th>}
                                 <th className="px-6 py-3">Facebook ID</th>
@@ -78,11 +78,11 @@ export function GroupTable({
                                                 </span>
                                                 <div className="flex items-center gap-1.5">
                                                     {group.privacy === 'PUBLIC' ? (
-                                                        <span className="text-[8px] text-emerald-500 font-bold flex items-center gap-1">
+                                                        <span className="text-tiny text-emerald-500 font-bold flex items-center gap-1">
                                                             <Globe size={8} /> PUBLIC
                                                         </span>
                                                     ) : (
-                                                        <span className="text-[8px] text-amber-500 font-bold flex items-center gap-1">
+                                                        <span className="text-tiny text-amber-500 font-bold flex items-center gap-1">
                                                             <Shield size={8} /> PRIVATE
                                                         </span>
                                                     )}
@@ -98,10 +98,10 @@ export function GroupTable({
                                                     <User size={10} />
                                                 </div>
                                                 <div className="flex flex-col leading-none truncate overflow-hidden">
-                                                    <span className="text-[11px] font-bold text-zinc-400 truncate">
+                                                    <span className="text-tiny font-bold text-zinc-400 truncate">
                                                         {group.fbAccount?.username || "---"}
                                                     </span>
-                                                    <span className="text-[8px] text-zinc-600 font-mono italic">
+                                                    <span className="text-tiny text-zinc-600 font-mono italic">
                                                         {group.fbAccount?.fbUid}
                                                     </span>
                                                 </div>
@@ -111,7 +111,7 @@ export function GroupTable({
 
                                     <td className="px-6 py-3">
                                         <div className="flex items-center gap-1.5 group/id">
-                                            <code className="text-[10px] font-mono text-zinc-500 italic">
+                                            <code className="text-tiny font-mono text-zinc-500 italic">
                                                 {group.groupId}
                                             </code>
                                             <button
@@ -124,9 +124,9 @@ export function GroupTable({
                                     </td>
 
                                     <td className="px-6 py-3">
-                                        <div className="flex flex-col text-[10px] text-zinc-600 font-medium">
+                                        <div className="flex flex-col text-tiny text-zinc-600 font-medium">
                                             <span>{new Date(group.syncedAt).toLocaleDateString()}</span>
-                                            <span className="text-[9px] opacity-60 font-normal">{new Date(group.syncedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                            <span className="text-tiny opacity-60 font-normal">{new Date(group.syncedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                                         </div>
                                     </td>
 

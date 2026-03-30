@@ -10,7 +10,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 158 64% 52%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -23,40 +23,326 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    /* Main Background & Core (Deep Space Palette) */
+    --background: 0 0% 3%;
+    /* Onyx Black */
+    --foreground: 0 0% 95%;
+    /* Off White for better contrast */
+
+    --card: 0 0% 5%;
+    /* Darker Carbon Card */
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Semantic Colors */
+    --primary: 221 83% 53%;
+    --success: 158 64% 52%;
+    --error: 0 84.2% 60.2%;
+    --warning: 43 84% 60%;
+    --info: 217 91% 60%;
+    --normal: 0 0% 100%;
+    /* #2563eb */
+    /* Royal Blue Primary */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 10%;
+    /* Soft Black */
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 9%;
+    --muted-foreground: 0 0% 64%;
+
+    --accent: 0 0% 12%;
+    /* Light Carbon for UI highlights */
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 100% / 0.1;
+    /* Very subtle premium border */
+    --input: 0 0% 100% / 0.05;
+    --ring: 217 91% 60% / 0.5;
+
+    /* Extended Design Tokens (Deep Space) */
+    --ds-bg-deep: 0 0% 2%;
+    /* Blackest black */
+    --ds-sidebar: 0 0% 4%;
+    /* Sidebar surface */
+    --ds-workspace: 0 0% 3%;
+    /* Workspace surface */
+    --ds-active: 217 91% 60% / 0.1;
+    /* Subtle active highlight */
+
+    --ds-glass: 0 0% 100% / 0.03;
+    /* Glassmorphic overlay */
+    --ds-glass-border: 0 0% 100% / 0.08;
+
+    --ds-shadow-primary: 0 0 20px rgba(37, 99, 235, 0.3);
+    --ds-gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(250 89% 65%));
+    --ds-gradient-soft: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+
+    /* Font Size Hierarchy (Controlled via Variables) */
+    --font-heading-lg: 2.2rem;
+    /* 22px */
+    --font-heading-md: 1.8rem;
+    /* 18px */
+    --font-body-lg: 1.6rem;
+    /* 16px */
+    --font-body-md: 1.4rem;
+    /* 14px (Standard) */
+    --font-body-sm: 1.3rem;
+    /* 13px */
+    --font-tiny: 1.1rem;
+    /* 11px */
   }
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/30;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
-    @apply font-sans;
+    font-size: 62.5%;
+    /* 1rem = 10px exactly */
+    @apply antialiased scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground tracking-tight;
+    font-size: var(--font-body-sm);
+    /* Default 13px for premium feel */
+    overflow-x: hidden;
+  }
+
+  /* Typography Refinement */
+  h1,
+  .h1 {
+    font-size: var(--font-heading-lg);
+    @apply font-semibold;
+  }
+
+  h2,
+  .h2 {
+    font-size: var(--font-heading-md);
+    @apply font-semibold;
+  }
+
+  h3,
+  .h3 {
+    font-size: var(--font-body-lg);
+    @apply font-medium;
+  }
+
+  /* Universal Typography Utility Classes */
+  .ds-text-tiny {
+    font-size: var(--font-tiny);
+  }
+
+  .ds-text-xs {
+    font-size: var(--font-body-sm);
+  }
+
+  .ds-text-sm {
+    font-size: var(--font-body-md);
+  }
+
+  .ds-text-base {
+    font-size: var(--font-body-lg);
+  }
+
+  .ds-text-lg {
+    font-size: var(--font-heading-md);
+  }
+
+  .ds-text-xl {
+    font-size: var(--font-heading-lg);
+  }
+
+  /* Colors */
+  .ds-primary-color {
+    color: hsl(var(--primary));
+  }
+
+  .ds-success-color {
+    color: hsl(var(--success));
+  }
+
+  .ds-error-color {
+    color: hsl(var(--error));
+  }
+
+  .ds-warning-color {
+    color: hsl(var(--warning));
+  }
+
+  .ds-info-color {
+    color: hsl(var(--info));
+  }
+
+  .ds-normal-color {
+    color: hsl(var(--normal));
+  }
+
+  /* Background colors */
+  .ds-bg-primary {
+    background-color: hsl(var(--primary));
+  }
+
+  .ds-bg-success {
+    background-color: hsl(var(--success));
+  }
+
+  .ds-bg-error {
+    background-color: hsl(var(--error));
+  }
+
+  .ds-bg-warning {
+    background-color: hsl(var(--warning));
+  }
+
+  .ds-bg-info {
+    background-color: hsl(var(--info));
+  }
+
+  .ds-bg-normal {
+    background-color: hsl(var(--normal));
+  }
+
+  /* Border colors */
+  .ds-border-primary {
+    border-color: hsl(var(--primary));
+  }
+
+  .ds-border-success {
+    border-color: hsl(var(--success));
+  }
+
+  .ds-border-error {
+    border-color: hsl(var(--error));
+  }
+
+  .ds-border-warning {
+    border-color: hsl(var(--warning));
+  }
+
+  .ds-border-info {
+    border-color: hsl(var(--info));
+  }
+
+  .ds-border-normal {
+    border-color: hsl(var(--border));
+  }
+
+  /* Text Color */
+  .ds-text-primary {
+    color: hsl(var(--primary));
+  }
+
+  .ds-text-success {
+    color: hsl(var(--success));
+  }
+
+  .ds-text-error {
+    color: hsl(var(--error));
+  }
+
+  .ds-text-warning {
+    color: hsl(var(--warning));
+  }
+
+  .ds-text-info {
+    color: hsl(var(--info));
+  }
+
+  .ds-text-normal {
+    color: hsl(var(--normal));
+  }
+
+}
+
+@layer components {
+
+  /* Premium Glass Cards */
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-md border border-white/5 rounded-xl shadow-2xl;
+    background-image: var(--ds-gradient-soft);
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-white/[0.03] text-muted-foreground hover:text-foreground;
+  }
+
+  /* Deep Space Component Classes */
+  .ds-header {
+    @apply flex items-center justify-between border-b border-white/5 bg-white/[0.01];
+  }
+
+  .ds-icon-box {
+    @apply w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white border border-white/10;
+    box-shadow: var(--ds-shadow-primary);
+  }
+
+  .ds-input {
+    @apply w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-2 text-sm text-foreground focus:bg-white/[0.04] focus:border-primary/50 transition-all outline-none placeholder:text-muted-foreground/30;
+  }
+
+  .ds-button-ghost {
+    @apply w-10 h-10 flex items-center justify-center bg-white/5 hover:bg-white/10 text-white rounded-xl transition-all border border-white/5 active:scale-95 shadow-lg;
+  }
+
+  .ds-label-caps {
+    @apply text-tiny font-black text-zinc-200 uppercase tracking-[0.2em] leading-none;
+  }
+
+  .ds-sublabel {
+    @apply text-[9px] font-bold text-zinc-600 uppercase tracking-[0.1em] leading-none;
+  }
+
+  .sidebar-item.active {
+    @apply bg-primary/10 text-primary font-medium border-l-2 border-primary rounded-l-none;
+  }
+
+  .premium-input {
+    @apply bg-black/20 border border-white/5 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary/40 focus:border-primary/50 outline-none transition-all;
+  }
+
+  .action-button {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 active:scale-[0.98];
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6];
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Deep Space Shadows */
+  .shadow-ds {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
   }
 }
