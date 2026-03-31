@@ -14,10 +14,33 @@ export function CampaignDashboard() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
     const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
+    const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
     const handleRowClick = (campaign: Campaign) => {
         setSelectedCampaign(campaign);
         setIsDetailsModalOpen(true);
+    };
+
+    const handleOpenSettings = (campaign: Campaign) => {
+        setSelectedCampaign(campaign);
+        setIsEditModalOpen(true);
+    };
+
+    const handleOpenLogs = (campaign: Campaign) => {
+        setSelectedCampaign(campaign);
+        setIsDetailsModalOpen(true);
+    };
+
+    const handleDeleteBulk = async () => {
+        if (!selectedIds.length) return;
+
+        try {
+            await Promise.all(selectedIds.map(id => deleteCampaign(id)));
+            setSelectedIds([]);
+            fetchCampaigns();
+        } catch (error) {
+            console.error("Lỗi khi xóa hàng loạt:", error);
+        }
     };
 
     const filteredCampaigns = campaigns.filter(c =>
@@ -30,8 +53,13 @@ export function CampaignDashboard() {
                 searchTerm={searchTerm}
                 onSearchChange={setSearchTerm}
                 onRefresh={fetchCampaigns}
-                onCreateClick={() => setIsEditModalOpen(true)}
+                onCreateClick={() => {
+                    setSelectedCampaign(null);
+                    setIsEditModalOpen(true);
+                }}
                 loading={loading}
+                selectedCount={selectedIds.length}
+                onDeleteBulk={handleDeleteBulk}
             />
 
             <CreateCampaignModal
@@ -51,20 +79,18 @@ export function CampaignDashboard() {
                     setIsDetailsModalOpen(false);
                     setSelectedCampaign(null);
                 }}
-                onEdit={(campaign) => {
-                    setIsDetailsModalOpen(false);
-                    setIsEditModalOpen(true);
-                }}
             />
 
             <CampaignTable
                 campaigns={filteredCampaigns}
                 loading={loading}
+                selectedIds={selectedIds}
+                onSelectedIdsChange={setSelectedIds}
                 onRowClick={handleRowClick}
                 onUpdateStatus={updateCampaignStatus}
-                onDelete={deleteCampaign}
+                onOpenLogs={handleOpenLogs}
+                onOpenSettings={handleOpenSettings}
             />
         </div>
     );
 }
-

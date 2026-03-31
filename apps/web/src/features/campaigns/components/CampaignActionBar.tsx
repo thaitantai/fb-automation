@@ -1,52 +1,98 @@
 "use client";
 
-import React from "react";
-import { Search, RefreshCw, Plus } from "lucide-react";
+import React, { useState } from "react";
+import { Search, RefreshCw, Plus, Trash2, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Modal } from "@/components/ui/Modal";
 
 interface CampaignActionBarProps {
-    searchTerm: string;
-    onSearchChange: (value: string) => void;
-    onRefresh: () => void;
+    searchTerm:    string;
+    onSearchChange:(value: string) => void;
+    onRefresh:     () => void;
     onCreateClick: () => void;
-    loading: boolean;
+    loading:       boolean;
+    selectedCount?:number;
+    onDeleteBulk?: () => void;
 }
 
-export function CampaignActionBar({ 
-    searchTerm, 
-    onSearchChange, 
-    onRefresh, 
-    onCreateClick, 
-    loading 
+export function CampaignActionBar({
+    searchTerm, onSearchChange, onRefresh,
+    onCreateClick, loading, selectedCount = 0, onDeleteBulk
 }: CampaignActionBarProps) {
+    const [showConfirm, setShowConfirm] = useState(false);
+
     return (
-        <div className="flex items-center justify-between gap-4 mb-6">
-            <div className="relative flex-1 max-w-md group">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-blue-500 transition-colors" size={16} />
+        <div className="flex items-center gap-3 mb-6">
+            {/* Search */}
+            <div className="relative flex-1 max-w-sm">
+                <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" />
                 <input
-                    placeholder="Tìm tên chiến dịch..."
+                    className="input pl-10 h-10"
+                    placeholder="Tìm chiến dịch..."
                     value={searchTerm}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                    className="w-full bg-white/[0.03] border border-white/5 rounded-2xl pl-11 pr-4 py-3.5 ds-font-body text-white focus:bg-white/[0.06] transition-all outline-none"
+                    onChange={e => onSearchChange(e.target.value)}
                 />
             </div>
 
-            <div className="flex items-center gap-2">
-                <button 
+            {/* Right actions */}
+            <div className="flex items-center gap-2 ml-auto">
+                {selectedCount > 0 && (
+                    <button
+                        onClick={() => setShowConfirm(true)}
+                        className="btn-danger btn-sm gap-2 animate-in zoom-in duration-200"
+                    >
+                        <Trash2 size={14} />
+                        Xóa {selectedCount} mục
+                    </button>
+                )}
+
+                <button
                     onClick={onRefresh}
-                    className="p-2.5 bg-white/5 hover:bg-white/10 text-zinc-400 rounded-xl border border-white/5 transition-all"
-                    title="Tải lại ngay"
+                    title="Làm mới"
+                    className="btn-icon"
                 >
-                    <RefreshCw size={18} className={cn(loading && "animate-spin")} />
+                    <RefreshCw size={16} className={cn(loading && "animate-spin")} />
                 </button>
-                <button 
-                    onClick={onCreateClick}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/20 active:scale-95 duration-200"
-                >
-                    <Plus size={18} />
+
+                <button onClick={onCreateClick} className="btn-primary btn-sm gap-2">
+                    <Plus size={16} />
                     Chiến dịch mới
                 </button>
             </div>
+
+            {/* Confirm Delete Modal */}
+            <Modal
+                isOpen={showConfirm}
+                onClose={() => setShowConfirm(false)}
+                size="sm"
+            >
+                <div className="flex flex-col items-center text-center gap-6 py-4">
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center"
+                         style={{ background: "hsl(var(--error-muted))", color: "hsl(var(--error))" }}>
+                        <AlertTriangle size={32} />
+                    </div>
+                    <div>
+                        <h3 className="text-[20px] font-bold text-white mb-2">Xóa {selectedCount} chiến dịch?</h3>
+                        <p className="text-secondary text-[14px] leading-relaxed">
+                            Hành động này không thể hoàn tác. Tất cả dữ liệu liên quan sẽ bị xóa vĩnh viễn.
+                        </p>
+                    </div>
+                    <div className="flex gap-3 w-full">
+                        <button
+                            onClick={() => setShowConfirm(false)}
+                            className="btn-secondary btn-md flex-1"
+                        >
+                            Hủy
+                        </button>
+                        <button
+                            onClick={() => { onDeleteBulk?.(); setShowConfirm(false); }}
+                            className="btn-danger btn-md flex-1 hover:bg-red-600 hover:text-white"
+                        >
+                            Xóa ngay
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

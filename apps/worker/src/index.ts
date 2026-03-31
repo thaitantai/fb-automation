@@ -16,7 +16,7 @@ const connection = new IORedis(process.env.REDIS_URL || 'redis://localhost:6379'
 });
 
 connection.on('connect', () => {
-    console.log(`✅ Worker connected to Redis.`);
+  console.log(`✅ Worker connected to Redis.`);
 });
 
 /**
@@ -25,8 +25,8 @@ connection.on('connect', () => {
 const worker = new Worker(
   'fb-automation-queue',
   jobProcessor, // Truyền trực tiếp hàm xử lý trung tâm
-  { 
-    connection, 
+  {
+    connection,
     concurrency: parseInt(process.env.WORKER_CONCURRENCY || '2'),
     lockDuration: AUTOMATION_CONFIG.LOCK_DURATION,
   }

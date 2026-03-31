@@ -1,0 +1,10 @@
+{
+  "name": "@fb-automation/utils",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "typescript": "^5.4.3"
+  }
+}

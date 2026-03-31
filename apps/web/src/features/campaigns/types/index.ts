@@ -13,6 +13,13 @@ export interface Campaign {
         min: number;
         max: number;
     };
+    protectionConfig?: {
+        autoEmoji: boolean;
+        autoHash: boolean;
+        shuffleMedia: boolean;
+        aiRewrite?: boolean;
+        aiPrompt?: string;
+    };
     status: CampaignStatus;
     scheduledAt?: string;
     createdAt?: string;
@@ -36,5 +43,12 @@ export interface CreateCampaignInput {
     delayConfig?: {
         min: number;
         max: number;
+    };
+    protectionConfig?: {
+        autoEmoji: boolean;
+        autoHash: boolean;
+        shuffleMedia: boolean;
+        aiRewrite?: boolean;
+        aiPrompt?: string;
     };
 }

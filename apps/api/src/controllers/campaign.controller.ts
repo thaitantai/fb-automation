@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { prisma } from '@fb-automation/database';
 import { addAutomationJob } from '../queue';
+import { applyFullProtection } from '@fb-automation/utils';
 
 export class CampaignController {
   /**
@@ -17,7 +18,6 @@ export class CampaignController {
         },
         orderBy: { scheduledAt: 'desc' }
       });
-      console.log(campaigns);
       return res.json({ data: campaigns });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
@@ -30,7 +30,7 @@ export class CampaignController {
   async create(req: Request, res: Response) {
     try {
       const userId = (req as any).user.id;
-      const { name, type, targetConfigs, templateId, delayConfig, fbAccountIds } = req.body;
+      const { name, type, targetConfigs, templateId, delayConfig, protectionConfig, fbAccountIds } = req.body;
 
       if (!name || !targetConfigs || !fbAccountIds) {
         return res.status(400).json({ message: 'Thiếu thông tin chiến dịch.' });
@@ -40,9 +40,10 @@ export class CampaignController {
       const campaign = await prisma.campaign.create({
         data: {
           name,
-          type, // Vd: AUTO_POST
-          targetConfigs, // Vd: { groupIds: [1,2,3] }
-          delayConfig: delayConfig || { min: 300, max: 600 },
+          type,
+          targetConfigs,
+          delayConfig: delayConfig || { min: 3, max: 10 },
+          protectionConfig: protectionConfig || { autoEmoji: true, autoHash: true, shuffleMedia: false },
           userId,
           templateId,
           fbAccounts: {
@@ -94,16 +95,18 @@ export class CampaignController {
         });
 
         let totalStaggerDelay = 0;
-        // TỐI ƯU: Giảm delay nhỏ lại (10-30s) để người dùng thấy kết quả ngay khi TEST
-        const minDelay = delayConfig?.min || 10;
-        const maxDelay = delayConfig?.max || 30;
+        // Giao diện người dùng setup theo PHÚT, fallback 3-10p cho an toàn
+        const minDelay = delayConfig?.min || 3;
+        const maxDelay = delayConfig?.max || 10;
 
-        console.log(`[API] 🛰️ Đang xếp hàng ${fbAccounts.length * groupIds.length} lệnh đăng bài cho Campaign: ${id}`);
+        console.log(`[API] 🛰️ Đang xếp hàng ${fbAccounts.length * groupIds.length} lệnh. Delay: ${minDelay}-${maxDelay} phút`);
 
         for (const account of fbAccounts) {
           for (const groupId of groupIds) {
-            // Tăng dần delay giữa các bài đăng để "tàng hình" trước Facebook
+            // Tăng dần delay theo PHÚT
             const randomDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+
+            totalStaggerDelay += randomDelay;
 
             const jobName = campaignQuery.type === 'AUTO_POST' ? 'AUTO_POST_GROUP' : 'AUTO_COMMENT_GROUP';
 
@@ -112,10 +115,13 @@ export class CampaignController {
               accountId: account.id,
               groupId,
               templateId,
-              batchId // Truyền Batch ID vào Job Data
-            }, { delay: totalStaggerDelay * 1000 }); // Đơn vị ms
+              batchId
+            }, {
+              // PHÚT * 60 giây * 1000 ms
+              delay: totalStaggerDelay * 60 * 1000
+            });
 
-            totalStaggerDelay += randomDelay;
+            console.log(`[API] ➕ Đã lên lịch sau ${totalStaggerDelay} phút (Account: ${account.id})`);
           }
         }
 
@@ -165,7 +171,7 @@ export class CampaignController {
     try {
       const { id } = req.params;
       const userId = (req as any).user.id;
-      const { name, type, templateId, targetConfigs, fbAccountIds } = req.body;
+      const { name, type, templateId, targetConfigs, delayConfig, protectionConfig, fbAccountIds } = req.body;
 
       // Đảm bảo campaign thuộc về user
       const campaign = await prisma.campaign.findFirst({
@@ -182,8 +188,9 @@ export class CampaignController {
           name,
           type,
           templateId,
-
           targetConfigs,
+          delayConfig,
+          protectionConfig,
           // Cập nhật quan hệ 1-Nhiều hoặc Nhiều-Nhiều
           fbAccounts: fbAccountIds ? {
             set: fbAccountIds.map((id: string) => ({ id }))
@@ -218,6 +225,25 @@ export class CampaignController {
       }
 
       return res.json({ message: 'Đã xóa chiến dịch thành công.' });
+    } catch (error: any) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  /**
+   * Test thực tế luồng bảo vệ (Preview nội dung)
+   */
+  async testProtection(req: Request, res: Response) {
+    try {
+      const { content, protectionConfig } = req.body;
+
+      const transformed = await applyFullProtection(
+        content,
+        protectionConfig,
+        process.env.GEMINI_API_KEY
+      );
+
+      return res.json({ data: transformed });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
     }

@@ -73,6 +73,7 @@ export function Modal({
         className={cn(
           "bg-[hsl(var(--ds-bg-deep))] border border-white/[0.05] shadow-[0_40px_100px_rgba(0,0,0,0.9)] rounded-[3rem] w-full flex flex-col relative z-10 overflow-hidden",
           "animate-in zoom-in-95 fade-in slide-in-from-bottom-8 duration-500",
+          "max-h-[92vh]",
           sizeClasses[size as keyof typeof sizeClasses] || sizeClasses.md,
           className
         )}

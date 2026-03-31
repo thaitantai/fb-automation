@@ -14,10 +14,9 @@ interface CampaignDetailsModalProps {
     campaign: Campaign | null;
     isOpen: boolean;
     onClose: () => void;
-    onEdit?: (campaign: Campaign) => void;
 }
 
-export function CampaignDetailsModal({ campaign, isOpen, onClose, onEdit }: CampaignDetailsModalProps) {
+export function CampaignDetailsModal({ campaign, isOpen, onClose }: CampaignDetailsModalProps) {
     const { logs, fetchLogs, loading } = useCampaigns();
     const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -77,13 +76,6 @@ export function CampaignDetailsModal({ campaign, isOpen, onClose, onEdit }: Camp
             }
             footer={
                 <div className="flex items-center justify-end gap-4 w-full">
-                    <button
-                        onClick={() => onEdit?.(campaign)}
-                        disabled={campaign.status === "PROCESSING"}
-                        className="px-8 py-3.5 bg-blue-600/10 hover:bg-blue-600 text-blue-500 hover:text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border border-blue-500/20 active:scale-95"
-                    >
-                        Thay đổi Cấu hình
-                    </button>
                     <button onClick={onClose} className="px-10 py-3.5 bg-white text-black hover:bg-zinc-200 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all active:scale-95">
                         Đóng Dashboard
                     </button>

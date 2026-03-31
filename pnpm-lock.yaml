@@ -29,6 +29,9 @@ importers:
       '@fb-automation/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@fb-automation/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       axios:
         specifier: ^1.13.6
         version: 1.13.6
@@ -166,6 +169,12 @@ importers:
       '@fb-automation/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@fb-automation/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
+      '@google/generative-ai':
+        specifier: ^0.24.1
+        version: 0.24.1
       bullmq:
         specifier: ^5.4.2
         version: 5.71.1
@@ -242,6 +251,15 @@ importers:
         version: 1.13.4(eslint@10.1.0)
 
   packages/typescript-config: {}
+
+  packages/utils:
+    dependencies:
+      '@google/generative-ai':
+        specifier: ^0.24.1
+        version: 0.24.1
+      typescript:
+        specifier: ^5.4.3
+        version: 5.9.3
 
 packages:
 
@@ -692,6 +710,11 @@ packages:
 
   /@floating-ui/utils@0.2.11:
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
+    dev: false
+
+  /@google/generative-ai@0.24.1:
+    resolution: {integrity: sha512-MqO+MLfM6kjxcKoy0p1wRzG3b4ZZXtPI+z2IE26UogS2Cm/XHO+7gGRBh6gcJsOiIVoH93UwKvW4HdgiOZCy9Q==}
+    engines: {node: '>=18.0.0'}
     dev: false
 
   /@hono/node-server@1.19.11(hono@4.12.9):

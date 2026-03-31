@@ -43,7 +43,7 @@ export function TemplateEditor({
     return (
         <div className="flex-1 flex flex-col min-w-0 bg-[hsl(var(--ds-workspace))]">
             {/* Header */}
-            <div className="ds-header px-10 py-7">
+            <div className="ds-header flex items-center justify-between px-10 py-7">
                 <div className="flex items-center gap-6 flex-1">
                     <div className="ds-icon-box w-14 h-14 rounded-2xl shadow-2xl">
                         <Sparkles size={24} />

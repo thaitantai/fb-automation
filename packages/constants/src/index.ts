@@ -43,7 +43,15 @@ export const FB_SELECTORS = {
       'div[role="dialog"] div[aria-label="Đăng"]',
       'div[role="dialog"] div[role="button"]:has-text("Post")',
       'div[role="dialog"] div[role="button"]:has-text("Đăng")'
-    ]
+    ],
+    PHOTO_VIDEO_BUTTON: '[aria-label="Photo/video"], [aria-label="Ảnh/video"], [aria-label="Photo/Video"]',
+    FILE_INPUT: 'div[role="dialog"] input[type="file"][accept*="image"], div[role="dialog"] input[type="file"][accept*="video"]',
+    UPLOAD_COMPLETE_INDICATOR: 'div[role="dialog"] img, [aria-label="Remove"], [aria-label="Gỡ"], div[role="presentation"] img',
+  },
+  STATUS: {
+    PENDING_APPROVAL: ':has-text("Post submitted"), :has-text("Bài viết đã được gửi"), :has-text("chờ phê duyệt")',
+    BLOCKED: ':has-text("temporarily blocked"), :has-text("bị chặn tạm thời")',
+    NOT_JOINED: 'div[aria-label="Join Group"], div[aria-label="Tham gia nhóm"]',
   }
 };
 

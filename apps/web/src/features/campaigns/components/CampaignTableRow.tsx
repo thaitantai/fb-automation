@@ -4,120 +4,145 @@ import React from "react";
 import {
     Rocket, LayoutTemplate, Users, Component,
     ArrowRight, Calendar, Clock, Pause,
-    Play, Trash2
+    Play, Settings2, ClipboardList, CheckSquare, Square
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Campaign, CampaignStatus } from "../types";
 import { CampaignStatusBadge } from "./CampaignStatusBadge";
 
 interface CampaignTableRowProps {
-    campaign: Campaign;
-    onRowClick: (campaign: Campaign) => void;
+    campaign:       Campaign;
+    isSelected:     boolean;
+    onToggleSelect: () => void;
+    onRowClick:     (campaign: Campaign) => void;
     onUpdateStatus: (id: string, status: CampaignStatus) => void;
-    onDelete: (id: string) => void;
+    onOpenLogs?:    (campaign: Campaign) => void;
+    onOpenSettings?:(campaign: Campaign) => void;
 }
 
 export function CampaignTableRow({
-    campaign,
-    onRowClick,
-    onUpdateStatus,
-    onDelete
+    campaign, isSelected, onToggleSelect,
+    onRowClick, onUpdateStatus, onOpenLogs, onOpenSettings
 }: CampaignTableRowProps) {
+    const isProcessing = campaign.status === "PROCESSING";
+
     return (
-        <tr
-            onClick={() => onRowClick(campaign)}
-            className="hover:bg-white/[0.04] transition-all group/row cursor-pointer border-b border-white/[0.02]"
-        >
-            <td className="px-6 py-5">
-                <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center border border-white/5 group-hover/row:border-blue-500/30 transition-all overflow-hidden relative">
-                        <Rocket size={18} className="text-zinc-600 group-hover/row:text-blue-500 group-hover/row:scale-110 duration-300" />
-                        {campaign.status === "PROCESSING" && (
-                            <div className="absolute inset-0 bg-blue-500/5 animate-pulse" />
-                        )}
-                    </div>
-                    <div className="flex flex-col min-w-0">
-                        <span className="ds-font-body font-bold truncate max-w-[220px] group-hover/row:text-white transition-colors">
-                            {campaign.name}
-                        </span>
-                        <span className="ds-font-subtitle font-black uppercase text-blue-500/80 mt-1">
-                            {campaign.type || 'HÀNH ĐỘNG CƠ BẢN'}
-                        </span>
-                    </div>
-                </div>
-            </td>
-
-            <td className="px-6 py-5">
-                <div className="flex items-center gap-2.5 bg-white/[0.03] px-4 py-2 rounded-2xl border border-white/5 w-fit group-hover:bg-white/10 transition-all">
-                    <LayoutTemplate size={14} className="text-amber-500" />
-                    <span className="ds-font-subtitle font-bold text-zinc-300">
-                        {campaign.template?.name || "Mẫu đã bị gỡ"}
-                    </span>
-                </div>
-            </td>
-
-            <td className="px-6 py-5">
-                <div className="flex justify-center">
-                    <CampaignStatusBadge status={campaign.status} />
-                </div>
-            </td>
-
-            <td className="px-6 py-5">
-                <div className="flex flex-col items-center gap-1">
-                    <div className="flex items-center gap-2">
-                        <div className="flex items-center gap-1 text-[10px] text-emerald-500 font-bold bg-emerald-500/5 px-1.5 py-0.5 rounded border border-emerald-500/10">
-                            <Users size={10} /> {campaign.fbAccounts?.length || 0}
-                        </div>
-                        <ArrowRight size={10} className="text-zinc-700" />
-                        <div className="flex items-center gap-1 text-[10px] text-pink-500 font-bold bg-pink-500/5 px-1.5 py-0.5 rounded border border-pink-500/10">
-                            <Component size={10} /> {campaign.targetConfigs.groupIds.length}
-                        </div>
-                    </div>
-                </div>
-            </td>
-
-            <td className="px-6 py-5">
-                <div className="flex flex-col ds-font-subtitle font-semibold leading-relaxed">
-                    <span className="flex items-center gap-2">
-                        <Calendar size={12} className="opacity-30" />
-                        {new Date(campaign.createdAt || Date.now()).toLocaleDateString()}
-                    </span>
-                    <span className="flex items-center gap-2 opacity-50">
-                        <Clock size={12} className="opacity-30" />
-                        {new Date(campaign.createdAt || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
-                </div>
-            </td>
-
-            <td className="px-6 py-5 text-right">
-                <div className="flex items-center justify-end gap-1" onClick={(e) => e.stopPropagation()}>
-                    {campaign.status === "PROCESSING" ? (
+        <tr className={cn("table-row group/row cursor-pointer", isSelected && "selected")}>
+            {/* Actions column */}
+            <td className="table-cell w-44" onClick={e => e.stopPropagation()}>
+                <div className="flex items-center gap-1">
+                    {isProcessing ? (
                         <button
                             onClick={() => onUpdateStatus(campaign.id, "PAUSED")}
-                            className="p-2.5 text-zinc-600 hover:text-amber-500 hover:bg-amber-500/10 rounded-xl transition-all"
-                            title="Tạm dừng chiến dịch"
+                            className="btn-icon p-2"
+                            title="Tạm dừng"
                         >
-                            <Pause size={18} />
+                            <Pause size={15} className="text-amber-400" />
                         </button>
                     ) : (
                         <button
                             onClick={() => onUpdateStatus(campaign.id, "PROCESSING")}
-                            className="p-2.5 text-zinc-600 hover:text-blue-500 hover:bg-blue-500/10 rounded-xl transition-all"
-                            title="Bắt đầu ngay"
+                            className="btn-icon p-2"
+                            title="Bắt đầu"
                         >
-                            <Play size={18} />
+                            <Play size={15} className="text-blue-400" />
                         </button>
                     )}
 
                     <button
-                        onClick={() => onDelete(campaign.id)}
-                        className="p-2.5 text-zinc-600 hover:text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all"
-                        title="Gỡ bỏ"
-                        disabled={campaign.status === "PROCESSING"}
+                        disabled={isProcessing}
+                        onClick={() => onOpenSettings?.(campaign)}
+                        className="btn-icon p-2 disabled:opacity-25"
+                        title={isProcessing ? "Không thể cài đặt khi đang chạy" : "Cài đặt"}
                     >
-                        <Trash2 size={18} />
+                        <Settings2 size={15} />
+                    </button>
+
+                    <button
+                        onClick={() => onOpenLogs?.(campaign)}
+                        className="btn-icon p-2"
+                        title="Xem nhật ký"
+                    >
+                        <ClipboardList size={15} />
                     </button>
                 </div>
+            </td>
+
+            {/* Name */}
+            <td className="table-cell" onClick={() => onRowClick(campaign)}>
+                <div className="flex items-center gap-3">
+                    <div className={cn(
+                        "w-9 h-9 rounded-xl flex items-center justify-center border shrink-0 transition-colors",
+                        isProcessing
+                            ? "border-blue-500/30 bg-blue-500/10"
+                            : "border-white/5 bg-surface-2"
+                    )}>
+                        <Rocket size={16} className={isProcessing ? "text-blue-400" : "text-muted"} />
+                    </div>
+                    <div>
+                        <p className="font-semibold text-[14px] text-white truncate max-w-[200px]">{campaign.name}</p>
+                        <p className="text-[11px] text-primary font-medium uppercase tracking-wider mt-0.5">
+                            {campaign.type || 'AUTO_POST'}
+                        </p>
+                    </div>
+                </div>
+            </td>
+
+            {/* Template */}
+            <td className="table-cell">
+                <div className="flex items-center gap-2">
+                    <LayoutTemplate size={14} className="text-amber-400 shrink-0" />
+                    <span className="text-[13px] text-secondary truncate max-w-[160px]">
+                        {campaign.template?.name || "—"}
+                    </span>
+                </div>
+            </td>
+
+            {/* Status */}
+            <td className="table-cell text-center">
+                <CampaignStatusBadge status={campaign.status} />
+            </td>
+
+            {/* Accounts & Groups */}
+            <td className="table-cell text-center">
+                <div className="flex items-center justify-center gap-2">
+                    <span className="badge-green gap-1">
+                        <Users size={10} />
+                        {campaign.fbAccounts?.length || 0}
+                    </span>
+                    <ArrowRight size={10} className="text-muted" />
+                    <span className="badge-blue gap-1">
+                        <Component size={10} />
+                        {campaign.targetConfigs.groupIds.length}
+                    </span>
+                </div>
+            </td>
+
+            {/* Created At */}
+            <td className="table-cell">
+                <div className="text-[12px] text-secondary leading-relaxed">
+                    <div className="flex items-center gap-1.5">
+                        <Calendar size={11} className="text-muted" />
+                        {new Date(campaign.createdAt || Date.now()).toLocaleDateString("vi-VN")}
+                    </div>
+                    <div className="flex items-center gap-1.5 text-muted mt-0.5">
+                        <Clock size={11} />
+                        {new Date(campaign.createdAt || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                    </div>
+                </div>
+            </td>
+
+            {/* Checkbox */}
+            <td className="table-cell text-right" onClick={e => e.stopPropagation()}>
+                <button
+                    onClick={onToggleSelect}
+                    className="text-muted hover:text-blue-400 transition-colors p-1"
+                >
+                    {isSelected
+                        ? <CheckSquare size={18} className="text-blue-400" />
+                        : <Square size={18} />
+                    }
+                </button>
             </td>
         </tr>
     );

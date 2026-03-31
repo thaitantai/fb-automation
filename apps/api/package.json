@@ -9,8 +9,9 @@
     "lint": "eslint \"src/**/*.ts\""
   },
   "dependencies": {
-    "@fb-automation/database": "workspace:*",
     "@fb-automation/constants": "workspace:*",
+    "@fb-automation/database": "workspace:*",
+    "@fb-automation/utils": "workspace:^",
     "axios": "^1.13.6",
     "bcryptjs": "^3.0.3",
     "bullmq": "^5.4.2",
