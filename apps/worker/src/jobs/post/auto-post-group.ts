@@ -74,8 +74,8 @@ class GroupPostExecutor {
         await context.route('**/*', (route: any, request: any) => {
             const type = request.resourceType();
             const url = request.url();
-            if (['font', 'other'].includes(type) || 
-                url.includes('google-analytics') || 
+            if (['font', 'other'].includes(type) ||
+                url.includes('google-analytics') ||
                 url.includes('facebook.com/tr/') ||
                 url.includes('connect.facebook.net')) {
                 return route.abort();
@@ -124,7 +124,7 @@ class GroupPostExecutor {
                 ]);
                 await fileChooser.setFiles(this.localMediaPaths);
             }
-            await this.page.waitForSelector(FB_SELECTORS.POST.UPLOAD_COMPLETE_INDICATOR, { timeout: 10000 }).catch(() => {});
+            await this.page.waitForSelector(FB_SELECTORS.POST.UPLOAD_COMPLETE_INDICATOR, { timeout: 10000 }).catch(() => { });
         } catch (error: any) {
             console.warn(`[Job:${this.jobId}] ⚠️ Lỗi nạp ảnh: ${error.message}`);
         }
@@ -165,10 +165,11 @@ class GroupPostExecutor {
         return null;
     }
 
-    async logResult(campaignId: string, accountId: string, status: 'SUCCESS' | 'ERROR', message: string, batchId?: string, screenshotUrl?: string) {
+    async logResult(campaignId: string, accountId: string, status: 'SUCCESS' | 'ERROR', message: string, batchId?: string, screenshotUrl?: string, targetId?: string) {
         await prisma.jobLog.create({
             data: {
                 campaignId, fbAccountId: accountId, batchId: batchId || null,
+                targetId: targetId || null,
                 actionType: status === 'SUCCESS' ? 'AUTO_POST' : 'AUTO_POST_ERROR',
                 message, screenshotUrl, executedAt: new Date()
             } as any
@@ -197,7 +198,7 @@ class GroupPostExecutor {
 
         try {
             console.log(`[Job:${this.jobId}] 🔥 Khởi động cổ máy Master Optimized...`);
-            
+
             const [data, launchResult] = await Promise.all([
                 this.prepare(accountId, templateId, groupId, campaignId),
                 browserDriver.launch({ headless: false, desktop: true })
@@ -209,7 +210,7 @@ class GroupPostExecutor {
             // EAGER LOADING: Tải ảnh và Gọi AI TRƯỚC KHI mở trang web
             const [protectedContent, _paths] = await Promise.all([
                 this.applyContentProtection(template.contentSpintax, protection),
-                this.downloadMedia(template.mediaUrls) 
+                this.downloadMedia(template.mediaUrls)
             ]);
 
             browser = launchResult.browser;
@@ -221,7 +222,7 @@ class GroupPostExecutor {
             // NAVIGATION
             await this.navigateToGroup(`https://facebook.com/groups/${group.groupId}`);
 
-            if (!await verifyLoginStatus(this.page, accountId, this.jobId)) {
+            if (!await verifyLoginStatus(this.page, accountId, this.jobId, true)) {
                 throw new Error('[SmartError] Cookies hết hạn hoặc checkpoint.');
             }
 
@@ -236,13 +237,13 @@ class GroupPostExecutor {
             const smartStatus = await this.analyzeExecutionStatus();
             if (smartStatus?.status === 'ERROR') throw new Error(smartStatus.message);
 
-            await this.logResult(campaignId, accountId, 'SUCCESS', smartStatus?.message || `Đăng thành công lên: ${group?.name || groupId}`, batchId);
+            await this.logResult(campaignId, accountId, 'SUCCESS', smartStatus?.message || `Đăng thành công lên: ${group?.name || groupId}`, batchId, undefined, groupId);
             await this.page.waitForTimeout(3000);
 
         } catch (error: any) {
             console.error(`[Job:${this.jobId}] 🔴 Lỗi: ${error.message}`);
             errorScreenPath = await captureErrorScreenshot(this.page, this.jobId);
-            await this.logResult(campaignId, accountId, 'ERROR', `Lỗi: ${error.message}`, batchId, errorScreenPath);
+            await this.logResult(campaignId, accountId, 'ERROR', `Lỗi: ${error.message}`, batchId, errorScreenPath, groupId);
             throw error;
         } finally {
             if (browser) await browser.close();

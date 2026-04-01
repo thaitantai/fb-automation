@@ -27,17 +27,17 @@ export function RegisterForm() {
   }, []);
 
   if (!isMounted) return (
-    <div className="w-full max-w-md h-[600px] border border-white/5 bg-white/5 rounded-2xl animate-pulse" />
+    <div className="card w-full max-w-md h-[550px] skeleton rounded-2xl" />
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError("Mật khẩu xác nhận không khớp.");
       return;
     }
     if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
+      setError("Mật khẩu phải có ít nhất 6 ký tự.");
       return;
     }
 
@@ -47,7 +47,7 @@ export function RegisterForm() {
     try {
       const res = await authService.register({ email, password });
       if (res.status === 'ok' || res.data) {
-        // Auto-login after successful registration
+        // Tự động đăng nhập sau khi đăng ký thành công
         const loginRes = await authService.login({ email, password });
         if (loginRes.status === 'ok') {
           login(loginRes.data.token, loginRes.data.user);
@@ -55,109 +55,117 @@ export function RegisterForm() {
           router.push('/login?registered=true');
         }
       } else {
-        setError(res.message || "Registration failed. Please try again.");
+        setError(res.message || "Đăng ký không thành công. Vui lòng thử lại.");
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || err.message || "An unexpected error occurred.");
+      setError(err.response?.data?.message || err.message || "Đã xảy ra lỗi không xác định.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <Card className="w-full max-w-md border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
-      {/* Top glint effect */}
-      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+    <div className="card-elevated w-full max-w-[42rem] p-10 relative overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+      {/* Hiệu ứng nền mờ tạo chiều sâu */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 blur-[100px] rounded-full" />
+      <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-blue-600/10 blur-[100px] rounded-full" />
       
-      <CardHeader className="space-y-3 text-center pt-10 pb-6 relative z-10">
-        <div className="w-16 h-16 bg-blue-600/20 rounded-2xl mx-auto flex items-center justify-center border border-blue-500/30 mb-2 shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-          <svg className="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-          </svg>
+      <div className="relative z-10 space-y-8">
+        {/* Header Section */}
+        <div className="text-center space-y-3">
+          <div className="w-16 h-16 bg-primary-muted rounded-2xl mx-auto flex items-center justify-center border border-primary/20 mb-2 shadow-glow-blue">
+            <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+          </div>
+          <h1 className="ds-font-title text-foreground">
+            Tạo tài khoản
+          </h1>
+          <p className="text-text-secondary text-[1.4rem] font-medium">
+            Bắt đầu tối ưu hóa công việc trên Facebook ngay hôm nay
+          </p>
         </div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-white drop-shadow-md">
-          Create Account
-        </h1>
-        <CardDescription className="text-white/60 text-sm font-medium">
-          Sign up to start automating your Facebook tasks
-        </CardDescription>
-      </CardHeader>
-      
-      <CardContent className="pb-10 relative z-10 px-8">
-        <form onSubmit={handleSubmit} className="space-y-4">
+
+        {/* Form Section */}
+        <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="p-4 mb-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3 backdrop-blur-sm animate-in fade-in slide-in-from-top-2">
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              <p className="font-medium">{error}</p>
+            <div className="callout-warning border-error/20 bg-error/5 text-error animate-in zoom-in duration-300">
+              <AlertCircle size={18} className="shrink-0" />
+              <p className="font-semibold text-[1.3rem]">{error}</p>
             </div>
           )}
           
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-white/80 font-medium ml-1">Email Address</Label>
-            <Input 
+          <div className="space-y-2.5">
+            <label htmlFor="email" className="ds-font-label ml-1 text-text-muted">Địa chỉ Email</label>
+            <input 
               id="email" 
               type="email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com" 
               required
-              className="bg-black/20 border-white/10 text-white placeholder:text-white/30 h-11 px-4 rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 transition-all"
+              className="input h-[4.6rem] px-5 bg-surface-2 border-white/5 focus:bg-surface-3 transition-all"
             />
           </div>
           
-          <div className="space-y-2">
-            <Label htmlFor="password" className="text-white/80 font-medium ml-1">Password</Label>
-            <div className="relative group">
-              <Input 
-                id="password" 
-                type={showPassword ? "text" : "password"} 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••" 
-                required
-                className="bg-black/20 border-white/10 text-white placeholder:text-white/30 h-11 px-4 pr-11 rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 transition-all"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-white/40 hover:text-white/80 transition-colors focus:outline-none"
-              >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-              </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="space-y-2.5">
+              <label htmlFor="password" className="ds-font-label ml-1 text-text-muted">Mật khẩu</label>
+              <div className="relative">
+                <input 
+                  id="password" 
+                  type={showPassword ? "text" : "password"} 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••" 
+                  required
+                  className="input h-[4.6rem] px-5 pr-14 bg-surface-2 border-white/5 focus:bg-surface-3 transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-text-muted hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword" className="text-white/80 font-medium ml-1">Confirm Password</Label>
-            <div className="relative group">
-              <Input 
+            <div className="space-y-2.5">
+              <label htmlFor="confirmPassword" className="ds-font-label ml-1 text-text-muted">Xác nhận</label>
+              <input 
                 id="confirmPassword" 
                 type={showPassword ? "text" : "password"} 
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••" 
                 required
-                className="bg-black/20 border-white/10 text-white placeholder:text-white/30 h-11 px-4 pr-11 rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 transition-all"
+                className="input h-[4.6rem] px-5 bg-surface-2 border-white/5 focus:bg-surface-3 transition-all"
               />
             </div>
           </div>
           
-          <Button 
+          <button 
             disabled={isLoading} 
             type="submit" 
-            className="w-full h-12 mt-4 text-[15px] font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)] transition-all duration-300"
+            className="btn-primary w-full h-[5rem] mt-2 shadow-glow-blue font-bold text-[1.4rem] uppercase tracking-wider"
           >
-            {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : "Sign Up"}
-          </Button>
+            {isLoading ? (
+              <Loader2 className="h-6 w-6 animate-spin" />
+            ) : (
+              "Đăng ký ngay"
+            )}
+          </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-white/60">
-          Already have an account?{" "}
-          <Link href="/login" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
-            Sign in
+        {/* Footer */}
+        <div className="text-center text-[1.3rem] font-medium text-text-muted pt-2">
+          Bạn đã có tài khoản?{" "}
+          <Link href="/login" className="text-primary hover:text-primary-hover underline underline-offset-4 decoration-primary/30 transition-all font-bold">
+            Đăng nhập
           </Link>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

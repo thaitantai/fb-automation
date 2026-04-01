@@ -7,7 +7,12 @@ import { FB_SELECTORS } from '@fb-automation/constants';
  * Kết hợp cả kiểm tra Cookies và kiểm tra Selector UI
  * Nếu fail: Tự động xóa Session và cập nhật status thành DISCONNECTED trong Database
  */
-export async function verifyLoginStatus(page: Page, accountId?: string, jobId?: string): Promise<boolean> {
+export async function verifyLoginStatus(
+    page: Page, 
+    accountId?: string, 
+    jobId?: string,
+    shouldUpdateDb: boolean = false
+): Promise<boolean> {
     const logPrefix = jobId ? `[Job:${jobId}] ` : '';
     console.log(`${logPrefix}🔐 Đang xác thực trạng thái phiên...`);
 
@@ -38,8 +43,8 @@ export async function verifyLoginStatus(page: Page, accountId?: string, jobId?: 
     if (isAtLoginOrError) {
         console.log(`${logPrefix}❌ XÁC THỰC THẤT BẠI tại: ${url}`);
         
-        // CẬP NHẬT DATABASE: Xóa Session và báo DISCONNECTED
-        if (accountId) {
+        // CẬP NHẬT DATABASE: Xóa Session và báo DISCONNECTED (Chỉ thực hiện nếu được yêu cầu)
+        if (shouldUpdateDb && accountId) {
             console.log(`${logPrefix}💾 Đang cập nhật Database (DISCONNECTED)...`);
             await prisma.fbAccount.update({
                 where: { id: accountId },

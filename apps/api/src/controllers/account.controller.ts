@@ -7,6 +7,12 @@ export const addFbAccount = async (req: Request, res: Response) => {
     const { username, password, proxyId } = req.body;
     const userId = (req as any).user.id;
 
+    // Kiểm tra xem User còn tồn tại trong DB không (tránh lỗi khóa ngoại sau khi reset DB)
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      return res.status(401).json({ message: 'Phiên đăng nhập đã hết hạn hoặc không tồn tại, vui lòng đăng xuất và đăng nhập lại.' });
+    }
+
     if (!username || !password) {
       return res.status(400).json({ message: 'Tài khoản và mật khẩu Facebook là bắt buộc.' });
     }

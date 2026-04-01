@@ -11,13 +11,13 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 
 const routes = [
-    { label: "Dashboard", icon: Home, href: "/", color: "text-sky-500" },
-    { label: "Accounts", icon: Users, href: "/accounts", color: "text-emerald-500" },
-    { label: "Groups", icon: Component, href: "/groups", color: "text-pink-500" },
-    { label: "Templates", icon: LayoutTemplate, href: "/templates", color: "text-amber-500" },
-    { label: "Campaigns", icon: Rocket, href: "/campaigns", color: "text-violet-500" },
-    { label: "Job Logs", icon: History, href: "/logs", color: "text-zinc-400" },
-    { label: "Settings", icon: Settings, href: "/settings", color: "text-slate-400" },
+    { label: "Trang chủ",      icon: Home,           href: "/" },
+    { label: "Tài khoản FB",   icon: Users,          href: "/accounts" },
+    { label: "Quản lý Nhóm",   icon: Component,      href: "/groups" },
+    { label: "Mẫu nội dung",   icon: LayoutTemplate, href: "/templates" },
+    { label: "Chiến dịch",     icon: Rocket,         href: "/campaigns" },
+    { label: "Nhật ký chạy",   icon: History,        href: "/logs" },
+    { label: "Cài đặt hệ thống", icon: Settings,      href: "/settings" },
 ];
 
 interface SidebarProps {
@@ -31,35 +31,36 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
 
     return (
         <div className={cn(
-            "flex flex-col h-full bg-ds-sidebar text-foreground transition-all duration-500 ease-in-out shadow-ds z-50 relative",
-            isCollapsed ? "w-[90px]" : "w-[320px]"
+            "flex flex-col h-full bg-surface-raised/80 backdrop-blur-xl text-foreground transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] border-r border-border z-50 relative",
+            isCollapsed ? "w-[10rem]" : "w-[30rem]"
         )}>
+            {/* Logo Section - Khu vực Logo */}
             <div className={cn(
-                "px-6 py-8 flex items-center mb-6 overflow-hidden transition-all duration-500",
-                isCollapsed ? "justify-center px-0" : "px-6"
+                "px-8 py-10 flex items-center mb-8 overflow-hidden transition-all duration-500",
+                isCollapsed ? "justify-center px-0" : ""
             )}>
                 <div className={cn(
-                    "w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 shadow-[0_0_20px_rgba(37,99,235,0.3)] shrink-0 transition-transform duration-500",
-                    isCollapsed ? "" : "mr-5"
+                    "w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-glow-blue border border-primary/20 shrink-0 transition-all duration-500",
+                    isCollapsed ? "scale-90" : "mr-5"
                 )}>
-                    <Rocket className="w-10 h-10 text-primary" />
+                    <Rocket className="w-8 h-8 text-white" />
                 </div>
                 {!isCollapsed && (
-                    <div className="h-16 flex flex-col justify-between py-1 transition-all duration-500 animate-in fade-in slide-in-from-left-2">
-                        <h1 className="text-[2.2rem] font-bold tracking-tight text-foreground leading-none truncate">
-                            FB Automate
+                    <div className="flex flex-col animate-in fade-in slide-in-from-left-4 duration-500">
+                        <h1 className="text-[2rem] font-black tracking-tighter text-foreground leading-none">
+                            FB AUTOMATE
                         </h1>
-                        <p className="text-[1.1rem] text-primary/70 font-bold tracking-[0.2em] uppercase flex items-center gap-2 leading-none whitespace-nowrap">
-                            <span className="w-1 h-1 rounded-full bg-primary/40" />
-                            Pro Edition
+                        <p className="ds-font-label text-primary mt-1 opacity-80">
+                            PRO EDITION
                         </p>
                     </div>
                 )}
             </div>
 
+            {/* Navigation Section - Danh sách Menu */}
             <div className={cn(
-                "px-4 py-2 flex-grow overflow-y-auto space-y-2 custom-scrollbar transition-all duration-500",
-                isCollapsed ? "px-2" : "px-4"
+                "px-6 flex-grow overflow-y-auto space-y-3 scrollbar-hide transition-all duration-500",
+                isCollapsed ? "px-3" : ""
             )}>
                 {routes.map((route) => {
                     const isActive = pathname === route.href;
@@ -68,34 +69,33 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                             key={route.href}
                             href={route.href}
                             className={cn(
-                                "sidebar-item group relative",
-                                isActive && "active",
-                                isCollapsed ? "justify-center p-4" : "p-4"
+                                "flex items-center gap-4 rounded-2xl p-4 transition-all duration-300 group relative",
+                                isActive 
+                                    ? "bg-primary/10 text-primary shadow-[inset_0_0_20px_rgba(59,130,246,0.05)]" 
+                                    : "text-text-muted hover:bg-surface-2 hover:text-foreground",
+                                isCollapsed ? "justify-center" : ""
                             )}
                             title={isCollapsed ? route.label : ""}
                         >
-                            <div className={cn(
-                                "flex items-center flex-1 transition-all duration-500",
-                                isCollapsed ? "justify-center" : ""
-                            )}>
-                                <route.icon className={cn(
-                                    "transition-all duration-500 group-hover:scale-110",
-                                    isCollapsed ? "w-8 h-8" : "w-6 h-6 mr-4",
-                                    isActive ? "text-primary" : "text-muted-foreground/70"
-                                )} />
-                                {!isCollapsed && (
-                                    <span className="text-[1.7rem] font-medium transition-all duration-500 animate-in fade-in slide-in-from-left-2">
-                                        {route.label}
-                                    </span>
-                                )}
-                            </div>
+                            <route.icon className={cn(
+                                "transition-all duration-300 group-hover:scale-110 shrink-0",
+                                isCollapsed ? "w-7 h-7" : "w-6 h-6",
+                                isActive ? "text-primary drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" : ""
+                            )} />
+                            
+                            {!isCollapsed && (
+                                <span className={cn(
+                                    "text-[1.5rem] font-bold tracking-tight transition-all truncate",
+                                    isActive ? "text-primary" : ""
+                                )}>
+                                    {route.label}
+                                </span>
+                            )}
 
-                            {/* Tooltip for collapsed mode is handled by title attribute, 
-                                and visual active indicator below */}
                             {isActive && (
                                 <div className={cn(
-                                    "absolute right-0 w-1 bg-primary rounded-l-full shadow-[0_0_10px_rgba(59,130,246,0.5)] transition-all duration-500",
-                                    isCollapsed ? "h-6 top-1/2 -translate-y-1/2" : "h-10 top-1/2 -translate-y-1/2"
+                                    "absolute right-2 w-1.5 bg-primary rounded-full shadow-glow-blue animate-in fade-in zoom-in duration-500",
+                                    isCollapsed ? "h-6" : "h-7"
                                 )} />
                             )}
                         </Link>
@@ -103,25 +103,25 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                 })}
             </div>
 
+            {/* Bottom Section - Nút hệ thống */}
             <div className={cn(
-                "p-4 border-t border-border/40 mt-auto transition-all duration-500",
-                isCollapsed ? "p-2" : "p-4"
+                "p-6 border-t border-border bg-surface-2/20 mt-auto transition-all duration-500",
+                isCollapsed ? "p-3" : ""
             )}>
-                {/* Collapse Toggle at Bottom */}
+                {/* Toggle Button */}
                 <button
                     onClick={onToggle}
                     className={cn(
-                        "flex items-center w-full rounded-xl transition-all duration-300 text-muted-foreground hover:bg-white/5 group mb-2",
-                        isCollapsed ? "justify-center p-4" : "px-4 py-3"
+                        "flex items-center w-full rounded-xl transition-all duration-300 text-text-muted hover:bg-surface-3 group mb-2 p-4",
+                        isCollapsed ? "justify-center" : ""
                     )}
-                    title={isCollapsed ? "Mở rộng" : "Thu gọn"}
                 >
                     {isCollapsed ? (
                         <ChevronRight className="w-6 h-6" />
                     ) : (
                         <>
-                            <ChevronLeft className="w-6 h-6 mr-4" />
-                            <span className="font-medium text-[1.4rem]">Thu gọn</span>
+                            <ChevronLeft className="w-5 h-5 mr-4" />
+                            <span className="font-bold text-[1.4rem] uppercase tracking-widest opacity-60 group-hover:opacity-100">Thu gọn</span>
                         </>
                     )}
                 </button>
@@ -129,17 +129,16 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                 <button
                     onClick={logout}
                     className={cn(
-                        "flex items-center w-full rounded-xl transition-all duration-300 text-muted-foreground hover:text-destructive hover:bg-destructive/10 group cursor-pointer",
-                        isCollapsed ? "justify-center p-4" : "px-4 py-3"
+                        "flex items-center w-full rounded-xl transition-all duration-300 text-text-muted hover:text-error hover:bg-error/10 group cursor-pointer p-4",
+                        isCollapsed ? "justify-center" : ""
                     )}
-                    title={isCollapsed ? "Logout" : ""}
                 >
                     <LogOut className={cn(
                         "w-6 h-6 transition-transform group-hover:-translate-x-1 duration-300",
                         !isCollapsed && "mr-4"
                     )} />
                     {!isCollapsed && (
-                        <span className="font-medium text-[1.4rem] transition-all animate-in fade-in">Logout</span>
+                        <span className="font-black text-[1.4rem] uppercase tracking-widest">Đăng xuất</span>
                     )}
                 </button>
             </div>

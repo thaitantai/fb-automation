@@ -14,8 +14,8 @@ export const protectRoute = (req: Request, res: Response, next: NextFunction) =>
 
     const decoded = jwt.verify(token, JWT_SECRET);
     // Lưu thông tin giải mã (chứa userID) vào Request để các Controller khác sử dụng
-    (req as any).user = decoded; 
-    
+    (req as any).user = decoded;
+
     next();
   } catch (error) {
     return res.status(401).json({ status: 'error', message: 'Not authorized, invalid or expired token' });

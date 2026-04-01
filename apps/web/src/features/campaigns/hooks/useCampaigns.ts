@@ -5,6 +5,7 @@ import { Campaign, CreateCampaignInput, CampaignStatus } from "../types";
 export const useCampaigns = () => {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [logs, setLogs] = useState<any[]>([]);
+    const [targetGroups, setTargetGroups] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -25,9 +26,17 @@ export const useCampaigns = () => {
     const fetchLogs = useCallback(async (id: string) => {
         try {
             const response = await axios.get(`/campaigns/${id}/logs`);
-            const data = Array.isArray(response.data?.data) ? response.data.data : (Array.isArray(response.data) ? response.data : []);
-            setLogs(data);
-            return data;
+            const payload = response.data?.data || {};
+            
+            if (payload.logs && payload.groups) {
+                setLogs(payload.logs);
+                setTargetGroups(payload.groups);
+                return payload.logs;
+            } else {
+                const data = Array.isArray(payload) ? payload : [];
+                setLogs(data);
+                return data;
+            }
         } catch (err: any) {
             return [];
         }
@@ -74,9 +83,8 @@ export const useCampaigns = () => {
         }
     };
 
-    useEffect(() => {
-        fetchCampaigns();
-    }, [fetchCampaigns]);
+    // Removed automatic useEffect from hook to prevent render conflicts.
+    // Call fetchCampaigns explicitly in the dashboard or parent component.
 
     // Polling logic: Refresh campaigns every 10s if any are in PROCESSING status
     useEffect(() => {
@@ -93,6 +101,7 @@ export const useCampaigns = () => {
     return {
         campaigns,
         logs,
+        targetGroups,
         loading,
         error,
         fetchCampaigns,

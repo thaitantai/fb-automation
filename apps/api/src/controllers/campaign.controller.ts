@@ -14,11 +14,30 @@ export class CampaignController {
         where: { userId },
         include: {
           template: { select: { name: true } },
-          fbAccounts: { select: { id: true, } }
+          fbAccounts: { select: { id: true, username: true } }
         },
         orderBy: { scheduledAt: 'desc' }
       });
-      return res.json({ data: campaigns });
+
+      // Bóc tách tất cả groupIds duy nhất để query 1 lần (Tối ưu hiệu năng)
+      const allGroupIds = Array.from(new Set(
+        campaigns.flatMap(c => (c.targetConfigs as any)?.groupIds || [])
+      ));
+
+      const allGroups = await prisma.fbGroup.findMany({
+        where: { id: { in: allGroupIds as string[] } },
+        select: { id: true, name: true, groupId: true }
+      });
+
+      // Map nhóm vào từng chiến dịch tương ứng
+      const data = campaigns.map(campaign => {
+        const campaignGroups = allGroups.filter(g => 
+          ((campaign.targetConfigs as any)?.groupIds || []).includes(g.id)
+        );
+        return { ...campaign, groups: campaignGroups };
+      });
+
+      return res.json({ data });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
     }
@@ -158,7 +177,19 @@ export class CampaignController {
         orderBy: { executedAt: 'desc' }
       });
 
-      return res.json({ data: logs });
+      // Fetch target Groups names based on campaign config
+      const groupIds = (campaign.targetConfigs as any)?.groupIds || [];
+      const groups = await prisma.fbGroup.findMany({
+        where: { id: { in: groupIds } },
+        select: { id: true, name: true, groupId: true }
+      });
+
+      return res.json({
+        data: {
+          logs,
+          groups
+        }
+      });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
     }

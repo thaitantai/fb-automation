@@ -19,7 +19,6 @@ const config = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -28,37 +27,56 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+        "primary-hover": "hsl(var(--primary-hover))",
+        "primary-muted": "hsl(var(--primary-muted))",
+        surface: {
+          1: "hsl(var(--surface-1))",
+          2: "hsl(var(--surface-2))",
+          3: "hsl(var(--surface-3))",
+          raised: "hsl(var(--surface-raised))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+        text: {
+          secondary: "hsl(var(--text-secondary))",
+          muted: "hsl(var(--text-muted))",
+          disabled: "hsl(var(--text-disabled))",
         },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+        border: {
+          DEFAULT: "hsl(var(--border))",
+          subtle: "hsl(var(--border-subtle))",
+          strong: "hsl(var(--border-strong))",
         },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          muted: "hsl(var(--success-muted))",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          muted: "hsl(var(--warning-muted))",
         },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+        error: {
+          DEFAULT: "hsl(var(--error))",
+          muted: "hsl(var(--error-muted))",
+        },
+        info: {
+          DEFAULT: "hsl(var(--info))",
+          muted: "hsl(var(--info-muted))",
         },
         /* Deep Space Tokens */
         ds: {
-          bg: "hsl(var(--ds-bg-deep))",
-          sidebar: "hsl(var(--ds-sidebar))",
-          workspace: "hsl(var(--ds-workspace))",
+          bg: "hsl(var(--background))",
+          sidebar: "hsl(var(--surface-1))",
+          workspace: "hsl(var(--surface-2))",
           glass: "rgba(255, 255, 255, 0.03)",
         }
+      },
+      boxShadow: {
+        'sm': 'var(--shadow-sm)',
+        'md': 'var(--shadow-md)',
+        'lg': 'var(--shadow-lg)',
+        'xl': 'var(--shadow-xl)',
+        'glow-blue': 'var(--shadow-glow-blue)',
+        'glow-green': 'var(--shadow-glow-green)',
+        'glow-red': 'var(--shadow-glow-red)',
       },
       fontSize: {
         'tiny': 'var(--font-tiny)',

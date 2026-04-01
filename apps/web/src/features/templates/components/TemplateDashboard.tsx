@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { usePostTemplates } from "../hooks/usePostTemplates";
-import { PostTemplate } from "../types";
+import { useTemplates } from "../hooks/useTemplates";
+import { Template } from "../types";
 import { TemplateSidebar } from "./TemplateSidebar";
 import { TemplateEditor } from "./TemplateEditor";
 import { SpintaxHelp } from "./SpintaxHelp";
+import { useModal } from "@/providers/ModalProvider";
 
-export function PostTemplateDashboard() {
+export function TemplateDashboard() {
     const {
         templates,
         loading,
@@ -15,7 +16,7 @@ export function PostTemplateDashboard() {
         updateTemplate,
         deleteTemplate,
         bulkDelete
-    } = usePostTemplates();
+    } = useTemplates();
 
     const [selectedTemplateId, setSelectedTemplateId] = useState<string | null>(null);
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -30,14 +31,14 @@ export function PostTemplateDashboard() {
     const [newMediaUrl, setNewMediaUrl] = useState("");
 
     const filteredTemplates = useMemo(() =>
-        templates.filter((t: PostTemplate) =>
+        templates.filter((t: Template) =>
             t.name.toLowerCase().includes(searchTerm.toLowerCase())
         ),
         [templates, searchTerm]
     );
 
     // Handle Template Change
-    const handleSelectTemplate = (template: PostTemplate) => {
+    const handleSelectTemplate = (template: Template) => {
         setSelectedTemplateId(template.id);
         setName(template.name);
         setContent(template.contentSpintax);
@@ -96,7 +97,7 @@ export function PostTemplateDashboard() {
 
     const handleBulkDelete = () => {
         confirm({
-            title: "Xóa hàng loạt mẫu bài viết",
+            title: "Xóa hàng loạt mẫu",
             description: `Bạn có chắc chắn muốn xóa ${selectedIds.length} mẫu đã chọn?`,
             type: "danger",
             onConfirm: async () => {
@@ -114,7 +115,7 @@ export function PostTemplateDashboard() {
     const handleDeleteSingle = () => {
         if (!selectedTemplateId) return;
         confirm({
-            title: "Xóa mẫu bài viết",
+            title: "Xóa mẫu",
             description: `Bạn có chắc chắn muốn xóa mẫu "${name}"?`,
             type: "danger",
             onConfirm: async () => {
@@ -125,7 +126,7 @@ export function PostTemplateDashboard() {
     };
 
     return (
-        <div className="flex h-full bg-[hsl(var(--ds-bg))] border border-border rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.6)] relative overflow-hidden">
+        <div className="flex h-full bg-surface-raised border border-border rounded-[2.5rem] shadow-[0_0_80px_rgba(0,0,0,0.6)] relative overflow-hidden">
 
             <TemplateSidebar
                 templates={filteredTemplates}
@@ -162,4 +163,3 @@ export function PostTemplateDashboard() {
     );
 }
 
-import { useModal } from "@/providers/ModalProvider";

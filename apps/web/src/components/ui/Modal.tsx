@@ -71,33 +71,33 @@ export function Modal({
       {/* Modal Content */}
       <div
         className={cn(
-          "bg-[hsl(var(--ds-bg-deep))] border border-white/[0.05] shadow-[0_40px_100px_rgba(0,0,0,0.9)] rounded-[3rem] w-full flex flex-col relative z-10 overflow-hidden",
+          "bg-surface-raised border border-border shadow-[0_40px_100px_rgba(0,0,0,0.9)] rounded-[2.5rem] w-full flex flex-col relative z-10 overflow-hidden",
           "animate-in zoom-in-95 fade-in slide-in-from-bottom-8 duration-500",
-          "max-h-[92vh]",
+          "max-h-[90vh]",
           sizeClasses[size as keyof typeof sizeClasses] || sizeClasses.md,
           className
         )}
       >
-        {/* Header */}
+        {/* Header - Header chuẩn mượt mà */}
         {(title || description) && (
-          <div className="px-12 py-10 flex items-start justify-between">
-            <div className="space-y-2">
+          <div className="px-10 py-10 flex items-start justify-between">
+            <div className="space-y-1.5">
               {title && (
-                <h2 className="ds-font-title tracking-tighter text-white capitalize font-black">
+                <h2 className="ds-font-title text-foreground capitalize">
                   {title}
                 </h2>
               )}
               {description && (
-                <div className="ds-font-subtitle leading-relaxed opacity-50 font-bold">
+                <div className="text-[1.4rem] text-text-secondary font-medium leading-relaxed">
                   {description}
                 </div>
               )}
             </div>
             <button
               onClick={onClose}
-              className="p-3 hover:bg-white/5 rounded-[1.5rem] transition-all text-muted-foreground hover:text-foreground hover:rotate-180 active:scale-75 translate-x-2 -translate-y-2 border border-white/5"
+              className="p-3 hover:bg-surface-3 rounded-2xl transition-all text-text-muted hover:text-foreground hover:rotate-180 active:scale-90 border border-border-subtle shadow-sm"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
         )}
@@ -105,23 +105,23 @@ export function Modal({
         {!title && !description && (
           <button
             onClick={onClose}
-            className="absolute right-10 top-10 z-20 p-3 hover:bg-white/5 rounded-[1.5rem] transition-all text-muted-foreground hover:text-foreground hover:rotate-180 active:scale-75 border border-white/5"
+            className="absolute right-8 top-8 z-20 p-3 hover:bg-surface-3 rounded-2xl transition-all text-text-muted hover:text-foreground hover:rotate-180 active:scale-90 border border-border-subtle shadow-sm"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         )}
 
-        {/* Body */}
+        {/* Body - Nội dung cuộn mượt */}
         <div className={cn(
-          "flex-1 overflow-y-auto custom-scrollbar",
-          (title || description) ? "px-12 pb-12" : "p-12"
+          "flex-1 overflow-y-auto scrollbar-hide",
+          (title || description) ? "px-10 pb-10" : "p-10"
         )}>
           {children}
         </div>
 
-        {/* Footer */}
+        {/* Footer - Chân trang đồng bộ */}
         {footer && (
-          <div className="px-12 py-8 border-t border-white/5 bg-white/[0.02] flex items-center justify-end gap-5">
+          <div className="px-10 py-8 border-t border-border bg-surface-2/30 flex items-center justify-end gap-4">
             {footer}
           </div>
         )}

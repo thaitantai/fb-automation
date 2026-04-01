@@ -130,13 +130,16 @@ const handler = async (job: Job) => {
     const finalGroups = await extractGroups(page);
     await saveGroups(accountId, finalGroups, job);
 
-    console.log(`[Job:${job.id}] ✅ Hoàn tất! Tổng cộng ${finalGroups.length} nhóm.`);
+    const message = `✅ Đồng bộ hoàn tất! Tìm thấy ${finalGroups.length} nhóm.`;
+    console.log(`[Job:${job.id}] ${message}`);
+
+    return { success: true, count: finalGroups.length, message };
 
   } catch (error: any) {
     console.error(`[Job:${job.id}] 🔴 Lỗi: ${error.message}`);
     throw error;
   } finally {
-    await browser.close();
+    if (browser) await browser.close();
   }
 };
 

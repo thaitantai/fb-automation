@@ -10,6 +10,11 @@ import { CampaignTable } from "./CampaignTable";
 
 export function CampaignDashboard() {
     const { campaigns, loading, updateCampaignStatus, deleteCampaign, fetchCampaigns } = useCampaigns();
+
+    // Fetch campaigns on mount - Controlled globally at dashboard level
+    React.useEffect(() => {
+        fetchCampaigns();
+    }, [fetchCampaigns]);
     const [searchTerm, setSearchTerm] = useState("");
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -48,7 +53,8 @@ export function CampaignDashboard() {
     );
 
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col gap-3">
+            {/* Action Bar & Controls */}
             <CampaignActionBar
                 searchTerm={searchTerm}
                 onSearchChange={setSearchTerm}
@@ -62,6 +68,21 @@ export function CampaignDashboard() {
                 onDeleteBulk={handleDeleteBulk}
             />
 
+            {/* Campaign Table Container */}
+            <div className="flex-1 min-h-0">
+                <CampaignTable
+                    campaigns={filteredCampaigns}
+                    loading={loading}
+                    selectedIds={selectedIds}
+                    onSelectedIdsChange={setSelectedIds}
+                    onRowClick={handleRowClick}
+                    onUpdateStatus={updateCampaignStatus}
+                    onOpenLogs={handleOpenLogs}
+                    onOpenSettings={handleOpenSettings}
+                />
+            </div>
+
+            {/* Modals - Remain consistent with internal system */}
             <CreateCampaignModal
                 isOpen={isEditModalOpen}
                 initialData={selectedCampaign}
@@ -79,17 +100,6 @@ export function CampaignDashboard() {
                     setIsDetailsModalOpen(false);
                     setSelectedCampaign(null);
                 }}
-            />
-
-            <CampaignTable
-                campaigns={filteredCampaigns}
-                loading={loading}
-                selectedIds={selectedIds}
-                onSelectedIdsChange={setSelectedIds}
-                onRowClick={handleRowClick}
-                onUpdateStatus={updateCampaignStatus}
-                onOpenLogs={handleOpenLogs}
-                onOpenSettings={handleOpenSettings}
             />
         </div>
     );

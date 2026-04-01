@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const mainFont = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700"]
+});
 
 export const metadata: Metadata = {
-  title: "FB Automation Dashboard",
-  description: "Hệ thống quản lý chiến dịch Facebook Automation",
+  title: "FB Automate Pro",
+  description: "Hệ thống quản lý chiến dịch Facebook Automation cao cấp",
 };
 
 import { Toaster } from "@/components/ui/Toaster";
@@ -19,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={cn("font-sans dark", inter.variable)} suppressHydrationWarning={true}>
-      <body className={inter.className} suppressHydrationWarning={true}>
+    <html lang="vi" className={cn("dark", mainFont.variable)} suppressHydrationWarning={true}>
+      <body className={cn(mainFont.className, "antialiased")} suppressHydrationWarning={true}>
         <ModalProvider>
           {children}
           <Toaster position="bottom-right" closeButton richColors />

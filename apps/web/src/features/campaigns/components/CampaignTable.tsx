@@ -5,26 +5,27 @@ import { Campaign, CampaignStatus } from "../types";
 import { CampaignTableRow } from "./CampaignTableRow";
 import { EmptyCampaignState } from "./EmptyCampaignState";
 import { Loader2, CheckSquare, Square } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface CampaignTableProps {
-    campaigns:          Campaign[];
-    loading:            boolean;
-    selectedIds:        string[];
-    onSelectedIdsChange:  (ids: string[]) => void;
-    onRowClick:         (campaign: Campaign) => void;
-    onUpdateStatus:     (id: string, status: CampaignStatus) => void;
-    onOpenLogs?:        (campaign: Campaign) => void;
-    onOpenSettings?:    (campaign: Campaign) => void;
+    campaigns: Campaign[];
+    loading: boolean;
+    selectedIds: string[];
+    onSelectedIdsChange: (ids: string[]) => void;
+    onRowClick: (campaign: Campaign) => void;
+    onUpdateStatus: (id: string, status: CampaignStatus) => void;
+    onOpenLogs?: (campaign: Campaign) => void;
+    onOpenSettings?: (campaign: Campaign) => void;
 }
 
 const HEADERS = [
-    { label: "Thao tác",          align: "left"   },
-    { label: "Tên chiến dịch",    align: "left"   },
-    { label: "Mẫu nội dung",      align: "left"   },
-    { label: "Trạng thái",        align: "center" },
-    { label: "Acc / Nhóm",        align: "center" },
-    { label: "Ngày tạo",          align: "left"   },
-    { label: "",                  align: "right"  }   // checkbox
+    { label: "Thao tác", align: "left" },
+    { label: "Tên chiến dịch", align: "left" },
+    { label: "Mẫu nội dung", align: "left" },
+    { label: "Trạng thái", align: "center" },
+    { label: "Acc / Nhóm", align: "center" },
+    { label: "Ngày tạo", align: "left" },
+    { label: "", align: "right" }   // checkbox
 ];
 
 export function CampaignTable({
@@ -62,29 +63,33 @@ export function CampaignTable({
     }
 
     return (
-        <div className="table-container flex-1 overflow-auto">
+        <div className="table-container flex-1 overflow-auto bg-surface-raised/10">
             <table className="w-full text-left border-collapse">
                 <thead>
-                    <tr style={{ borderBottom: "1px solid hsl(var(--border))", background: "hsl(var(--surface-2))" }}>
+                    <tr className="bg-surface-2 border-b border-border">
                         {HEADERS.map((h, i) => (
-                            <th key={i} className={`table-header-cell text-${h.align as any}`}>
+                            <th key={i} className={cn("table-header-cell", h.align === 'center' && "text-center", h.align === 'right' && "text-right")}>
                                 {i === HEADERS.length - 1 ? (
-                                    /* Select all checkbox */
+                                    /* Select all checkbox - Toàn chọn */
                                     <button
                                         onClick={toggleAll}
-                                        className="text-muted hover:text-blue-400 transition-colors p-1 float-right"
+                                        className="text-text-muted hover:text-primary transition-all p-2 rounded-lg hover:bg-primary/10"
                                     >
                                         {isAllSelected
-                                            ? <CheckSquare size={16} className="text-blue-400" />
-                                            : <Square size={16} />
+                                            ? <CheckSquare size={18} className="text-primary" />
+                                            : <Square size={18} className="opacity-40" />
                                         }
                                     </button>
-                                ) : h.label}
+                                ) : (
+                                    <span className="ds-font-label text-text-muted">
+                                        {h.label}
+                                    </span>
+                                )}
                             </th>
                         ))}
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-border-subtle">
                     {campaigns.map(campaign => (
                         <CampaignTableRow
                             key={campaign.id}

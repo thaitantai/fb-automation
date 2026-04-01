@@ -11,82 +11,84 @@
 
 @layer base {
   :root {
-    /* Light mode fallback (unused) */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --border: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    /* ── LIGHT THEME: "Sunrise Pro" ─────────────────── */
+    --background: 210 40% 98%;
+    /* #f8fafc — Nền sáng dịu */
+    --surface-1: 0 0% 100%;
+    /* #ffffff — Card background */
+    --surface-2: 210 20% 96%;
+    /* #f1f5f9 — Secondary surface */
+    --surface-3: 210 20% 94%;
+    /* #e2e8f0 — Hover states */
+    --surface-raised: 0 0% 100%;
+    /* Modal background */
+
+    --foreground: 222 47% 11%;
+    /* #0f172a — Chữ chính (Navy Deep) */
+    --text-secondary: 215 25% 27%;
+    /* #1e293b — Subtitles */
+    --text-muted: 215 16% 47%;
+    /* #64748b — Labels */
+    
+    --border: 214 32% 91%;
+    /* #e2e8f0 — Default border */
+    --border-strong: 214 25% 85%;
+    
     --primary: 221 83% 53%;
+    --primary-hover: 221 83% 45%;
+    --primary-muted: 221 83% 53% / 0.1;
     --primary-foreground: 0 0% 100%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+
+    --radius: 1.4rem;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* ── Component Tokens ────────────────────────────── */
+    --card: var(--surface-1);
+    --card-foreground: var(--foreground);
+    --popover: var(--surface-1);
+    --popover-foreground: var(--foreground);
+    --muted: var(--surface-2);
+    --muted-foreground: var(--text-muted);
+    --accent: var(--surface-3);
+    --accent-foreground: var(--foreground);
+    --input: var(--surface-1);
+    --ring: var(--primary) / 0.5;
+
+    /* ── Semantic Colors (Light Optimized) ───────────── */
+    --success: 142 71% 35%;
+    --warning: 38 92% 40%;
+    --error: 0 84% 50%;
+    --info: 199 89% 40%;
   }
 
   .dark {
-    /* ── Core Surface Colors ─────────────────────────── */
+    /* ── DEFAULT THEME: "Midnight Pro" (Blue) ────────── */
     --background: 220 20% 7%;
-    /* #0f1117 — Midnight Blue-Gray */
     --surface-1: 220 17% 10%;
-    /* #151820 — Card/Table background */
     --surface-2: 220 15% 13%;
-    /* #1a1e2a — Elevated panels */
     --surface-3: 220 13% 17%;
-    /* #21263a — Hover states */
     --surface-raised: 220 18% 11%;
-    /* #161c27 — Modal background */
-
-    /* ── Text Colors ─────────────────────────────────── */
     --foreground: 210 20% 93%;
-    /* #e8eaf0 — Primary text, clear */
     --text-secondary: 215 14% 65%;
-    /* #94a3b8 — Subtitles, labels */
     --text-muted: 215 11% 42%;
-    /* #5c6880 — Placeholders, hints */
     --text-disabled: 215 9% 28%;
-    /* #3d4455 — Disabled elements */
-
-    /* ── Border Colors ───────────────────────────────── */
     --border: 220 15% 18%;
-    /* #242936 — Default border */
     --border-subtle: 220 15% 14%;
-    /* #1b2030 — Very subtle dividers */
     --border-strong: 220 14% 25%;
-    /* #333d52 — Emphasized borders */
-
-    /* ── Brand Colors ────────────────────────────────── */
     --primary: 217 91% 60%;
-    /* #3b82f6 — Blue primary */
     --primary-hover: 217 91% 55%;
-    /* #2563eb — Blue hover */
-    --primary-muted: 217 91% 60% / 0.12;
-    /* Blue tint background */
+    --primary-muted: 217 91% 60% / 0.15;
     --primary-foreground: 0 0% 100%;
+    --shadow-glow-blue: 0 0 24px rgba(59, 130, 246, 0.25);
+    --ring: 217 91% 60% / 0.4;
 
-    /* ── Semantic Colors ─────────────────────────────── */
+    /* Common Variables */
     --success: 142 71% 45%;
-    /* #22c55e — Green */
-    --success-muted: 142 71% 45% / 0.12;
     --warning: 38 92% 50%;
-    /* #f59e0b — Amber */
-    --warning-muted: 38 92% 50% / 0.12;
     --error: 0 84% 60%;
-    /* #ef4444 — Red */
-    --error-muted: 0 84% 60% / 0.12;
     --info: 199 89% 48%;
-    /* #0ea5e9 — Cyan */
-    --info-muted: 199 89% 48% / 0.12;
-
-    /* ── Accent / Highlight ──────────────────────────── */
-    --accent-purple: 262 83% 68%;
-    /* #a855f7 */
-    --accent-teal: 172 76% 42%;
-    /* #14b8a6 */
-    --accent-orange: 25 95% 53%;
-    /* #f97316 */
-
-    /* ── Component Tokens ────────────────────────────── */
     --card: var(--surface-1);
     --card-foreground: var(--foreground);
     --popover: var(--surface-raised);
@@ -96,7 +98,6 @@
     --accent: var(--surface-3);
     --accent-foreground: var(--foreground);
     --input: var(--surface-2);
-    --ring: 217 91% 60% / 0.4;
 
     /* ── Shadows ─────────────────────────────────────── */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -106,17 +107,46 @@
     --shadow-glow-blue: 0 0 24px rgba(59, 130, 246, 0.25);
     --shadow-glow-green: 0 0 20px rgba(34, 197, 94, 0.2);
     --shadow-glow-red: 0 0 20px rgba(239, 68, 68, 0.2);
+  }
 
-    /* ── Extended tokens (legacy support) ────────────── */
-    --ds-bg-deep: var(--background);
-    --ds-gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(262 83% 68%) 100%);
+  /* ── TEMPLATE: "Emerald Deep" (Green) ───────────────── */
+  .theme-emerald {
+    --background: 160 20% 7%;
+    --surface-1: 160 17% 10%;
+    --surface-2: 160 15% 13%;
+    --surface-3: 160 13% 17%;
+    --surface-raised: 160 18% 11%;
+    --foreground: 160 10% 93%;
+    --primary: 156 72% 45%;
+    --primary-hover: 156 72% 40%;
+    --primary-muted: 156 72% 45% / 0.15;
+    --shadow-glow-blue: 0 0 24px rgba(34, 197, 94, 0.35);
+    --ring: 156 72% 45% / 0.4;
+    --border: 160 12% 18%;
+    --border-strong: 160 10% 25%;
+  }
+
+  /* ── TEMPLATE: "Neon Violet" (Purple) ───────────────── */
+  .theme-violet {
+    --background: 260 20% 7%;
+    --surface-1: 260 17% 10%;
+    --surface-2: 260 15% 13%;
+    --surface-3: 260 13% 17%;
+    --surface-raised: 260 18% 11%;
+    --foreground: 260 20% 93%;
+    --primary: 270 91% 65%;
+    --primary-hover: 270 91% 60%;
+    --primary-muted: 270 91% 65% / 0.15;
+    --shadow-glow-blue: 0 0 24px rgba(168, 85, 247, 0.35);
+    --ring: 270 91% 65% / 0.4;
+    --border: 260 15% 18%;
+    --border-strong: 260 14% 25%;
   }
 }
 
 /* ============================================================
-   BASE STYLES
+   BASE STYLES: Core Resets & Global Typography
    ============================================================ */
-
 @layer base {
   * {
     @apply border-border outline-ring/30;
@@ -134,12 +164,12 @@
     color: hsl(var(--foreground));
     font-size: 1.4rem;
     /* 14px */
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--font-sans), system-ui, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
   }
 
-  /* Typography scale */
+  /* Core Typography Scale */
   h1 {
     font-size: 2.8rem;
     @apply font-bold tracking-tight;
@@ -170,7 +200,7 @@
     @apply font-medium;
   }
 
-  /* Custom scrollbar */
+  /* Custom Global Scrollbar */
   ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -191,12 +221,12 @@
 }
 
 /* ============================================================
-   COMPONENT CLASSES — Reusable building blocks
+   COMPONENT CLASSES: Reusable UI Elements
    ============================================================ */
-
 @layer components {
 
-  /* ── Cards ───────────────────────────────────────────── */
+  /* ── 1. KHỐI NỀN (Cards & Containers) ─────────────── */
+  /* Card cơ bản với viền mỏng */
   .card {
     background: hsl(var(--surface-1));
     border: 1px solid hsl(var(--border));
@@ -211,557 +241,222 @@
     box-shadow: var(--shadow-md);
   }
 
+  /* Khối hiệu ứng kính mờ (vẫn dùng nền surface-2) */
+  .glass-card {
+    @apply shadow-md backdrop-blur-md bg-opacity-80;
+    background-color: hsl(var(--surface-2));
+    border: 1px solid hsl(var(--border-strong));
+    border-radius: 1.6rem;
+  }
+
   .card-hover {
-    @apply card transition-all duration-200;
+    @apply card transition-all duration-200 hover:bg-surface-2 hover:shadow-md hover:-translate-y-0.5;
   }
 
-  .card-hover:hover {
-    background: hsl(var(--surface-2));
-    border-color: hsl(var(--border-strong));
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-  }
-
-  /* ── Buttons ─────────────────────────────────────────── */
+  /* ── 2. NÚT BẤM & HÀNH ĐỘNG (Buttons) ─────────────── */
+  /* Class cơ sở cho mọi loại Button */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 font-semibold transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed;
-    border-radius: 0.8rem;
+    @apply inline-flex items-center justify-center gap-2 font-semibold transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed rounded-[0.8rem] whitespace-nowrap select-none;
     font-size: 1.3rem;
     padding: 0.8rem 1.6rem;
     line-height: 1;
-    white-space: nowrap;
-    user-select: none;
-  }
-
-  .btn-sm {
-    padding: 0.6rem 1.2rem;
-    font-size: 1.2rem;
-  }
-
-  .btn-md {
-    padding: 0.9rem 1.8rem;
-    font-size: 1.4rem;
-  }
-
-  .btn-lg {
-    padding: 1.2rem 2.4rem;
-    font-size: 1.5rem;
-    border-radius: 1.2rem;
   }
 
   .btn-primary {
-    @apply btn;
-    background: hsl(var(--primary));
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
-  }
-
-  .btn-primary:hover:not(:disabled) {
-    background: hsl(var(--primary-hover));
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    @apply btn bg-primary text-white shadow-md hover:bg-primary-hover hover:shadow-lg;
   }
 
   .btn-secondary {
-    @apply btn;
-    background: hsl(var(--surface-2));
-    color: hsl(var(--foreground));
-    border: 1px solid hsl(var(--border-strong));
-  }
-
-  .btn-secondary:hover:not(:disabled) {
-    background: hsl(var(--surface-3));
-    border-color: hsl(var(--text-muted));
+    @apply btn bg-surface-2 text-foreground border border-border-strong hover:bg-surface-3;
   }
 
   .btn-ghost {
-    @apply btn;
-    background: transparent;
-    color: hsl(var(--text-secondary));
-    border: 1px solid transparent;
-  }
-
-  .btn-ghost:hover:not(:disabled) {
-    background: hsl(var(--surface-2));
-    color: hsl(var(--foreground));
-    border-color: hsl(var(--border));
+    @apply btn bg-transparent text-text-secondary hover:bg-surface-2 hover:text-foreground;
   }
 
   .btn-danger {
-    @apply btn;
-    background: hsl(var(--error-muted));
-    color: hsl(var(--error));
-    border: 1px solid hsl(0 84% 60% / 0.3);
+    @apply btn bg-error text-opacity-80 text-error border border-error/30 hover:bg-error hover:text-white;
   }
 
-  .btn-danger:hover:not(:disabled) {
-    background: hsl(var(--error));
-    color: #fff;
-    box-shadow: var(--shadow-glow-red);
-  }
-
-  .btn-icon {
-    @apply btn;
-    padding: 0.8rem;
-    background: hsl(var(--surface-2));
-    color: hsl(var(--text-secondary));
-    border: 1px solid hsl(var(--border));
-    border-radius: 0.8rem;
-  }
-
-  .btn-icon:hover:not(:disabled) {
-    background: hsl(var(--surface-3));
-    color: hsl(var(--foreground));
-    border-color: hsl(var(--border-strong));
-  }
-
-  /* ── Form Inputs ─────────────────────────────────────── */
-  .input {
-    @apply w-full font-normal transition-all duration-200 outline-none;
-    background: hsl(var(--surface-2));
-    border: 1px solid hsl(var(--border));
-    border-radius: 0.8rem;
-    color: hsl(var(--foreground));
-    font-size: 1.4rem;
-    padding: 0.9rem 1.4rem;
-    line-height: 1.5;
-  }
-
-  .input::placeholder {
-    color: hsl(var(--text-muted));
-  }
-
-  .input:focus {
-    border-color: hsl(var(--primary));
-    background: hsl(var(--surface-1));
-    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.15);
-  }
-
-  .input-search {
-    @apply input;
-    padding-left: 4rem;
-  }
-
-  /* ── Badges / Status Pills ───────────────────────────── */
-  .badge {
-    @apply inline-flex items-center gap-1.5 font-semibold;
-    font-size: 1.1rem;
-    padding: 0.3rem 0.9rem;
-    border-radius: 999px;
-    line-height: 1.4;
-  }
-
-  .badge-blue {
-    @apply badge;
-    background: hsl(217 91% 60% / 0.12);
-    color: hsl(217 91% 70%);
-    border: 1px solid hsl(217 91% 60% / 0.25);
-  }
-
-  .badge-green {
-    @apply badge;
-    background: hsl(142 71% 45% / 0.12);
-    color: hsl(142 71% 55%);
-    border: 1px solid hsl(142 71% 45% / 0.25);
-  }
-
-  .badge-red {
-    @apply badge;
-    background: hsl(0 84% 60% / 0.12);
-    color: hsl(0 84% 70%);
-    border: 1px solid hsl(0 84% 60% / 0.25);
-  }
-
-  .badge-amber {
-    @apply badge;
-    background: hsl(38 92% 50% / 0.12);
-    color: hsl(38 92% 65%);
-    border: 1px solid hsl(38 92% 50% / 0.25);
-  }
-
-  .badge-gray {
-    @apply badge;
-    background: hsl(var(--surface-2));
-    color: hsl(var(--text-secondary));
-    border: 1px solid hsl(var(--border));
-  }
-
-  /* ── Table ───────────────────────────────────────────── */
-  .table-container {
-    background: hsl(var(--surface-1));
-    border: 1px solid hsl(var(--border));
-    border-radius: 1.6rem;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .table-header-cell {
-    color: hsl(var(--text-muted));
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 1.4rem 2rem;
-    white-space: nowrap;
-  }
-
-  .table-row {
-    border-bottom: 1px solid hsl(var(--border-subtle));
-    transition: background 0.15s ease;
-  }
-
-  .table-row:last-child {
-    border-bottom: none;
-  }
-
-  .table-row:hover {
-    background: hsl(var(--surface-2));
-  }
-
-  .table-row.selected {
-    background: hsl(217 91% 60% / 0.06);
-  }
-
-  .table-row.selected:hover {
-    background: hsl(217 91% 60% / 0.09);
-  }
-
-  .table-cell {
-    padding: 1.4rem 2rem;
-    font-size: 1.3rem;
-    color: hsl(var(--foreground));
-    vertical-align: middle;
-  }
-
-  /* ── Section Labels ──────────────────────────────────── */
-  .section-label {
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: hsl(var(--text-muted));
-  }
-
-  /* ── Toggle Switch ───────────────────────────────────── */
-  .toggle-track {
-    @apply relative transition-all duration-300;
-    width: 4.4rem;
-    height: 2.4rem;
-    border-radius: 999px;
-    background: hsl(var(--surface-3));
-    border: 1px solid hsl(var(--border-strong));
-  }
-
-  .toggle-track.active {
-    background: hsl(var(--primary));
-    border-color: hsl(var(--primary));
-  }
-
-  .toggle-thumb {
-    @apply absolute transition-all duration-300;
-    top: 0.3rem;
-    left: 0.3rem;
-    width: 1.6rem;
-    height: 1.6rem;
-    border-radius: 50%;
-    background: hsl(var(--text-muted));
-    box-shadow: var(--shadow-sm);
-  }
-
-  .toggle-track.active .toggle-thumb {
-    left: 2.2rem;
-    background: #fff;
-  }
-
-  /* ── Divider ─────────────────────────────────────────── */
-  .divider {
-    height: 1px;
-    background: hsl(var(--border));
-    margin: 0;
-  }
-
-  /* ── Skeleton Loader ─────────────────────────────────── */
-  .skeleton {
-    background: linear-gradient(90deg,
-        hsl(var(--surface-2)) 25%,
-        hsl(var(--surface-3)) 50%,
-        hsl(var(--surface-2)) 75%);
-    background-size: 200% 100%;
-    animation: skeleton-shimmer 1.5s ease-in-out infinite;
-    border-radius: 0.6rem;
-  }
-
-  @keyframes skeleton-shimmer {
-    0% {
-      background-position: 200% 0;
-    }
-
-    100% {
-      background-position: -200% 0;
-    }
-  }
-
-  /* ── Empty State ─────────────────────────────────────── */
-  .empty-state {
-    @apply flex flex-col items-center justify-center text-center;
-    padding: 6rem 3rem;
-    color: hsl(var(--text-muted));
-  }
-
-  .empty-state-icon {
-    @apply mb-4;
-    width: 5.6rem;
-    height: 5.6rem;
-    opacity: 0.3;
-  }
-
-  .empty-state-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: hsl(var(--text-secondary));
-    margin-bottom: 0.6rem;
-  }
-
-  .empty-state-desc {
-    font-size: 1.3rem;
-    color: hsl(var(--text-muted));
-    max-width: 32rem;
-  }
-
-  /* ── Alert / Callout ─────────────────────────────────── */
-  .callout {
-    @apply flex gap-4;
-    padding: 1.4rem 1.8rem;
-    border-radius: 1.2rem;
-    border: 1px solid;
-    font-size: 1.3rem;
-    line-height: 1.6;
-  }
-
-  .callout-info {
-    @apply callout;
-    background: hsl(199 89% 48% / 0.08);
-    border-color: hsl(199 89% 48% / 0.2);
-    color: hsl(199 89% 65%);
-  }
-
-  .callout-success {
-    @apply callout;
-    background: hsl(142 71% 45% / 0.08);
-    border-color: hsl(142 71% 45% / 0.2);
-    color: hsl(142 71% 55%);
-  }
-
-  .callout-warning {
-    @apply callout;
-    background: hsl(38 92% 50% / 0.08);
-    border-color: hsl(38 92% 50% / 0.2);
-    color: hsl(38 92% 65%);
-  }
-
-  /* ── Option Card (selectable) ────────────────────────── */
-  .option-card {
-    @apply relative flex items-center gap-4 text-left transition-all duration-200 cursor-pointer;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    padding: 1.6rem;
-    background: hsl(var(--surface-1));
-    border: 1.5px solid hsl(var(--border));
-    border-radius: 1.2rem;
-  }
-
-  .option-card:hover {
-    background: hsl(var(--surface-2));
-    border-color: hsl(var(--border-strong));
-  }
-
-  .option-card.selected {
-    background: hsl(217 91% 60% / 0.08);
-    border-color: hsl(var(--primary));
-    box-shadow: var(--shadow-glow-blue);
-  }
-
-  /* ── List Item ───────────────────────────────────────── */
-  .list-item {
-    @apply flex items-center justify-between transition-all duration-150 cursor-pointer;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    padding: 1.2rem 1.6rem;
-    background: hsl(var(--surface-1));
-    border: 1px solid hsl(var(--border));
-    border-radius: 1rem;
-  }
-
-  .list-item:hover {
-    background: hsl(var(--surface-2));
-    border-color: hsl(var(--border-strong));
-  }
-
-  .list-item.selected {
-    background: hsl(217 91% 60% / 0.08);
-    border-color: hsl(var(--primary));
-  }
-
-  /* ── Progress Bar ────────────────────────────────────── */
-  .progress-bar {
-    height: 0.4rem;
-    background: hsl(var(--surface-3));
-    border-radius: 999px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background: hsl(var(--primary));
-    border-radius: 999px;
-    transition: width 0.4s ease;
-  }
-
-  /* ── Sidebar ─────────────────────────────────────── */
   .sidebar-item {
-    @apply flex items-center rounded-xl transition-all duration-200 cursor-pointer;
-    color: hsl(var(--text-secondary));
-    padding: 1rem 1.2rem;
-    position: relative;
-    text-decoration: none;
-    border: 1px solid transparent;
-  }
-
-  .sidebar-item:hover {
-    background: hsl(var(--surface-2));
-    color: hsl(var(--foreground));
-    border-color: hsl(var(--border));
+    @apply flex items-center rounded-xl transition-all duration-200 cursor-pointer px-[1.2rem] py-[1rem] text-text-secondary border border-transparent hover:bg-surface-2 hover:text-foreground active:bg-primary active:bg-opacity-10 active:text-primary;
   }
 
   .sidebar-item.active {
-    background: hsl(217 91% 60% / 0.10);
-    color: hsl(var(--primary));
-    font-weight: 500;
-    border-color: hsl(var(--primary) / 0.2);
+    @apply bg-primary bg-opacity-10 text-primary font-medium border-primary border-opacity-20;
   }
 
-  /* Legacy compatibility classes */
+  /* ── 3. NHẬP LIỆU & HIỂN THỊ (Forms & Data) ────────── */
+  /* Ô nhập liệu input chuẩn design system */
+  .input {
+    @apply w-full font-normal transition-all duration-200 outline-none bg-surface-2 border border-border rounded-[0.8rem] text-foreground text-[1.4rem] p-[0.9rem_1.4rem] focus:border-primary focus:bg-surface-1 focus:ring-4;
+  }
+
+  .input:focus {
+    box-shadow: 0 0 0 4px hsl(var(--primary) / 0.15);
+  }
+
   .ds-input {
     @apply input;
   }
 
-  .custom-scrollbar {}
+  /* Nhãn dán nhỏ (Trạng thái, Category...) */
+  .badge {
+    @apply inline-flex items-center gap-1.5 font-semibold text-[1.1rem] px-[0.9rem] py-[0.3rem] rounded-full;
+    border: 1px solid transparent;
+  }
 
-  .glass-card {
-    @apply card-elevated;
+  .badge-blue {
+    @apply badge;
+    background-color: hsl(var(--primary) / 0.12);
+    color: hsl(var(--primary) / 0.7);
+    border-color: hsl(var(--primary) / 0.25);
+  }
+
+  .badge-green {
+    @apply badge;
+    background-color: hsl(var(--success) / 0.12);
+    color: hsl(var(--success) / 0.7);
+    border-color: hsl(var(--success) / 0.25);
+  }
+
+  .badge-red {
+    @apply badge;
+    background-color: hsl(var(--error) / 0.12);
+    color: hsl(var(--error) / 0.7);
+    border-color: hsl(var(--error) / 0.25);
+  }
+
+  .badge-amber {
+    @apply badge;
+    background-color: hsl(var(--warning) / 0.12);
+    color: hsl(var(--warning) / 0.7);
+    border-color: hsl(var(--warning) / 0.25);
+  }
+
+  .badge-gray {
+    @apply badge bg-surface-2 text-text-secondary border-border;
+  }
+
+  /* ── 4. BẢNG DỮ LIỆU (Tables) ──────────────────────── */
+  /* Container bo góc cho bảng */
+  .table-container {
+    @apply bg-surface-1 border border-border rounded-[1.6rem] overflow-hidden shadow-sm;
+  }
+
+  .table-header-cell {
+    @apply text-text-muted text-[1.1rem] font-bold uppercase tracking-widest p-[1.4rem_2rem] whitespace-nowrap;
+  }
+
+  .table-row {
+    @apply border-b border-border-subtle transition-colors hover:bg-surface-2 last:border-0;
+  }
+
+  .table-cell {
+    @apply p-[1.4rem_2rem] text-[1.3rem] text-foreground align-middle;
+  }
+
+  /* ── 5. PHẢN HỒI & THÔNG BÁO (Callouts) ─────────────── */
+  /* Khối thông báo cơ bản */
+  .callout {
+    @apply flex gap-4 rounded-[1.2rem] border p-[1.4rem_1.8rem] text-[1.3rem] leading-relaxed;
+  }
+
+  .callout-info {
+    @apply flex gap-4 rounded-[1.2rem] border p-[1.4rem_1.8rem] text-[1.3rem] leading-relaxed;
+    background-color: hsl(var(--info) / 0.08);
+    border-color: hsl(var(--info) / 0.2);
+    color: hsl(var(--info) / 0.65);
+  }
+
+  .callout-success {
+    @apply flex gap-4 rounded-[1.2rem] border p-[1.4rem_1.8rem] text-[1.3rem] leading-relaxed;
+    background-color: hsl(var(--success) / 0.08);
+    border-color: hsl(var(--success) / 0.2);
+    color: hsl(var(--success) / 0.55);
+  }
+
+  .callout-warning {
+    @apply flex gap-4 rounded-[1.2rem] border p-[1.4rem_1.8rem] text-[1.3rem] leading-relaxed;
+    background-color: hsl(var(--warning) / 0.08);
+    border-color: hsl(var(--warning) / 0.2);
+    color: hsl(var(--warning) / 0.65);
+  }
+
+  /* Hiệu ứng loading giả (Skeleton) */
+  .skeleton {
+    @apply rounded-[0.6rem] bg-surface-2 animate-pulse;
+    height: 1rem;
   }
 }
 
 /* ============================================================
-   UTILITY CLASSES
+   UTILITY CLASSES: Atomic Helpers & Special Effects
    ============================================================ */
-
 @layer utilities {
-
-  /* Text utilities */
-  .text-primary {
-    color: hsl(var(--primary));
+  .ds-font-title {
+    font-size: 3.2rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
   }
 
-  .text-secondary {
-    color: hsl(var(--text-secondary));
+  .ds-font-subtitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
   }
 
-  .text-muted {
-    color: hsl(var(--text-muted));
+  .ds-font-label {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
   }
 
-  .text-success {
-    color: hsl(var(--success));
+  .ds-font-button {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
   }
 
-  .text-warning {
-    color: hsl(var(--warning));
+  .text-tiny {
+    font-size: 1.0rem;
+    line-height: normal;
   }
 
-  .text-error {
-    color: hsl(var(--error));
-  }
-
-  /* Background utilities */
-  .bg-surface-1 {
-    background: hsl(var(--surface-1));
-  }
-
-  .bg-surface-2 {
-    background: hsl(var(--surface-2));
-  }
-
-  .bg-surface-3 {
-    background: hsl(var(--surface-3));
-  }
-
-  /* Border utilities (Modern override system) */
-  .ds-border {
-    border-width: 1px !important;
-    border-style: solid !important;
-  }
-
-  .ds-border-2 {
-    border-width: 2px !important;
-    border-style: solid !important;
-  }
-
-  .ds-border-primary {
-    border-color: hsl(var(--primary)) !important;
-  }
-
-  .ds-border-normal {
-    border-color: hsl(var(--border)) !important;
-  }
-
-  .ds-border-success {
-    border-color: hsl(var(--success)) !important;
-  }
-
-  .ds-border-error {
-    border-color: hsl(var(--error)) !important;
-  }
-
-  .ds-border-warning {
-    border-color: hsl(var(--warning)) !important;
-  }
-
-  /* Glow effects */
-  .glow-blue {
-    box-shadow: var(--shadow-glow-blue);
-  }
-
-  .glow-green {
-    box-shadow: var(--shadow-glow-green);
-  }
-
-  .glow-red {
-    box-shadow: var(--shadow-glow-red);
-  }
-
-  /* Aura effect on focus-within */
   .focus-ring:focus-within {
     box-shadow: 0 0 0 3px hsl(var(--primary) / 0.2);
   }
 
-  /* Legacy utilities */
-  .ds-bg-primary {
-    background-color: hsl(var(--primary));
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
-  .ds-bg-error {
-    background-color: hsl(var(--error));
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 
-  .ds-bg-success {
-    background-color: hsl(var(--success));
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
   }
 
-  .ds-primary-color {
-    color: hsl(var(--primary));
+  /* ── 6. Auth Page Special Effects ─────────────────────── */
+  .auth-mesh-gradient {
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(at 0% 0%, hsla(var(--primary) / 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(var(--primary) / 0.1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(var(--primary) / 0.05) 0px, transparent 50%);
   }
 
-  .ds-success-color {
-    color: hsl(var(--success));
+  .auth-grid-overlay {
+    background-image: linear-gradient(to right, hsla(var(--primary) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsla(var(--primary) / 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
   }
 }

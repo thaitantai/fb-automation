@@ -14,23 +14,19 @@ interface CampaignStatusBadgeProps {
 
 const getStatusStyles = (status: CampaignStatus) => {
     switch (status) {
-        case "PROCESSING": 
-            return "bg-blue-500/10 text-blue-400 border-blue-500/20 shadow-[0_0_10px_rgba(59,130,246,0.2)]";
-        case "COMPLETED": 
-            return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-        case "PAUSED": 
-            return "bg-amber-500/10 text-amber-400 border-amber-500/20";
-        case "SCHEDULED": 
-            return "bg-violet-500/10 text-violet-400 border-violet-500/20";
-        default: 
-            return "bg-zinc-500/10 text-zinc-500 border-zinc-500/10";
+        case "PROCESSING": return "badge-blue animate-pulse";
+        case "COMPLETED":  return "badge-green";
+        case "PAUSED":     return "badge-amber";
+        case "SCHEDULED":  return "badge-purple";
+        case "DRAFT":      return "badge-zinc";
+        default:           return "badge-zinc";
     }
 };
 
 export function CampaignStatusBadge({ status, className }: CampaignStatusBadgeProps) {
     return (
         <span className={cn(
-            "px-3 py-1 rounded-full text-[9px] font-black flex items-center gap-1.5 uppercase tracking-tighter border",
+            "inline-flex items-center gap-1.5",
             getStatusStyles(status),
             className
         )}>
