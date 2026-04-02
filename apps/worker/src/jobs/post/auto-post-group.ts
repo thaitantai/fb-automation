@@ -1,122 +1,75 @@
 import { Job } from 'bullmq';
-import { Page } from 'playwright';
+import { Page, BrowserContext, Browser } from 'playwright';
 import path from 'path';
 import fs from 'fs';
-import { prisma } from '@fb-automation/database';
-import { browserDriver } from '../../drivers/browser';
-import { applyFullProtection } from '@fb-automation/utils';
 import { JobDefinition } from '../types';
 import { verifyLoginStatus } from '../../utils/fb-auth';
 import { FB_SELECTORS } from '@fb-automation/constants';
 import { captureErrorScreenshot } from '../../utils/screenshot';
+import { 
+    AutomationParams, 
+    prepareData, 
+    processAutomationContent, 
+    setupBrowser, 
+    logActivityResult, 
+    checkCampaignCompletion,
+    simulateHumanTyping
+} from '../../utils/automation';
 
 /**
- * Lớp điều khiển luồng đăng bài tự động (Clean Architecture - MASTER FIXED)
+ * Lớp điều khiển luồng ĐĂNG BÀI nhóm tự động (Master Logic - Clean Utils)
  */
 class GroupPostExecutor {
     private page!: Page;
+    private context!: BrowserContext;
+    private browser!: Browser;
     private jobId: string;
     private localMediaPaths: string[] = [];
+    private jobDir: string;
 
     constructor(jobId: string) {
         this.jobId = jobId;
+        this.jobDir = path.join(process.cwd(), 'tmp', 'jobs', jobId);
     }
 
-    async prepare(accountId: string, templateId: string, groupDbId: string, campaignId: string) {
-        const [account, template, group, campaign] = await Promise.all([
-            prisma.fbAccount.findUnique({ where: { id: accountId } }),
-            prisma.postTemplate.findUnique({ where: { id: templateId } }),
-            prisma.fbGroup.findUnique({ where: { id: groupDbId } }),
-            prisma.campaign.findUnique({ where: { id: campaignId } })
-        ]);
-
-        if (!account) throw new Error('Không tìm thấy tài khoản Facebook.');
-        if (!template) throw new Error('Mẫu bài đăng không tồn tại.');
-        if (!group) throw new Error('Không tìm thấy thông tin nhóm.');
-        if (!campaign) throw new Error('Không tìm thấy chiến dịch.');
-
-        if (account.status !== 'ACTIVE') throw new Error(`[EarlyStop] Tài khoản đang ở trạng thái [${account.status}].`);
-
-        return { account, template, group, campaign };
+    private async reportProgress(params: AutomationParams, step: number, message: string) {
+        return logActivityResult(params, 'ACTIVITY', `[STEP:${step}/6] ${message}`);
     }
 
-    async applyContentProtection(content: string, protectionConfig: any) {
-        return applyFullProtection(content, protectionConfig, process.env.GEMINI_API_KEY);
-    }
+    async performAutomation(group: any, protectedContent: string, params: AutomationParams) {
+        // Bước 1: Điều hướng
+        await this.reportProgress(params, 1, '🚀 Đang truy cập nhóm mục tiêu...');
+        await this.page.goto(`https://facebook.com/groups/${group.groupId}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+        await this.page.evaluate(() => window.scrollBy(0, 400));
+        await this.page.waitForTimeout(2000);
 
-    /**
-     * TỐI ƯU MASTER: Chụp ảnh về đĩa (Không cần Browser)
-     */
-    async downloadMedia(mediaLinks: any) {
-        if (!mediaLinks) return [];
-        let urls = Array.isArray(mediaLinks) ? mediaLinks : JSON.parse(mediaLinks as string);
-        if (urls.length === 0) return [];
+        if (!await verifyLoginStatus(this.page, params.accountId, this.jobId, true)) {
+            throw new Error('[SmartError] Cookies hết hạn hoặc checkpoint.');
+        }
 
-        const tmpDir = path.join(process.cwd(), 'tmp', 'media');
-        if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
-
-        const paths: string[] = [];
-        await Promise.all(urls.map(async (url: string, i: number) => {
-            try {
-                const response = await fetch(url);
-                const buffer = await response.arrayBuffer();
-                const fileName = `job_${this.jobId}_img_${i}_${Date.now()}${path.extname(url) || '.jpg'}`;
-                const filePath = path.join(tmpDir, fileName);
-                fs.writeFileSync(filePath, Buffer.from(buffer));
-                paths.push(filePath);
-            } catch (err) { }
-        }));
-        this.localMediaPaths = paths;
-        return paths;
-    }
-
-    async setupBrowserContext(context: any) {
-        await context.route('**/*', (route: any, request: any) => {
-            const type = request.resourceType();
-            const url = request.url();
-            if (['font', 'other'].includes(type) ||
-                url.includes('google-analytics') ||
-                url.includes('facebook.com/tr/') ||
-                url.includes('connect.facebook.net')) {
-                return route.abort();
-            }
-            return route.continue();
-        });
-    }
-
-    async navigateToGroup(url: string, waitTime: number = 2000) {
-        console.log(`[Job:${this.jobId}] 🚀 Đang vào nhóm: ${url}`);
-        await this.page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-        const scrollDist = Math.floor(Math.random() * 500) + 300;
-        await this.page.evaluate((dist) => window.scrollBy(0, dist), scrollDist);
-        await this.page.waitForTimeout(waitTime + Math.random() * 2000);
-    }
-
-    async openPostComposer() {
-        const triggers = FB_SELECTORS.POST.COMPOSER_TRIGGERS;
+        // Bước 2: Mở trình soạn thảo
+        await this.reportProgress(params, 2, '📂 Đang mở trình soạn thảo...');
         if (await this.page.locator(FB_SELECTORS.STATUS.NOT_JOINED).isVisible({ timeout: 5000 })) {
             throw new Error('[SmartError] CHƯA THAM GIA nhóm.');
         }
-        for (const sel of triggers) {
+        
+        let opened = false;
+        for (const sel of FB_SELECTORS.POST.COMPOSER_TRIGGERS) {
             if (await this.page.locator(sel).isVisible({ timeout: 3000 })) {
                 await this.page.click(sel);
-                return true;
+                opened = true;
+                break;
             }
         }
-        return false;
-    }
+        if (!opened) throw new Error('[SmartError] Không tìm thấy ô soạn bài.');
+        await this.page.waitForTimeout(2000);
 
-    /**
-     * Chỉ thực hiện nạp file vào UI trình duyệt
-     */
-    async uploadMediaToBrowser() {
-        if (this.localMediaPaths.length === 0) return;
-
-        try {
-            console.log(`[Job:${this.jobId}] 🖼️ Đang nạp media vào trình duyệt...`);
-            const fileInputSelector = FB_SELECTORS.POST.FILE_INPUT;
-            if (await this.page.locator(fileInputSelector).count() > 0) {
-                await this.page.setInputFiles(fileInputSelector, this.localMediaPaths);
+        // Bước 3: Nạp Media
+        if (this.localMediaPaths.length > 0) {
+            await this.reportProgress(params, 3, '🖼️ Đang nạp media vào trình duyệt...');
+            const fileInput = this.page.locator(FB_SELECTORS.POST.FILE_INPUT);
+            if (await fileInput.count() > 0) {
+                await fileInput.setInputFiles(this.localMediaPaths);
             } else {
                 const [fileChooser] = await Promise.all([
                     this.page.waitForEvent('filechooser', { timeout: 10000 }),
@@ -124,141 +77,76 @@ class GroupPostExecutor {
                 ]);
                 await fileChooser.setFiles(this.localMediaPaths);
             }
-            await this.page.waitForSelector(FB_SELECTORS.POST.UPLOAD_COMPLETE_INDICATOR, { timeout: 10000 }).catch(() => { });
-        } catch (error: any) {
-            console.warn(`[Job:${this.jobId}] ⚠️ Lỗi nạp ảnh: ${error.message}`);
+            await this.page.waitForSelector(FB_SELECTORS.POST.UPLOAD_COMPLETE_INDICATOR, { timeout: 15000 }).catch(() => { });
+            await this.page.waitForTimeout(1500);
         }
-    }
 
-    async typeMessage(content: string) {
-        const textBoxSelector = FB_SELECTORS.POST.TEXTBOX;
-        await this.page.waitForSelector(textBoxSelector, { timeout: 15000 });
-        const messageBox = this.page.locator(textBoxSelector).first();
-        await messageBox.click({ force: true });
-        console.log(`[Job:${this.jobId}] ⌨️ Đang soạn bài...`);
-        await this.page.keyboard.type(content, { delay: Math.floor(Math.random() * 80) + 40 });
-        await this.page.waitForTimeout(2000);
-    }
+        // Bước 4: Soạn văn bản
+        await this.reportProgress(params, 4, '⌨️ Đang soạn nội dung bài viết...');
+        const textBox = this.page.locator(FB_SELECTORS.POST.TEXTBOX).first();
+        await textBox.waitFor({ timeout: 15000 });
+        await simulateHumanTyping(this.page, textBox, protectedContent);
 
-    async submitPost() {
-        const postButtonSelectors = FB_SELECTORS.POST.SUBMIT_BUTTONS;
-        for (const sel of postButtonSelectors) {
-            try {
-                const btn = this.page.locator(sel);
-                if (await btn.isVisible() && await btn.isEnabled()) {
-                    await btn.click({ force: true });
-                    return true;
-                }
-            } catch (e) { }
+        // Bước 5: Đăng bài
+        await this.reportProgress(params, 5, '📤 Đang gửi bài viết...');
+        let submitted = false;
+        for (const sel of FB_SELECTORS.POST.SUBMIT_BUTTONS) {
+            const btn = this.page.locator(sel);
+            if (await btn.isVisible() && await btn.isEnabled()) {
+                await btn.click({ force: true });
+                submitted = true;
+                break;
+            }
         }
-        return false;
+        if (!submitted) throw new Error('[SmartError] Nút đăng bị lỗi.');
+        await this.page.waitForTimeout(4000);
+
+        // Bước 6: Phân tích kết quả
+        await this.reportProgress(params, 6, '🔍 Đang kiểm tra trạng thái bài đăng...');
+        const result = await this.analyzeResult();
+        if (result.status === 'ERROR') throw new Error(result.message);
+
+        await logActivityResult(params, 'SUCCESS', result.message, result.actionType);
     }
 
-    async analyzeExecutionStatus() {
-        await this.page.waitForTimeout(3000);
+    private async analyzeResult() {
         if (await this.page.locator(FB_SELECTORS.STATUS.BLOCKED).isVisible({ timeout: 2000 })) {
-            return { status: 'ERROR', message: 'Tài khoản bị CHẶN đăng bài.' };
+            return { status: 'ERROR', actionType: 'AUTO_POST_ERROR', message: 'Tài khoản bị chặn đăng bài.' };
         }
         if (await this.page.locator(FB_SELECTORS.STATUS.PENDING_APPROVAL).isVisible({ timeout: 2000 })) {
-            return { status: 'SUCCESS', message: 'Đăng thành công (Chờ duyệt).' };
+            return { status: 'SUCCESS', actionType: 'AUTO_POST_PENDING', message: 'Bài viết đang chờ Admin duyệt.' };
         }
-        return null;
-    }
-
-    async logResult(campaignId: string, accountId: string, status: 'SUCCESS' | 'ERROR', message: string, batchId?: string, screenshotUrl?: string, targetId?: string) {
-        await prisma.jobLog.create({
-            data: {
-                campaignId, fbAccountId: accountId, batchId: batchId || null,
-                targetId: targetId || null,
-                actionType: status === 'SUCCESS' ? 'AUTO_POST' : 'AUTO_POST_ERROR',
-                message, screenshotUrl, executedAt: new Date()
-            } as any
-        });
-    }
-
-    async checkCompletion(campaignId: string, currentBatchId: string) {
-        const campaign = await prisma.campaign.findUnique({
-            where: { id: campaignId },
-            include: { fbAccounts: { select: { id: true } } }
-        });
-        if (!campaign) return;
-        const targetGroupIds = (campaign.targetConfigs as any)?.groupIds || [];
-        const totalTargets = campaign.fbAccounts.length * targetGroupIds.length;
-        const currentBatchLogs = await prisma.jobLog.findMany({ where: { campaignId, batchId: currentBatchId } });
-        if (currentBatchLogs.length >= totalTargets) {
-            const hasSuccess = currentBatchLogs.some(log => log.actionType === 'AUTO_POST');
-            await prisma.campaign.update({ where: { id: campaignId }, data: { status: hasSuccess ? 'COMPLETED' : 'FAILED' } as any });
-        }
+        return { status: 'SUCCESS', actionType: 'AUTO_POST', message: 'Đăng thành công.' };
     }
 
     async execute(job: Job) {
-        const { campaignId, accountId, groupId, templateId, batchId } = job.data;
-        let browser: any = null;
-        let errorScreenPath: string | undefined;
-
+        const params: AutomationParams = job.data;
         try {
-            console.log(`[Job:${this.jobId}] 🔥 Khởi động cổ máy Master Optimized...`);
+            const { account, template, group, campaign } = await prepareData(params);
+            const { protectedContent, mediaPaths } = await processAutomationContent(template, (campaign as any).protectionConfig, this.jobDir, this.jobId);
+            this.localMediaPaths = mediaPaths;
 
-            const [data, launchResult] = await Promise.all([
-                this.prepare(accountId, templateId, groupId, campaignId),
-                browserDriver.launch({ headless: false, desktop: true })
-            ]);
+            const setup = await setupBrowser(account);
+            this.browser = setup.browser;
+            this.context = setup.context;
+            this.page = setup.page;
 
-            const { account, template, group, campaign } = data;
-            const protection = (campaign as any).protectionConfig || {};
-
-            // EAGER LOADING: Tải ảnh và Gọi AI TRƯỚC KHI mở trang web
-            const [protectedContent, _paths] = await Promise.all([
-                this.applyContentProtection(template.contentSpintax, protection),
-                this.downloadMedia(template.mediaUrls)
-            ]);
-
-            browser = launchResult.browser;
-            const context = launchResult.context;
-            await this.setupBrowserContext(context);
-            this.page = await context.newPage();
-            await context.addCookies(JSON.parse(account.sessionData!));
-
-            // NAVIGATION
-            await this.navigateToGroup(`https://facebook.com/groups/${group.groupId}`);
-
-            if (!await verifyLoginStatus(this.page, accountId, this.jobId, true)) {
-                throw new Error('[SmartError] Cookies hết hạn hoặc checkpoint.');
-            }
-
-            if (!await this.openPostComposer()) throw new Error('[SmartError] Không mở được ô soạn bài.');
-
-            // Thực thi tuần tự trên Browser
-            await this.uploadMediaToBrowser();
-            await this.typeMessage(protectedContent);
-
-            if (!await this.submitPost()) throw new Error('[SmartError] Nút đăng bị lỗi.');
-
-            const smartStatus = await this.analyzeExecutionStatus();
-            if (smartStatus?.status === 'ERROR') throw new Error(smartStatus.message);
-
-            await this.logResult(campaignId, accountId, 'SUCCESS', smartStatus?.message || `Đăng thành công lên: ${group?.name || groupId}`, batchId, undefined, groupId);
-            await this.page.waitForTimeout(3000);
+            await this.performAutomation(group, protectedContent, params);
 
         } catch (error: any) {
             console.error(`[Job:${this.jobId}] 🔴 Lỗi: ${error.message}`);
-            errorScreenPath = await captureErrorScreenshot(this.page, this.jobId);
-            await this.logResult(campaignId, accountId, 'ERROR', `Lỗi: ${error.message}`, batchId, errorScreenPath, groupId);
+            const errorScr = await captureErrorScreenshot(this.page, this.jobId);
+            await logActivityResult(params, 'ERROR', `Thất bại: ${error.message}`, 'AUTO_POST_ERROR');
             throw error;
         } finally {
-            if (browser) await browser.close();
-            for (const p of this.localMediaPaths) { try { if (fs.existsSync(p)) fs.unlinkSync(p); } catch (e) { } }
-            if (batchId) await this.checkCompletion(campaignId, batchId);
+            if (this.browser) await this.browser.close().catch(() => {});
+            if (fs.existsSync(this.jobDir)) fs.rmSync(this.jobDir, { recursive: true, force: true });
+            if (params.batchId) await checkCampaignCompletion(params.campaignId, params.batchId, 'AUTO_POST');
         }
     }
 }
 
-const handler = async (job: Job) => {
-    const executor = new GroupPostExecutor(job.id!);
-    return executor.execute(job);
-};
-
 export const autoPostGroupJob: JobDefinition = {
-    handler,
-    onFinalFailed: async (job: Job) => console.error(`Job ${job.id} failed.`)
+    handler: async (job: Job) => new GroupPostExecutor(job.id!).execute(job),
+    onFinalFailed: async (job: Job) => console.error(`Job ${job.id} post final failure.`)
 };

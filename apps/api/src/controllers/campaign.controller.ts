@@ -1,42 +1,19 @@
 import { Request, Response } from 'express';
+import { campaignService } from '../services/campaign.service';
 import { prisma } from '@fb-automation/database';
-import { addAutomationJob } from '../queue';
-import { applyFullProtection } from '@fb-automation/utils';
 
+/**
+ * Controller xử lý chiến dịch (Senior Thin Controller - MASTER REFACTORED)
+ */
 export class CampaignController {
+  
   /**
-   * Lấy danh sách chiến dịch của User
+   * Lấy danh sách chiến dịch kèm theo thông tin chi tiết
    */
   async getAll(req: Request, res: Response) {
     try {
       const userId = (req as any).user.id;
-      const campaigns = await prisma.campaign.findMany({
-        where: { userId },
-        include: {
-          template: { select: { name: true } },
-          fbAccounts: { select: { id: true, username: true } }
-        },
-        orderBy: { scheduledAt: 'desc' }
-      });
-
-      // Bóc tách tất cả groupIds duy nhất để query 1 lần (Tối ưu hiệu năng)
-      const allGroupIds = Array.from(new Set(
-        campaigns.flatMap(c => (c.targetConfigs as any)?.groupIds || [])
-      ));
-
-      const allGroups = await prisma.fbGroup.findMany({
-        where: { id: { in: allGroupIds as string[] } },
-        select: { id: true, name: true, groupId: true }
-      });
-
-      // Map nhóm vào từng chiến dịch tương ứng
-      const data = campaigns.map(campaign => {
-        const campaignGroups = allGroups.filter(g => 
-          ((campaign.targetConfigs as any)?.groupIds || []).includes(g.id)
-        );
-        return { ...campaign, groups: campaignGroups };
-      });
-
+      const data = await campaignService.getAllCampaigns(userId);
       return res.json({ data });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
@@ -44,33 +21,12 @@ export class CampaignController {
   }
 
   /**
-   * Tạo một Chiến dịch (Campaign) mới
+   * Tạo chiến dịch mới
    */
   async create(req: Request, res: Response) {
     try {
       const userId = (req as any).user.id;
-      const { name, type, targetConfigs, templateId, delayConfig, protectionConfig, fbAccountIds } = req.body;
-
-      if (!name || !targetConfigs || !fbAccountIds) {
-        return res.status(400).json({ message: 'Thiếu thông tin chiến dịch.' });
-      }
-
-      // Tạo Campaign và kết nối với các FbAccount
-      const campaign = await prisma.campaign.create({
-        data: {
-          name,
-          type,
-          targetConfigs,
-          delayConfig: delayConfig || { min: 3, max: 10 },
-          protectionConfig: protectionConfig || { autoEmoji: true, autoHash: true, shuffleMedia: false },
-          userId,
-          templateId,
-          fbAccounts: {
-            connect: fbAccountIds.map((id: string) => ({ id }))
-          }
-        }
-      });
-
+      const campaign = await campaignService.createCampaign(userId, req.body);
       return res.status(201).json({ data: campaign });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
@@ -78,118 +34,39 @@ export class CampaignController {
   }
 
   /**
-   * Cập nhật trạng thái chiến dịch (Vd: Hoạt động/Tạm dừng)
+   * Cập nhật trạng thái và Điều phối Job
    */
   async updateStatus(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { status } = req.body; // DRAFT, SCHEDULED, PROCESSING, COMPLETED, PAUSED
-      const userId = (req as any).user.id;
+      const { status } = req.body;
 
-      const campaignQuery = await prisma.campaign.findUnique({
-        where: { id },
-        include: { fbAccounts: { select: { id: true } } }
-      });
-
-      if (!campaignQuery) return res.status(404).json({ message: 'Không tìm thấy chiến dịch.' });
-
-      // Cập nhật trạng thái trong DB
-      await prisma.campaign.update({
-        where: { id },
-        data: { status }
-      });
-
-      // Nếu chuyển sang PROCESSING -> Bắt đầu đẩy Jobs vào Queue
       if (status === 'PROCESSING') {
-        const { fbAccounts, targetConfigs, delayConfig, templateId } = campaignQuery as any;
-        const groupIds = targetConfigs?.groupIds || [];
-
-        // Tạo Batch ID duy nhất cho lượt chạy này
-        const batchId = `RUN-${new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14)}`;
-
-        // Cập nhật lastBatchId vào Campaign
-        await prisma.campaign.update({
-          where: { id },
-          data: { lastBatchId: batchId }
-        });
-
-        let totalStaggerDelay = 0;
-        // Giao diện người dùng setup theo PHÚT, fallback 3-10p cho an toàn
-        const minDelay = delayConfig?.min || 3;
-        const maxDelay = delayConfig?.max || 10;
-
-        console.log(`[API] 🛰️ Đang xếp hàng ${fbAccounts.length * groupIds.length} lệnh. Delay: ${minDelay}-${maxDelay} phút`);
-
-        for (const account of fbAccounts) {
-          for (const groupId of groupIds) {
-            // Tăng dần delay theo PHÚT
-            const randomDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
-
-            totalStaggerDelay += randomDelay;
-
-            const jobName = campaignQuery.type === 'AUTO_POST' ? 'AUTO_POST_GROUP' : 'AUTO_COMMENT_GROUP';
-
-            await addAutomationJob(jobName, {
-              campaignId: id,
-              accountId: account.id,
-              groupId,
-              templateId,
-              batchId
-            }, {
-              // PHÚT * 60 giây * 1000 ms
-              delay: totalStaggerDelay * 60 * 1000
-            });
-
-            console.log(`[API] ➕ Đã lên lịch sau ${totalStaggerDelay} phút (Account: ${account.id})`);
-          }
-        }
-
+        const finalCampaign = await campaignService.startCampaign(id);
+        return res.json({ message: 'Đã lên lịch thực thi chiến dịch.', data: finalCampaign });
       }
 
-      return res.json({ message: `Đã cập nhật trạng thái chiến dịch thành ${status} và xếp hàng lệnh.` });
+      const updated = await prisma.campaign.update({
+        where: { id },
+        data: { status },
+        include: { fbAccounts: true, template: true }
+      });
+
+      return res.json({ message: `Đã cập nhật trạng thái thành ${status}.`, data: updated });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
     }
   }
 
   /**
-   * Lấy lịch sử Logs của một chiến dịch
+   * Lấy lịch sử Logs (Filtered by latest batch)
    */
   async getLogs(req: Request, res: Response) {
     try {
       const { id } = req.params;
       const userId = (req as any).user.id;
-
-      // Đảm bảo campaign thuộc về user này
-      const campaign = await prisma.campaign.findFirst({
-        where: { id, userId }
-      });
-
-      if (!campaign) {
-        return res.status(404).json({ message: 'Không tìm thấy chiến dịch.' });
-      }
-
-      const logs = await prisma.jobLog.findMany({
-        where: { campaignId: id },
-        include: {
-          fbAccount: { select: { username: true } }
-        },
-        orderBy: { executedAt: 'desc' }
-      });
-
-      // Fetch target Groups names based on campaign config
-      const groupIds = (campaign.targetConfigs as any)?.groupIds || [];
-      const groups = await prisma.fbGroup.findMany({
-        where: { id: { in: groupIds } },
-        select: { id: true, name: true, groupId: true }
-      });
-
-      return res.json({
-        data: {
-          logs,
-          groups
-        }
-      });
+      const data = await campaignService.getCampaignLogs(id, userId);
+      return res.json({ data });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
     }
@@ -202,38 +79,8 @@ export class CampaignController {
     try {
       const { id } = req.params;
       const userId = (req as any).user.id;
-      const { name, type, templateId, targetConfigs, delayConfig, protectionConfig, fbAccountIds } = req.body;
-
-      // Đảm bảo campaign thuộc về user
-      const campaign = await prisma.campaign.findFirst({
-        where: { id, userId }
-      });
-
-      if (!campaign) {
-        return res.status(404).json({ message: 'Không tìm thấy chiến dịch.' });
-      }
-
-      const updatedCampaign = await prisma.campaign.update({
-        where: { id },
-        data: {
-          name,
-          type,
-          templateId,
-          targetConfigs,
-          delayConfig,
-          protectionConfig,
-          // Cập nhật quan hệ 1-Nhiều hoặc Nhiều-Nhiều
-          fbAccounts: fbAccountIds ? {
-            set: fbAccountIds.map((id: string) => ({ id }))
-          } : undefined
-        },
-        include: { fbAccounts: true, template: true }
-      });
-
-      return res.json({
-        message: 'Cập nhật chiến dịch thành công.',
-        data: updatedCampaign
-      });
+      const updated = await campaignService.updateCampaign(id, userId, req.body);
+      return res.json({ message: 'Cập nhật thành công.', data: updated });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
     }
@@ -246,35 +93,22 @@ export class CampaignController {
     try {
       const { id } = req.params;
       const userId = (req as any).user.id;
-
-      const result = await prisma.campaign.deleteMany({
-        where: { id, userId }
-      });
-
-      if (result.count === 0) {
-        return res.status(404).json({ message: 'Không tìm thấy chiến dịch.' });
-      }
-
+      await campaignService.deleteCampaign(id, userId);
       return res.json({ message: 'Đã xóa chiến dịch thành công.' });
     } catch (error: any) {
-      return res.status(500).json({ message: error.message });
+      return res.status(error.message === 'Chiến dịch không tồn tại.' ? 404 : 500)
+                .json({ message: error.message });
     }
   }
 
   /**
-   * Test thực tế luồng bảo vệ (Preview nội dung)
+   * Test Protection Logic
    */
   async testProtection(req: Request, res: Response) {
     try {
       const { content, protectionConfig } = req.body;
-
-      const transformed = await applyFullProtection(
-        content,
-        protectionConfig,
-        process.env.GEMINI_API_KEY
-      );
-
-      return res.json({ data: transformed });
+      const data = await campaignService.testProtection(content, protectionConfig);
+      return res.json({ data });
     } catch (error: any) {
       return res.status(500).json({ message: error.message });
     }

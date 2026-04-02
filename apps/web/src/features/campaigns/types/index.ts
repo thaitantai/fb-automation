@@ -21,6 +21,7 @@ export interface Campaign {
         aiPrompt?: string;
     };
     status: CampaignStatus;
+    lastBatchId?: string;
     scheduledAt?: string;
     createdAt?: string;
     template?: {

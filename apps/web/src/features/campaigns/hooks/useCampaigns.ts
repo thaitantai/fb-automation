@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "@/lib/axios";
 import { Campaign, CreateCampaignInput, CampaignStatus } from "../types";
+import { log } from "console";
 
 export const useCampaigns = () => {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -26,8 +27,8 @@ export const useCampaigns = () => {
     const fetchLogs = useCallback(async (id: string) => {
         try {
             const response = await axios.get(`/campaigns/${id}/logs`);
-            const payload = response.data?.data || {};
-            
+            const payload = response?.data || {};
+
             if (payload.logs && payload.groups) {
                 setLogs(payload.logs);
                 setTargetGroups(payload.groups);
@@ -55,8 +56,13 @@ export const useCampaigns = () => {
 
     const updateCampaignStatus = async (id: string, status: CampaignStatus) => {
         try {
-            await axios.patch(`/campaigns/${id}/status`, { status });
-            setCampaigns(prev => prev.map(c => c.id === id ? { ...c, status } : c));
+            const response = await axios.patch(`/campaigns/${id}/status`, { status });
+            const updated = response.data?.data || response.data;
+            if (updated && typeof updated === 'object' && updated.id) {
+                setCampaigns(prev => prev.map(c => c.id === id ? { ...c, ...updated } : c));
+            } else {
+                setCampaigns(prev => prev.map(c => c.id === id ? { ...c, status } : c));
+            }
             return { success: true };
         } catch (err: any) {
             return { success: false, error: err.response?.data?.message || "Lỗi khi cập nhật trạng thái." };

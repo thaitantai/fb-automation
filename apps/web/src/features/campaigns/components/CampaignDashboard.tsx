@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useCampaigns } from "../hooks/useCampaigns";
 import { Campaign } from "../types";
 import { CreateCampaignModal } from "./CreateCampaignModal";
-import { CampaignDetailsModal } from "./CampaignDetailsModal";
+import { CampaignDetailsModal } from "./CampaignDetailsModal/index";
 import { CampaignActionBar } from "./CampaignActionBar";
 import { CampaignTable } from "./CampaignTable";
 

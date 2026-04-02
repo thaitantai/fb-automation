@@ -48,6 +48,11 @@ export const FB_SELECTORS = {
     FILE_INPUT: 'div[role="dialog"] input[type="file"][accept*="image"], div[role="dialog"] input[type="file"][accept*="video"]',
     UPLOAD_COMPLETE_INDICATOR: 'div[role="dialog"] img, [aria-label="Remove"], [aria-label="Gỡ"], div[role="presentation"] img',
   },
+  COMMENT: {
+    TEXTBOX: 'div[role="textbox"][aria-label*="Viết bình luận" i], div[role="textbox"][aria-label*="Write a comment" i], div[aria-label="Viết bình luận"], div[aria-label="Write a comment"]',
+    TRIGGER: 'div[aria-label="Bình luận"], div[aria-label="Comment"], i[class*="comment"]',
+    SUBMIT_INDICATOR: 'div[role="article"] :has-text("Vừa xong"), div[role="article"] :has-text("Just now")'
+  },
   STATUS: {
     PENDING_APPROVAL: ':has-text("Post submitted"), :has-text("Bài viết đã được gửi"), :has-text("chờ phê duyệt")',
     BLOCKED: ':has-text("temporarily blocked"), :has-text("bị chặn tạm thời")',
