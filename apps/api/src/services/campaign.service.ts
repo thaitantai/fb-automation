@@ -1,6 +1,6 @@
 import { prisma } from '@fb-automation/database';
 import { addAutomationJob } from '../queue';
-import { applyFullProtection } from '@fb-automation/utils';
+import { applyFullProtection, checkCampaignCompletion } from '@fb-automation/utils';
 
 /**
  * Service xử lý các nghiệp vụ chiến dịch (Senior Business Logic Layer - MASTER)
@@ -64,9 +64,9 @@ export class CampaignService {
 
     const batchId = `RUN-${new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14)}`;
     const { targetConfigs, delayConfig, templateId, fbAccounts } = campaign;
-    const groupIds = targetConfigs?.groupIds || [];
-    const minDelay = delayConfig?.min || 3;
-    const maxDelay = delayConfig?.max || 10;
+    const groupIds = (targetConfigs as any)?.groupIds || [];
+    const minDelay = (delayConfig as any)?.min || 3;
+    const maxDelay = (delayConfig as any)?.max || 10;
 
     // 1. Cập nhật trạng thái chiến dịch
     await prisma.campaign.update({
@@ -74,13 +74,30 @@ export class CampaignService {
       data: { status: 'PROCESSING', lastBatchId: batchId }
     });
 
-    // 2. Gom logs & jobs (Bulk Performance Optimization)
+    // 2. Gom logs & jobs (Bulk Performance Optimization - API Early Check)
+    const targetGroups = await prisma.fbGroup.findMany({
+      where: { id: { in: groupIds } }
+    });
+
     let totalDelayMinutes = 0;
     const logEntries: any[] = [];
     const jobs: any[] = [];
 
     for (const account of fbAccounts) {
       for (const groupId of groupIds) {
+        const groupInfo = targetGroups.find(g => g.id === groupId) as any;
+
+        // [Senior Check] Nếu nhóm đang có bài chờ duyệt, skip ngay từ bước này để tiết kiệm tài nguyên
+        if (groupInfo?.isModerated && groupInfo?.pendingSince) {
+          logEntries.push({
+            campaignId, fbAccountId: account.id, targetId: groupId, batchId,
+            actionType: 'SKIP',
+            message: `[Skip] Nhóm có bài đang chờ duyệt (${groupInfo.pendingCheckCount}/3 lần).`,
+            executedAt: new Date()
+          });
+          continue;
+        }
+
         const randomDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
         totalDelayMinutes += randomDelay;
 
@@ -106,7 +123,19 @@ export class CampaignService {
     if (logEntries.length > 0) {
       await prisma.jobLog.createMany({ data: logEntries });
     }
-    await Promise.all(jobs.map(j => addAutomationJob(j.name, j.data, j.options)));
+
+    if (jobs.length > 0) {
+      await Promise.all(jobs.map(j => addAutomationJob(j.name, j.data, j.options)));
+    } else if (logEntries.length > 0) {
+      // [Case: Toàn bộ bị Skip] Nếu có log nhưng không có job, chốt hoàn thành ngay lập tức
+      await prisma.campaign.update({
+        where: { id: campaignId },
+        data: { status: 'COMPLETED' }
+      });
+    }
+
+    // Kiểm tra chốt trạng thái (Hàm dùng chung từ @fb-automation/utils)
+    await checkCampaignCompletion(campaignId, batchId, 'COMPLETE');
 
     return prisma.campaign.findUnique({
       where: { id: campaignId },

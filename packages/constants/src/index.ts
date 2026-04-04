@@ -54,7 +54,7 @@ export const FB_SELECTORS = {
     SUBMIT_INDICATOR: 'div[role="article"] :has-text("Vừa xong"), div[role="article"] :has-text("Just now")'
   },
   STATUS: {
-    PENDING_APPROVAL: ':has-text("Post submitted"), :has-text("Bài viết đã được gửi"), :has-text("chờ phê duyệt")',
+    PENDING_APPROVAL: '[role="alert"]:has-text("phê duyệt"), [role="alert"]:has-text("approval"), :has-text("Đang chờ quản trị viên phê duyệt"), a[href*="my_pending_content"], :has-text("Post submitted"), :has-text("Bài viết đã được gửi"), :has-text("chờ phê duyệt"), :has-text("đang chờ duyệt")',
     BLOCKED: ':has-text("temporarily blocked"), :has-text("bị chặn tạm thời")',
     NOT_JOINED: 'div[aria-label="Join Group"], div[aria-label="Tham gia nhóm"]',
   }

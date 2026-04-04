@@ -1,0 +1,493 @@
+2026-04-04T00:47:42.686803Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies\\.turbo-cookie"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\daemon"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T00:47:42.687258Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T00:47:42.944667Z  WARN daemon_server: turborepo_lib::commands::daemon: daemon already running
+2026-04-04T00:47:44.195324Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T00:47:44.195364Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T00:47:46.695121Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\6b33241532451894-turbo.log.2026-04-04")}
+2026-04-04T00:47:46.695169Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T00:47:57.691413Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T00:47:57.691464Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T00:48:00.796014Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_2.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_3.webp")}
+2026-04-04T00:48:00.796371Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T00:48:01.235224Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_1.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_3.webp"), AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T00:48:01.235262Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }, WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T00:48:01.235334Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T00:48:01.489222Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T00:48:01.489451Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T00:48:01.489470Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T00:48:01.489579Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T00:48:01.692794Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T00:48:01.692838Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T00:48:01.819105Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T00:48:34.997352Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_1.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_3.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_2.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\10\\img_0.webp")}
+2026-04-04T00:48:34.997393Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T00:48:35.388255Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\11")}
+2026-04-04T00:48:35.388292Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T00:48:35.388355Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T00:48:35.595733Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\11"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\11\\img_1.webp")}
+2026-04-04T00:48:35.595803Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T00:48:35.935810Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\11\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\11\\img_3.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\11")}
+2026-04-04T00:48:35.935854Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T00:48:35.935917Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T00:48:35.993427Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\11\\img_2.webp")}
+2026-04-04T00:48:35.993463Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T00:48:36.453813Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\11")}
+2026-04-04T00:48:36.453855Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T00:48:36.453914Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T00:49:00.503507Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\comment\\auto-comment-group.ts")}
+2026-04-04T00:49:00.503547Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:03:52.695165Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\constants\\src\\index.ts")}
+2026-04-04T01:03:52.695206Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/constants"), path: AnchoredSystemPathBuf("packages\\constants") }}))
+2026-04-04T01:04:05.427495Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T01:04:05.427540Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:06:29.588135Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T01:06:29.588911Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:06:30.098514Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T01:06:30.098542Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:06:30.098619Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:08:21.099369Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T01:08:21.099410Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:08:21.692196Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T01:08:21.692251Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:08:21.692311Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:08:35.989261Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots\\error_1_1775264915007.png")}
+2026-04-04T01:08:35.989294Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:08:36.602112Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots")}
+2026-04-04T01:08:36.602156Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:08:36.602220Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:08:36.790245Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp")}
+2026-04-04T01:08:36.790377Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:08:37.203771Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T01:08:37.203821Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:08:37.203894Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:08:47.093065Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T01:08:47.093174Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:08:47.439633Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T01:08:47.439661Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:08:47.439721Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:09:43.993648Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots\\error_1_1775264982558.png")}
+2026-04-04T01:09:43.993716Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:09:44.441917Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots")}
+2026-04-04T01:09:44.441946Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:09:44.442007Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:09:44.790855Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp")}
+2026-04-04T01:09:44.790892Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:09:45.179880Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T01:09:45.179913Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:09:45.179975Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:10:05.187438Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T01:10:05.187470Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:10:05.769142Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T01:10:05.769200Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:10:05.769272Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:10:43.391658Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots\\error_1_1775265042525.png")}
+2026-04-04T01:10:43.391698Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:10:43.908581Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots")}
+2026-04-04T01:10:43.908625Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:10:43.908700Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:10:44.091977Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T01:10:44.092009Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:10:44.514519Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T01:10:44.514556Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:10:44.514620Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:15:23.490828Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\constants\\src\\index.ts")}
+2026-04-04T01:15:23.490871Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/constants"), path: AnchoredSystemPathBuf("packages\\constants") }}))
+2026-04-04T01:15:29.095399Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T01:15:29.095527Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:15:34.218712Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T01:15:34.218834Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:18:43.987636Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T01:18:43.987701Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:18:44.553700Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T01:18:44.553728Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:18:44.553811Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:19:38.601670Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp")}
+2026-04-04T01:19:38.601780Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:19:38.967596Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T01:19:38.967628Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T01:19:38.967689Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:53:34.767112Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo")}
+2026-04-04T01:53:34.768682Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T01:53:34.869005Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo\\cookies\\.turbo-cookie")}
+2026-04-04T01:53:34.869042Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T01:53:34.902959Z  WARN daemon_server: turborepo_lib::commands::daemon: daemon already running
+2026-04-04T01:53:35.565814Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\6b33241532451894-turbo.log.2026-04-04")}
+2026-04-04T01:53:35.565874Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T01:53:36.964241Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T01:53:36.964278Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T01:53:43.466378Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T01:53:43.466421Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T01:53:46.177855Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T01:53:46.177891Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T01:53:46.539937Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:53:46.762920Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T01:53:46.762956Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T01:53:47.317790Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T01:53:47.318299Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T01:53:47.318319Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T01:53:47.318483Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T02:12:29.323337Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies\\.turbo-cookie"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie")}
+2026-04-04T02:12:29.323861Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T02:12:29.428958Z  WARN daemon_server: turborepo_lib::commands::daemon: daemon already running
+2026-04-04T02:12:30.219400Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\6b33241532451894-turbo.log.2026-04-04")}
+2026-04-04T02:12:30.219442Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T02:12:31.626392Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T02:12:31.626427Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T02:12:37.831480Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T02:12:37.831548Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T02:12:40.521813Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T02:12:40.521848Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T02:12:40.805444Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T02:12:40.805819Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T02:12:40.805844Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T02:12:40.805935Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T02:12:40.921908Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T02:12:40.921947Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T02:12:41.087447Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T02:45:17.068998Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies\\.turbo-cookie"), AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T02:45:17.069061Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T02:45:17.217026Z  WARN daemon_server: turborepo_lib::commands::daemon: daemon already running
+2026-04-04T02:45:17.867300Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\6b33241532451894-turbo.log.2026-04-04")}
+2026-04-04T02:45:17.867334Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T02:45:19.170863Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T02:45:19.170899Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T02:45:25.167987Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T02:45:25.168024Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T02:45:27.768192Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T02:45:27.768222Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T02:45:28.029655Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T02:45:28.029886Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T02:45:28.029910Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T02:45:28.030025Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T02:45:28.162753Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T02:45:28.162789Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T02:45:28.384024Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T03:18:40.568086Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\database\\prisma\\schema.prisma")}
+2026-04-04T03:18:40.568249Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/database"), path: AnchoredSystemPathBuf("packages\\database") }}))
+2026-04-04T03:19:04.770942Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T03:19:04.770981Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:19:09.867618Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\utils\\automation.ts")}
+2026-04-04T03:19:09.867658Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:19:21.571269Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\verify-group-post.ts"), AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post")}
+2026-04-04T03:19:21.571309Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:19:35.374540Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\index.ts")}
+2026-04-04T03:19:35.374684Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:19:57.464544Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\verify-group-post.ts")}
+2026-04-04T03:19:57.464586Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:20:18.367022Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\server.ts")}
+2026-04-04T03:20:18.367058Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T03:24:23.662469Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\server.ts")}
+2026-04-04T03:24:23.662502Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T03:25:51.891100Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie")}
+2026-04-04T03:25:51.891163Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:25:51.993193Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo")}
+2026-04-04T03:25:51.993224Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:25:52.100652Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies\\.turbo-cookie")}
+2026-04-04T03:25:52.100680Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:25:52.238476Z  WARN daemon_server: turborepo_lib::commands::daemon: daemon already running
+2026-04-04T03:25:52.894629Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\6b33241532451894-turbo.log.2026-04-04")}
+2026-04-04T03:25:52.894665Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:25:54.288443Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T03:25:54.288479Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:26:00.194400Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T03:26:00.194429Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T03:26:02.799717Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T03:26:02.799748Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T03:26:03.048171Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T03:26:03.048442Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T03:26:03.048468Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T03:26:03.048585Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T03:26:03.201541Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T03:26:03.201569Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T03:26:03.372431Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T03:29:51.095852Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\5")}
+2026-04-04T03:29:51.095882Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:29:51.447774Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\5"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\5\\img_0.webp")}
+2026-04-04T03:29:51.447803Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:29:51.447880Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T03:30:42.004467Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\5"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\5\\img_0.webp")}
+2026-04-04T03:30:42.004501Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:30:42.248565Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T03:30:42.248591Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:30:42.248651Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T03:36:29.296145Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T03:36:29.296180Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:36:29.526191Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T03:36:29.526217Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:36:29.526254Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T03:38:21.902077Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T03:38:21.902134Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T03:38:39.102167Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T03:38:39.102201Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T03:47:07.596896Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\database\\index.ts")}
+2026-04-04T03:47:07.596931Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/database"), path: AnchoredSystemPathBuf("packages\\database") }}))
+2026-04-04T03:47:14.489430Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\utils\\automation.ts")}
+2026-04-04T03:47:14.489461Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:47:26.698355Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T03:47:26.698394Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T03:47:40.292843Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\comment\\auto-comment-group.ts")}
+2026-04-04T03:47:40.292883Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:47:49.696322Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\database\\index.ts")}
+2026-04-04T03:47:49.696356Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/database"), path: AnchoredSystemPathBuf("packages\\database") }}))
+2026-04-04T03:49:42.597520Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\database\\index.ts")}
+2026-04-04T03:49:42.597556Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/database"), path: AnchoredSystemPathBuf("packages\\database") }}))
+2026-04-04T03:49:51.491661Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\utils\\automation.ts")}
+2026-04-04T03:49:51.491699Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:49:59.491731Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T03:49:59.491767Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T03:51:40.297004Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\package.json")}
+2026-04-04T03:51:40.297043Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T03:51:49.192299Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\src\\index.ts")}
+2026-04-04T03:51:49.192626Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T03:52:05.694390Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\src\\index.ts")}
+2026-04-04T03:52:05.694419Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T03:52:25.002502Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T03:52:25.002536Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T03:52:35.798010Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\utils\\automation.ts")}
+2026-04-04T03:52:35.798040Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T03:52:50.593120Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\src\\index.ts")}
+2026-04-04T03:52:50.593398Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T03:53:07.602318Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\tsconfig.json"), AnchoredSystemPathBuf("packages\\utils")}
+2026-04-04T03:53:07.602352Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T03:53:24.895874Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T03:53:24.895915Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T03:56:51.888790Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_18456_0b8fdcdc96cc292aeb3bd83a00529ac0")}
+2026-04-04T03:56:51.888818Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:56:52.001139Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("_tmp_18456_0b8fdcdc96cc292aeb3bd83a00529ac0")}
+2026-04-04T03:56:52.001175Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:56:57.689055Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("pnpm-lock.yaml"), AnchoredSystemPathBuf("pnpm-lock.yaml.616544467"), AnchoredSystemPathBuf("")}
+2026-04-04T03:56:57.689082Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:58:16.792789Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\tsconfig.json")}
+2026-04-04T03:58:16.792826Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T03:58:50.291797Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("tsc_output.txt")}
+2026-04-04T03:58:50.291821Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:58:50.697603Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("")}
+2026-04-04T03:58:50.697641Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({}))
+2026-04-04T03:58:54.993950Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("tsc_output.txt")}
+2026-04-04T03:58:54.993987Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T03:59:14.489489Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\tsconfig.json")}
+2026-04-04T03:59:14.489520Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T03:59:14.630113Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\tsconfig.json")}
+2026-04-04T03:59:14.630136Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T03:59:14.630162Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:01:11.593169Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\src\\index.ts")}
+2026-04-04T04:01:11.593204Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T04:02:33.659286Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T04:02:33.659353Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:02:33.755694Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo\\cookies\\.turbo-cookie")}
+2026-04-04T04:02:33.755717Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:02:33.844770Z  WARN daemon_server: turborepo_lib::commands::daemon: daemon already running
+2026-04-04T04:02:33.857582Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T04:02:33.857615Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:02:33.962713Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies\\.turbo-cookie")}
+2026-04-04T04:02:33.962733Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:02:34.219810Z  WARN daemon_server: turborepo_lib::commands::daemon: daemon already running
+2026-04-04T04:02:34.959845Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\6b33241532451894-turbo.log.2026-04-04")}
+2026-04-04T04:02:34.959875Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:02:35.260752Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\6b33241532451894-turbo.log.2026-04-04")}
+2026-04-04T04:02:35.260784Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:02:36.470331Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T04:02:36.470376Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:02:44.357083Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:02:44.357136Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:02:46.567669Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:02:46.567703Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:02:46.794947Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:02:46.795140Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:02:46.795157Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:02:46.795262Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:02:46.956183Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:02:46.956216Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:02:47.062719Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:05:44.066829Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15")}
+2026-04-04T04:05:44.066865Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:05:44.364076Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T04:05:44.364107Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:05:44.364153Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:05:44.458231Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15\\img_0.webp")}
+2026-04-04T04:05:44.458266Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:06:13.956987Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots\\error_15_1775275573000.png")}
+2026-04-04T04:06:13.957071Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:06:14.462454Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots")}
+2026-04-04T04:06:14.462482Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:06:14.462521Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:06:14.662033Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15")}
+2026-04-04T04:06:14.662082Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:06:14.920363Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T04:06:14.920387Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:06:14.920426Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:50:01.789037Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo")}
+2026-04-04T04:50:01.789092Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:50:01.992386Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies\\.turbo-cookie"), AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo")}
+2026-04-04T04:50:01.992417Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:50:02.024702Z  WARN daemon_server: turborepo_lib::commands::daemon: daemon already running
+2026-04-04T04:50:02.790648Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\6b33241532451894-turbo.log.2026-04-04")}
+2026-04-04T04:50:02.790682Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:50:04.089950Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies")}
+2026-04-04T04:50:04.089984Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-04-04T04:50:11.896895Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15")}
+2026-04-04T04:50:11.896932Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:50:12.408967Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15\\img_0.webp")}
+2026-04-04T04:50:12.409000Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:50:12.409126Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:50:12.593387Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:50:12.593431Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:50:13.302487Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:50:13.302573Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:50:13.651163Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:50:15.889772Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:50:15.889805Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:50:16.366758Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:50:16.367267Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:50:16.367300Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:50:16.367416Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:50:16.508284Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-04-04T04:50:16.508364Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T04:50:16.740298Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:50:45.501858Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots\\error_15_1775278243946.png")}
+2026-04-04T04:50:45.501911Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:50:46.229047Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots")}
+2026-04-04T04:50:46.229106Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:50:46.229207Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:50:46.790883Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15\\img_0.webp")}
+2026-04-04T04:50:46.790916Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:50:47.323167Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T04:50:47.323203Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:50:47.323306Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:51:07.304519Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15")}
+2026-04-04T04:51:07.304557Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:51:07.728435Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T04:51:07.728465Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:51:07.728522Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:51:50.393842Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots\\error_15_1775278309405.png")}
+2026-04-04T04:51:50.393876Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:51:50.857459Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots")}
+2026-04-04T04:51:50.857511Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:51:50.857604Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:51:51.091756Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\15")}
+2026-04-04T04:51:51.091794Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:51:51.400356Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T04:51:51.400387Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:51:51.400445Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:53:52.591142Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots")}
+2026-04-04T04:53:52.591167Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:53:52.842084Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp")}
+2026-04-04T04:53:52.842107Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:53:52.842144Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T04:55:32.904198Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T04:55:32.904235Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:55:45.492743Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\comment\\auto-comment-group.ts")}
+2026-04-04T04:55:45.492778Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T04:55:53.004367Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\utils\\fb-auth.ts")}
+2026-04-04T04:55:53.004401Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:09:07.202994Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T05:09:07.203028Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:09:07.457361Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T05:09:07.457384Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:09:07.457418Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:09:45.503680Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp")}
+2026-04-04T05:09:45.503720Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:09:45.722406Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T05:09:45.722429Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:09:45.722465Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:15:35.595213Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T05:15:35.595254Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:15:35.822833Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T05:15:35.822861Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:15:35.822900Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:15:42.198381Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\comment\\auto-comment-group.ts")}
+2026-04-04T05:15:42.198415Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:15:47.298087Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\src\\index.ts")}
+2026-04-04T05:15:47.298118Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T05:17:44.096951Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\src\\features\\campaigns\\components\\CampaignDetailsModal\\CampaignGroupRow.tsx")}
+2026-04-04T05:17:44.097033Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T05:19:18.402262Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T05:19:18.402302Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T05:19:23.492193Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T05:19:23.492223Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:19:23.881580Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp")}
+2026-04-04T05:19:23.881611Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:19:23.881647Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:19:48.798183Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\screenshots")}
+2026-04-04T05:19:48.798215Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:19:49.148154Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:19:49.148520Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp")}
+2026-04-04T05:19:49.148551Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:19:49.148701Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:19:49.490686Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\1")}
+2026-04-04T05:19:49.490715Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:19:49.799363Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T05:19:49.799390Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:19:49.799443Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:19:54.696490Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T05:19:54.696519Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T05:19:54.876292Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:20:48.095742Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T05:20:48.095777Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T05:20:48.156368Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:21:45.593641Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\src\\features\\campaigns\\components\\CampaignDetailsModal\\CampaignGroupRow.tsx")}
+2026-04-04T05:21:45.593672Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T05:21:59.090481Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\2"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\2\\img_0.webp")}
+2026-04-04T05:21:59.090515Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:21:59.372049Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\2"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T05:21:59.372080Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:21:59.372134Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:22:34.696791Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\2\\img_0.webp")}
+2026-04-04T05:22:34.696837Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:22:35.005115Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\2")}
+2026-04-04T05:22:35.005147Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:22:35.005229Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:22:51.991601Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\src\\features\\campaigns\\components\\CampaignDetailsModal\\CampaignGroupRow.tsx")}
+2026-04-04T05:22:51.991671Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T05:23:57.502497Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\src\\features\\campaigns\\components\\CampaignDetailsModal\\index.tsx")}
+2026-04-04T05:23:57.502535Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T05:26:19.992912Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T05:26:19.992995Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:28:55.089211Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T05:28:55.089253Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:32:05.497007Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\3")}
+2026-04-04T05:32:05.497039Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:32:05.814467Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\3"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\3\\img_0.webp")}
+2026-04-04T05:32:05.814499Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:32:05.814554Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:32:45.302663Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\3"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\3\\img_0.webp")}
+2026-04-04T05:32:45.302692Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:32:45.557750Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T05:32:45.557780Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:32:45.557831Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:36:00.799889Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\utils\\automation.ts")}
+2026-04-04T05:36:00.799968Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:43:14.290757Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\4")}
+2026-04-04T05:43:14.290801Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:43:14.681914Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\4\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\4"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T05:43:14.681945Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:43:14.681999Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:43:37.894186Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\4"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\4\\img_0.webp")}
+2026-04-04T05:43:37.894242Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:43:38.126019Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T05:43:38.126049Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:43:38.126099Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:46:15.291035Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\post\\auto-post-group.ts")}
+2026-04-04T05:46:15.291109Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:46:23.589775Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\jobs\\comment\\auto-comment-group.ts")}
+2026-04-04T05:46:23.589812Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:46:29.299546Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\src\\utils\\automation.ts")}
+2026-04-04T05:46:29.299582Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:46:43.902732Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\api\\src\\services\\campaign.service.ts")}
+2026-04-04T05:46:43.902759Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/api"), path: AnchoredSystemPathBuf("apps\\api") }}))
+2026-04-04T05:46:52.202722Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\utils\\src\\index.ts")}
+2026-04-04T05:46:52.202759Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/utils"), path: AnchoredSystemPathBuf("packages\\utils") }}))
+2026-04-04T05:47:02.993930Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\src\\features\\campaigns\\components\\CampaignDetailsModal\\CampaignGroupRow.tsx")}
+2026-04-04T05:47:02.993959Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T05:47:14.297173Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\src\\features\\campaigns\\components\\CampaignDetailsModal\\index.tsx")}
+2026-04-04T05:47:14.297205Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-04-04T05:51:45.504160Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\7")}
+2026-04-04T05:51:45.504196Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:51:45.860724Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\7\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\7")}
+2026-04-04T05:51:45.860753Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:51:45.860803Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-04-04T05:52:10.994118Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\7\\img_0.webp"), AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs\\7")}
+2026-04-04T05:52:10.994155Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:52:11.287410Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\worker\\tmp\\jobs")}
+2026-04-04T05:52:11.287432Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@fb-automation/worker"), path: AnchoredSystemPathBuf("apps\\worker") }}))
+2026-04-04T05:52:11.287481Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun

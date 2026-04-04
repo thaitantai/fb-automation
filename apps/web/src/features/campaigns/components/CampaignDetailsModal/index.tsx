@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo } from "react";
 import {
     Activity, CheckCircle2,
-    Clock, Hash, RefreshCcw, AlertCircle
+    Clock, Hash, RefreshCcw, AlertCircle, SkipForward
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCampaigns } from "../../hooks/useCampaigns";
@@ -40,8 +40,9 @@ const MiniStepProgress = ({ message }: { message?: string }) => {
 
 const GroupStatusBadge = ({ type, time }: { type: string; time: string }) => {
     const config: Record<string, { label: string; className: string }> = {
-        AUTO_POST: { label: "HOÀN TẤT", className: "bg-success/15 text-success" },
-        AUTO_POST_PENDING: { label: "CHỜ DUYỆT", className: "bg-yellow-500/15 text-yellow-500" },
+        COMPLETE: { label: "HOÀN TẤT", className: "bg-success/15 text-success" },
+        PENDING: { label: "CHỜ DUYỆT", className: "bg-yellow-500/15 text-yellow-500" },
+        SKIP: { label: "BỎ QUA", className: "bg-orange-500/15 text-orange-500" },
         SCHEDULED: { label: "ĐANG CHỜ", className: "bg-surface-3 text-text-muted border border-border/50" },
         ERROR: { label: "LỖI", className: "bg-error/15 text-error" },
         ACTIVITY: { label: "ĐANG CHẠY", className: "bg-primary/20 text-primary shadow-sm" },
@@ -61,12 +62,13 @@ const CampaignGroupRow = ({ group, groupLogs, campaignStatus }: { group: any; gr
     const latestLog = groupLogs[0];
 
     // Kiểm tra kết quả cuối cùng trong lịch sử group (với batchID hiện tại)
-    const isSuccess = groupLogs.some(l => l.actionType === 'AUTO_POST');
-    const isError = groupLogs.some(l => l.actionType.includes('ERROR'));
-    const isPendingApproval = latestLog?.actionType === 'AUTO_POST_PENDING';
+    const isSuccess = groupLogs.some(l => l.actionType === 'COMPLETE');
+    const isError = groupLogs.some(l => l.actionType === 'ERROR');
+    const isPendingApproval = latestLog?.actionType === 'PENDING';
+    const isSkipped = latestLog?.actionType === 'SKIP';
 
     // Flag robot đang xử lý (campaign đang processing và group chưa có kết quả cuối)
-    const isProcessing = !isSuccess && !isError && campaignStatus === 'PROCESSING';
+    const isProcessing = !isSuccess && !isError && !isPendingApproval && !isSkipped && campaignStatus === 'PROCESSING';
 
     const renderContent = () => {
         if (!latestLog) {
@@ -106,7 +108,8 @@ const CampaignGroupRow = ({ group, groupLogs, campaignStatus }: { group: any; gr
             "grid grid-cols-12 gap-4 px-6 py-5 rounded-[1.4rem] border transition-all duration-300 relative items-center group",
             isSuccess ? "bg-success/[0.03] border-success/20 hover:bg-success/[0.05]" :
                 isPendingApproval ? "bg-yellow-500/[0.03] border-yellow-500/20 hover:bg-yellow-500/[0.05]" :
-                    isError ? "bg-error/[0.03] border-error/20 hover:bg-error/[0.05]" : "bg-surface-2/30 border-border/60 hover:bg-surface-2/50",
+                    isSkipped ? "bg-orange-500/[0.03] border-orange-500/20 hover:bg-orange-500/[0.05]" :
+                        isError ? "bg-error/[0.03] border-error/20 hover:bg-error/[0.05]" : "bg-surface-2/30 border-border/60 hover:bg-surface-2/50",
             isProcessing && "border-primary/40 shadow-glow-blue/5"
         )}>
             {/* Group Info */}
@@ -115,9 +118,10 @@ const CampaignGroupRow = ({ group, groupLogs, campaignStatus }: { group: any; gr
                     "w-10 h-10 rounded-xl flex items-center justify-center border transition-all shadow-sm text-white",
                     isSuccess ? "bg-success border-success" :
                         isPendingApproval ? "bg-yellow-500 border-yellow-500 shadow-glow-yellow" :
-                            isError ? "bg-error border-error" : "bg-surface-3 border-border text-text-muted"
+                            isSkipped ? "bg-orange-500 border-orange-500 shadow-glow-orange" :
+                                isError ? "bg-error border-error" : "bg-surface-3 border-border text-text-muted"
                 )}>
-                    {isSuccess ? <CheckCircle2 size={16} /> : isPendingApproval ? <Clock size={16} /> : isError ? <AlertCircle size={16} /> : <Hash size={16} />}
+                    {isSuccess ? <CheckCircle2 size={16} /> : isPendingApproval ? <Clock size={16} /> : isSkipped ? <SkipForward size={16} /> : isError ? <AlertCircle size={16} /> : <Hash size={16} />}
                 </div>
                 <div className="flex flex-col min-w-0">
                     <span className="text-[1.4rem] font-black text-foreground truncate group-hover:text-primary transition-colors">{group.name || group.groupId}</span>
@@ -136,17 +140,24 @@ const CampaignGroupRow = ({ group, groupLogs, campaignStatus }: { group: any; gr
                     "px-5 py-2 rounded-xl flex items-center gap-3 border shadow-sm transition-all",
                     isSuccess ? "bg-success/10 border-success/20 text-success" :
                         isPendingApproval ? "bg-yellow-500/10 border-yellow-500/20 text-yellow-500" :
-                            isError ? "bg-error/10 border-error/20 text-error" : "bg-surface-3 border-border text-text-muted"
+                            isSkipped ? "bg-orange-500/10 border-orange-500/20 text-orange-500" :
+                                isError ? "bg-error/10 border-error/20 text-error" : "bg-surface-3 border-border text-text-muted"
                 )}>
                     <div className={cn(
                         "w-2 h-2 rounded-full",
                         isSuccess ? "bg-success shadow-glow-green" :
                             isPendingApproval ? "bg-yellow-500 shadow-glow-yellow" :
-                                isError ? "bg-error" : "bg-text-muted/40",
+                                isSkipped ? "bg-orange-500 shadow-glow-orange" :
+                                    isError ? "bg-error" : "bg-text-muted/40",
                         isProcessing && "bg-primary animate-ping shadow-glow-blue"
                     )} />
                     <span className="text-[1.1rem] font-black uppercase tracking-widest">
-                        {isSuccess ? "Đã Xong" : isPendingApproval ? "Chờ duyệt" : latestLog?.actionType === 'SCHEDULED' ? "Chờ chạy" : isError ? "Lỗi" : isProcessing ? "Đang chạy" : "Chờ lượt"}
+                        {isSuccess ? "Đã Xong" :
+                            isPendingApproval ? "Chờ duyệt" :
+                                isSkipped ? "Đã bỏ qua" :
+                                    latestLog?.actionType === 'SCHEDULED' ? "Chờ chạy" :
+                                        isError ? "Lỗi" :
+                                            isProcessing ? "Đang chạy" : "Chờ lượt"}
                     </span>
                 </div>
             </div>
@@ -180,20 +191,22 @@ export function CampaignDetailsModal({ campaign, isOpen, onClose }: CampaignDeta
 
     // 2. Tính toán thống kê
     const stats = useMemo(() => {
-        const defaultStats = { success: 0, pendingApproval: 0, error: 0, pending: groupsToDisplay.length, isAllDone: false };
+        const defaultStats = { success: 0, pendingApproval: 0, skipped: 0, error: 0, pending: groupsToDisplay.length, isAllDone: false };
         if (!logs || !groupsToDisplay.length) return defaultStats;
 
-        const successIds = new Set(logs.filter(l => l.actionType === 'AUTO_POST').map(l => l.targetId));
-        const pendingIds = new Set(logs.filter(l => l.actionType === 'AUTO_POST_PENDING').map(l => l.targetId));
-        const errorIds = new Set(logs.filter(l => l.actionType.includes('ERROR')).map(l => l.targetId));
+        const successIds = new Set(logs.filter(l => l.actionType === 'COMPLETE').map(l => l.targetId));
+        const pendingIds = new Set(logs.filter(l => l.actionType === 'PENDING').map(l => l.targetId));
+        const skipIds = new Set(logs.filter(l => l.actionType === 'SKIP').map(l => l.targetId));
+        const errorIds = new Set(logs.filter(l => l.actionType === 'ERROR').map(l => l.targetId));
 
         const counts = {
             success: groupsToDisplay.filter(g => successIds.has(g.id)).length,
             pendingApproval: groupsToDisplay.filter(g => pendingIds.has(g.id)).length,
+            skipped: groupsToDisplay.filter(g => skipIds.has(g.id)).length,
             error: groupsToDisplay.filter(g => errorIds.has(g.id)).length,
         };
 
-        const totalHandled = counts.success + counts.pendingApproval + counts.error;
+        const totalHandled = counts.success + counts.pendingApproval + counts.skipped + counts.error;
         return {
             ...counts,
             pending: Math.max(0, groupsToDisplay.length - totalHandled),
@@ -296,6 +309,7 @@ export function CampaignDetailsModal({ campaign, isOpen, onClose }: CampaignDeta
                 <div className="flex items-center justify-end p-5 bg-surface-2 border border-border rounded-[2.5rem] mt-4">
                     <StatItemSummary color="bg-success shadow-glow-green" label="HOÀN TẤT" value={stats.success} showBorder />
                     <StatItemSummary color="bg-yellow-500 shadow-glow-yellow" label="CHỜ DUYỆT" value={stats.pendingApproval} showBorder />
+                    <StatItemSummary color="bg-orange-500 shadow-glow-orange" label="BỎ QUA" value={stats.skipped} showBorder />
                     <StatItemSummary color="bg-error" label="LỖI" value={stats.error} showBorder />
                     <StatItemSummary color="bg-text-muted opacity-40" label="ĐANG CHỜ" value={stats.pending} />
                 </div>

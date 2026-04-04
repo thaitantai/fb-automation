@@ -58,6 +58,12 @@ model FbGroup {
   memberCount Int      @default(0)
   syncedAt    DateTime @default(now())
 
+  // Trạng thái phê duyệt (Cải tiến)
+  isModerated       Boolean   @default(false)
+  status            String    @default("ACTIVE") // ACTIVE, BLACKLISTED
+  pendingSince      DateTime?
+  pendingCheckCount Int       @default(0)
+
   fbAccount FbAccount @relation(fields: [fbAccountId], references: [id], onDelete: Cascade)
   
   @@unique([fbAccountId, groupId])

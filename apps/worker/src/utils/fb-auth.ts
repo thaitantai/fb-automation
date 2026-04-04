@@ -25,7 +25,7 @@ export async function verifyLoginStatus(
 
     for (const sel of loggedInSelectors) {
         try {
-            if (await page.locator(sel).isVisible({ timeout: 5000 })) {
+            if (await page.locator(sel).first().isVisible({ timeout: 2000 })) {
                 console.log(`${logPrefix}✅ Xác nhận: Phiên đăng nhập đang hoạt động.`);
                 return true;
             }

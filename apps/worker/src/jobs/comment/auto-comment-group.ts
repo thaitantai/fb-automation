@@ -6,14 +6,14 @@ import { JobDefinition } from '../types';
 import { verifyLoginStatus } from '../../utils/fb-auth';
 import { FB_SELECTORS } from '@fb-automation/constants';
 import { captureErrorScreenshot } from '../../utils/screenshot';
-import { 
-    AutomationParams, 
-    prepareData, 
-    processAutomationContent, 
-    setupBrowser, 
-    logActivityResult, 
+import {
+    AutomationParams,
+    prepareData,
+    processAutomationContent,
+    setupBrowser,
+    logActivityResult,
     checkCampaignCompletion,
-    simulateHumanTyping 
+    simulateHumanTyping
 } from '../../utils/automation';
 
 /**
@@ -38,9 +38,9 @@ class GroupCommentExecutor {
     async performAutomation(group: any, protectedContent: string, params: AutomationParams) {
         // Bước 1: Truy cập nhóm
         await this.reportProgress(params, 1, '🚀 Đang vào nhóm để tìm bài viết...');
-        await this.page.goto(`https://facebook.com/groups/${group.groupId}?sorting_setting=CHRONOLOGICAL`, { 
-            waitUntil: 'domcontentloaded', 
-            timeout: 60000 
+        await this.page.goto(`https://facebook.com/groups/${group.groupId}?sorting_setting=CHRONOLOGICAL`, {
+            waitUntil: 'domcontentloaded',
+            timeout: 60000
         });
         await this.page.waitForSelector('body', { timeout: 15000 });
         await this.page.waitForTimeout(3000);
@@ -77,7 +77,7 @@ class GroupCommentExecutor {
 
         // Bước 5: Gửi bình luận
         await this.reportProgress(params, 5, '📤 Đang gửi bình luận...');
-        
+
         // Nhấn Escape trước để đóng các bảng gợi ý (Mention, Emoji picker...) có thể chặn phím Enter
         await this.page.keyboard.press('Escape');
         await this.page.waitForTimeout(500);
@@ -87,17 +87,31 @@ class GroupCommentExecutor {
         await this.page.waitForTimeout(4000);
 
         // Kiểm tra chặn
-        if (await this.page.locator(FB_SELECTORS.STATUS.BLOCKED).isVisible({ timeout: 2000 })) {
-             throw new Error('Tài khoản bị hạn chế bình luận.');
+        if (await this.page.locator(FB_SELECTORS.STATUS.BLOCKED).first().isVisible({ timeout: 2000 })) {
+            throw new Error('Tài khoản bị hạn chế bình luận.');
         }
 
-        await logActivityResult(params, 'SUCCESS', 'Bình luận thành công.', 'AUTO_COMMENT');
+        await logActivityResult(params, 'SUCCESS', 'Bình luận thành công.', 'COMPLETE');
     }
 
     async execute(job: Job) {
         const params: AutomationParams = job.data;
         try {
             const { account, template, group, campaign } = await prepareData(params);
+            
+            // [Cải tiến] Kiểm tra trạng thái duyệt bài của nhóm "khó tính"
+            // Nếu nhóm đang có bài chờ duyệt chưa được xử lý, ta sẽ bỏ qua lượt comment này cho an toàn
+            if ((group as any).isModerated && (group as any).pendingSince) {
+                const checkCount = (group as any).pendingCheckCount || 0;
+                await logActivityResult(
+                    params, 
+                    'ACTIVITY', 
+                    `[Bỏ qua] Nhóm có bài đang chờ duyệt (Đã check ${checkCount}/3 lần). Tạm dừng comment để đảm bảo an toàn account.`, 
+                    'SKIP'
+                );
+                return;
+            }
+
             const { protectedContent } = await processAutomationContent(template, (campaign as any).protectionConfig, this.jobDir, this.jobId);
 
             const setup = await setupBrowser(account);
@@ -110,12 +124,12 @@ class GroupCommentExecutor {
         } catch (error: any) {
             console.error(`[Job:${this.jobId}] 🔴 Lỗi: ${error.message}`);
             await captureErrorScreenshot(this.page, this.jobId);
-            await logActivityResult(params, 'ERROR', `Thất bại: ${error.message}`, 'AUTO_COMMENT_ERROR');
+            await logActivityResult(params, 'ERROR', `Thất bại: ${error.message}`, 'ERROR');
             throw error;
         } finally {
-            if (this.browser) await this.browser.close().catch(() => {});
+            if (this.browser) await this.browser.close().catch(() => { });
             if (fs.existsSync(this.jobDir)) fs.rmSync(this.jobDir, { recursive: true, force: true });
-            if (params.batchId) await checkCampaignCompletion(params.campaignId, params.batchId, 'AUTO_COMMENT');
+            if (params.batchId) await checkCampaignCompletion(params.campaignId, params.batchId, 'COMPLETE');
         }
     }
 }

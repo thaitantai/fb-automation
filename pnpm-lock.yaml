@@ -254,6 +254,9 @@ importers:
 
   packages/utils:
     dependencies:
+      '@fb-automation/database':
+        specifier: workspace:*
+        version: link:../database
       '@google/generative-ai':
         specifier: ^0.24.1
         version: 0.24.1

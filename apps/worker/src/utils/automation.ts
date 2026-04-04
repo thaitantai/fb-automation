@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { prisma } from '@fb-automation/database';
 import { browserDriver } from '../drivers/browser';
-import { applyFullProtection } from '@fb-automation/utils';
+import { applyFullProtection, checkCampaignCompletion } from '@fb-automation/utils';
 
 export interface AutomationParams {
     campaignId: string;
@@ -27,6 +27,7 @@ export async function prepareData(params: AutomationParams) {
 
     if (!account || !template || !group || !campaign) throw new Error('Dữ liệu không đầy đủ hoặc không tìm thấy thông tin.');
     if (account.status !== 'ACTIVE') throw new Error(`[EarlyStop] Tài khoản đang ở trạng thái [${account.status}].`);
+    if ((group as any).status === 'BLACKLISTED') throw new Error(`[EarlyStop] Nhóm đang trong Danh Sách Đen (Cấm đăng do khó tính).`);
 
     return { account, template, group, campaign };
 }
@@ -93,17 +94,19 @@ export async function setupBrowser(account: any) {
  */
 export async function logActivityResult(params: AutomationParams, status: 'SUCCESS' | 'ERROR' | 'ACTIVITY', message: string, actionType?: string) {
     const { campaignId, accountId, groupId, batchId } = params;
-    const finalType = actionType || (status === 'SUCCESS' ? 'AUTO_POST' : status === 'ERROR' ? 'AUTO_POST_ERROR' : 'ACTIVITY');
+    const finalType = actionType || (status === 'SUCCESS' ? 'COMPLETE' : status === 'ERROR' ? 'ERROR' : 'ACTIVITY');
 
-    if (finalType === 'ACTIVITY' && groupId && batchId) {
-        const existing = await prisma.jobLog.findFirst({
-            where: { campaignId, fbAccountId: accountId, targetId: groupId, batchId, actionType: 'ACTIVITY' },
-            select: { id: true }
+    // [Senior Logic] Tìm log hiện tại của target này trong batch này để cập nhật (tránh spam và kẹt status)
+    const existing = await prisma.jobLog.findFirst({
+        where: { campaignId, fbAccountId: accountId, targetId: groupId, batchId },
+        orderBy: { executedAt: 'desc' }
+    });
+
+    if (existing && (existing.actionType === 'SCHEDULED' || existing.actionType === 'ACTIVITY')) {
+        return prisma.jobLog.update({
+            where: { id: existing.id },
+            data: { actionType: finalType, message, executedAt: new Date() }
         });
-
-        if (existing) {
-            return prisma.jobLog.update({ where: { id: existing.id }, data: { message, executedAt: new Date() } });
-        }
     }
 
     return prisma.jobLog.create({
@@ -139,22 +142,8 @@ export async function simulateHumanTyping(page: Page, element: any, text: string
 /**
  * 6. KIỂM TRA HOÀN TẤT CHIẾN DỊCH
  */
-export async function checkCampaignCompletion(campaignId: string, batchId: string, successAction: string) {
-    const logs = await prisma.jobLog.findMany({ where: { campaignId, batchId } });
-    const campaign = await prisma.campaign.findUnique({
-        where: { id: campaignId },
-        include: { fbAccounts: { select: { id: true } } }
-    });
-    if (!campaign) return;
-
-    const targetGroupIds = (campaign.targetConfigs as any)?.groupIds || [];
-    const totalTargets = campaign.fbAccounts.length * targetGroupIds.length;
-
-    if (logs.length >= totalTargets) {
-        const hasSuccess = logs.some(l => l.actionType === successAction || l.actionType === 'AUTO_POST_PENDING');
-        await prisma.campaign.update({ 
-            where: { id: campaignId }, 
-            data: { status: hasSuccess ? 'COMPLETED' : 'FAILED' } as any 
-        });
-    }
-}
+/**
+ * 6. KIỂM TRA HOÀN TẤT CHIẾN DỊCH (Đã chuyển sang @fb-automation/utils)
+ */
+// Export lại để các file cũ trong worker không bị lỗi import
+export { checkCampaignCompletion };

@@ -1,3 +1,4 @@
+import { prisma } from '@fb-automation/database';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 /**
@@ -29,13 +30,6 @@ export class AIRewriter {
     private static getClient(apiKey?: string) {
         let key = apiKey || process.env.GEMINI_API_KEY;
         if (key) key = key.trim();
-
-        if (key) {
-            console.log(`[AIRewriter] 🔑 Chìa khóa AI đã nạp (Độ dài: ${key.length})`);
-        } else {
-            console.warn("[AIRewriter] ⚠️ KHÔNG TÌM THẤY GEMINI_API_KEY.");
-        }
-
         if (!key) return null;
         if (!this.genAI) this.genAI = new GoogleGenerativeAI(key);
         return this.genAI;
@@ -45,7 +39,6 @@ export class AIRewriter {
         const client = this.getClient(apiKey);
         if (!client || !content) return content;
         try {
-            // Sử dụng chính xác định danh mô hình chuẩn
             const model = client.getGenerativeModel({ model: "gemini-3-flash-preview" });
             const basePrompt = customPrompt || "Hãy viết lại nội dung sau đây bằng tiếng Việt, 2 đoạn văn không được giống nhau. Yêu cầu: Giữ nguyên các thông tin quan trọng, link liên kết, hashtag, và ý nghĩa gốc. Hãy viết theo một văn phong tự nhiên, hấp dẫn, thu hút người đọc trên mạng xã hội. Chỉ trả về nội dung bài viết mới, không kèm theo lời bình luận nào khác.";
             const prompt = `${basePrompt}\n\nNội dung gốc:\n${content}`;
@@ -64,19 +57,16 @@ export class AIRewriter {
  */
 export async function applyFullProtection(content: string, config: any, apiKey?: string): Promise<string> {
     if (!content) return "";
-    
-    // 1. AI Rewrite (Bước duy nhất tốn thời gian, xử lý trước để các bước sau dùng buffer)
+
     let finalized = content;
     if (config.aiRewrite) {
         finalized = await AIRewriter.rewrite(finalized, config.aiPrompt, apiKey);
     }
 
-    // Nếu không có bất kỳ cấu hình bảo vệ nào khác, thoát sớm sau AI
     if (!finalized.includes('---') && !finalized.includes('{') && !config.autoEmoji && !config.autoHash) {
         return finalized;
     }
 
-    // 2. Section Shuffle (Xử lý tập trung)
     if (finalized.includes('---')) {
         const sections = finalized.split('---').map(s => s.trim());
         if (sections.length > 1) {
@@ -88,10 +78,8 @@ export async function applyFullProtection(content: string, config: any, apiKey?:
         }
     }
 
-    // 3. Spintax parsing
     finalized = SpintaxParser.parse(finalized);
 
-    // 4. Các bước Mutation (Emoji & Hash)
     const suffixParts: string[] = [];
     const prefixParts: string[] = [];
 
@@ -111,7 +99,6 @@ export async function applyFullProtection(content: string, config: any, apiKey?:
         suffixParts.push(`\n\n[#ID-${hash}]`);
     }
 
-    // Kết hợp kết quả cuối cùng một cách hiệu quả
     const result = [
         ...prefixParts,
         finalized,
@@ -119,4 +106,40 @@ export async function applyFullProtection(content: string, config: any, apiKey?:
     ].join(' ');
 
     return result.trim();
+}
+
+/**
+ * [Senior Logic Shared] Kiểm tra và cập nhật trạng thái hoàn thành của chiến dịch
+ * Có thể gọi từ cả API (khi skip hết) và Worker (khi chạy xong)
+ */
+export async function checkCampaignCompletion(campaignId: string, batchId: string, successAction: string) {
+    const [logs, campaign] = await Promise.all([
+        prisma.jobLog.findMany({ where: { campaignId, batchId } }),
+        prisma.campaign.findUnique({
+            where: { id: campaignId },
+            include: { fbAccounts: { select: { id: true } } }
+        })
+    ]);
+    if (!campaign) return;
+
+    const targetGroupIds = (campaign.targetConfigs as any)?.groupIds || [];
+    const totalTargets = campaign.fbAccounts.length * targetGroupIds.length;
+
+    if (logs.length >= totalTargets) {
+        // [Safety Check] Vẫn còn SCHEDULED nghĩa là chưa chạy xong hết
+        const stillRunning = logs.some((l: any) => l.actionType === 'SCHEDULED');
+        if (stillRunning) return;
+
+        // Một chiến dịch gọi là COMPLETED nếu có ít nhất một bài thành công, bài chờ duyệt, hoặc được Skip chủ động
+        const hasSuccess = logs.some((l: any) =>
+            l.actionType === successAction ||
+            l.actionType === 'PENDING' ||
+            l.actionType === 'SKIP'
+        );
+
+        await prisma.campaign.update({
+            where: { id: campaignId },
+            data: { status: hasSuccess ? 'COMPLETED' : 'FAILED' } as any
+        });
+    }
 }
