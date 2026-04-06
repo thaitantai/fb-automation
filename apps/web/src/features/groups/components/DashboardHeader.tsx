@@ -9,6 +9,7 @@ interface DashboardHeaderProps {
     groupsCount: number;
     syncing: boolean;
     isProgressShowing: boolean;
+    isSyncingBackground?: boolean;
     onSync: () => void;
     onRefresh: () => void;
     loading: boolean;
@@ -19,6 +20,7 @@ export function DashboardHeader({
     groupsCount,
     syncing,
     isProgressShowing,
+    isSyncingBackground,
     onSync,
     onRefresh,
     loading
@@ -34,9 +36,12 @@ export function DashboardHeader({
                             : "Quản lý nhóm tập trung"}
                 </h3>
                 <div className="flex items-center justify-center md:justify-start gap-3">
-                    {groupsCount > 0 && <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />}
+                    {groupsCount > 0 && !isSyncingBackground && <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />}
+                    {isSyncingBackground && <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping shadow-[0_0_10px_rgba(59,130,246,0.8)]" />}
                     <p className="text-[1.4rem] text-text-muted font-medium italic opacity-70">
-                        {groupsCount > 0
+                        {isSyncingBackground
+                           ? `Đang chạy ngầm lấy dữ liệu liên tục... Đã tóm được ${groupsCount} nhóm!`
+                           : groupsCount > 0
                             ? `Robot đã nạp ${groupsCount} nhóm khả dụng vào bộ nhớ.`
                             : "Chưa nạp dữ liệu. Vui lòng đồng bộ tài khoản để robot làm việc..."}
                     </p>
@@ -56,10 +61,10 @@ export function DashboardHeader({
                         {/* Subtle inner glow for active button */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
-                        {(syncing || isProgressShowing) ? (
+                        {(syncing || isProgressShowing || isSyncingBackground) ? (
                             <>
                                 <Loader2 size={16} className="animate-spin" />
-                                <span>ĐANG KHỞI TẠO...</span>
+                                <span>{isSyncingBackground ? 'ĐANG CHẠY NGẦM...' : 'ĐANG KHỞI TẠO...'}</span>
                             </>
                         ) : (
                             <>

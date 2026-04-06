@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { prisma } from '@fb-automation/database';
 import { browserDriver } from '../drivers/browser';
-import { applyFullProtection, checkCampaignCompletion } from '@fb-automation/utils';
+import { applyFullProtection, checkCampaignCompletion, shuffleArray } from '@fb-automation/utils';
 
 export interface AutomationParams {
     campaignId: string;
@@ -50,7 +50,7 @@ async function downloadMedia(mediaLinks: any, jobDir: string, jobId: string): Pr
 
     if (!fs.existsSync(jobDir)) fs.mkdirSync(jobDir, { recursive: true });
 
-    return await Promise.all(urls.map(async (url: string, i: number) => {
+    const downloadedPaths = await Promise.all(urls.map(async (url: string, i: number) => {
         try {
             const response = await fetch(url);
             const buffer = await response.arrayBuffer();
@@ -62,6 +62,9 @@ async function downloadMedia(mediaLinks: any, jobDir: string, jobId: string): Pr
             return '';
         }
     })).then(paths => paths.filter(p => p !== ''));
+
+    // [MASTER SHUFFLE] Xáo trộn thứ tự ảnh (Fisher-Yates) bằng Utils dùng chung
+    return shuffleArray(downloadedPaths);
 }
 
 /**

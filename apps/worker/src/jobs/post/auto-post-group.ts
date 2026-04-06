@@ -1,5 +1,6 @@
 import { Job } from 'bullmq';
 import { Page, BrowserContext, Browser } from 'playwright';
+import { prisma } from '@fb-automation/database';
 import path from 'path';
 import fs from 'fs';
 import { JobDefinition } from '../types';
@@ -170,13 +171,37 @@ class GroupPostExecutor {
             campaignType = campaign.type;
 
             // [Cải tiến] Kiểm tra trạng thái duyệt bài của nhóm "khó tính"
-            // Nếu nhóm đang có bài chờ duyệt chưa được xử lý, ta sẽ bỏ qua lượt đăng này
             if ((group as any).isModerated && (group as any).pendingSince) {
                 const checkCount = (group as any).pendingCheckCount || 0;
                 await logActivityResult(
                     params,
                     'ACTIVITY',
                     `[Bỏ qua] Nhóm có bài đang chờ duyệt (Đã check ${checkCount}/3 lần). Đợi quản trị viên duyệt bài cũ mới đăng tiếp.`,
+                    'SKIP'
+                );
+                return;
+            }
+
+            // [MASTER ANTI-SPAM] Kiểm tra lịch sử tương tác thực tế trong 24h qua
+            // Nếu đã từng đăng bài hoặc comment vào nhóm này trong vòng 24h, ta sẽ bỏ qua để né thuật toán Spam của FB
+            const lastInteraction = await prisma.jobLog.findFirst({
+                where: {
+                    fbAccountId: account.id,
+                    targetId: group.groupId,
+                    executedAt: {
+                        gte: new Date(Date.now() - 2 * 60 * 60 * 1000) // Con số VÀNG: 2 giờ dãn cách cho mỗi nhóm
+                    },
+                    actionType: { in: ['COMPLETE', 'PENDING'] }
+                },
+                orderBy: { executedAt: 'desc' }
+            });
+
+            if (lastInteraction) {
+                const hoursAgo = Math.floor((Date.now() - lastInteraction.executedAt.getTime()) / (1000 * 60 * 60));
+                await logActivityResult(
+                    params,
+                    'ACTIVITY',
+                    `[Bỏ qua] Đã tương tác với nhóm này ${hoursAgo} giờ trước. Để đảm bảo an toàn spam, robot sẽ bỏ qua lượt này.`,
                     'SKIP'
                 );
                 return;

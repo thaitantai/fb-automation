@@ -64,8 +64,8 @@ export const FB_SELECTORS = {
  * Các cấu hình chung cho Automation
  */
 export const AUTOMATION_CONFIG = {
-  JOB_TIMEOUT: 120000, // 2 phút
-  LOCK_DURATION: 300000, // 5 phút
+  JOB_TIMEOUT: 300000, // 5 phút là đủ cho đa số Job
+  LOCK_DURATION: 600000, // 10 phút khóa an toàn
   MAX_ATTEMPTS: 3,
 };
 
